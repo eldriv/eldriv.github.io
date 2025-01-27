@@ -1,0 +1,127 @@
+#+title: A Wanderer's Tale of Discovering Lisp
+#+language: en
+#+startup: overview
+#+options: toc:nil html-postamble:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
+
+[[file:../index.html][Home]]   ✾   [[file:../about.html][About]]
+
+* The first contact
+
+In February 2024, I felt lost in an unfamiliar forest, where a strong aura seemed to fill the air as if someone were watching me. The path beneath my feet was hard to see, covered by vines and mist. Every step was an eerie silence; the usual sounds of the forest were gone, and replaced by a low voice that echoed deep within my body saying,
+
+#+begin_quote
+"You cannot do it, wanderer!"
+#+end_quote
+
+I could feel something ancient here as if the land was alive and aware of my presence. Then, I caught the fast flicker of shadow movement out of my naked eye. When I turned to look, nothing was there, but I knew that something was odd in this place. Everything inside me urged me to follow and figure out what was it, and that’s when the hunt began.
+
+* The hunt
+
+ I can't believe three days have passed already. Then finally, from a distance, I can sense there was a human—one brimming with energy, his eyes filled with passion and purpose. There was a fire in his presence, a certain aura that told me this person had existed in this universe for a long time. I walked closer to him and asked,
+
+#+begin_quote
+"I'm lost, where am I?"
+
+He replied,
+
+"Haha, you did not know that you're in the Paren universe?"
+#+end_quote
+
+At first, I was confused, but he continued speaking in a way I couldn’t understand, using words I had never heard before. I then shared my experiences from the day since I got here, and he said,
+
+#+begin_quote
+"Don't worry wanderer! We call it [[https://en.wikipedia.org/wiki/Lisp_(programming_language)][Lisp]], an elitist language used here to express ourselves. You can learn it."
+#+end_quote
+
+I asked him everything I wanted to know, and he told me his name was Zimlav.
+
+* Exploration
+
+Then the next day, We met again, Zimlav gave me a book to start my first journey, he said,
+#+begin_quote
+"Learning this can give you an understanding of this universe, and as much as possible, avoid going through with shortcuts."
+#+end_quote
+
+The book he gave me was [[https://en.wikipedia.org/wiki/Practical_Common_Lisp][Practical Common Lisp]] which I managed to finish it within a month. It was an eye-opening. I didn't realize that Lisp is actually a family of languages with a long history, and Lisp stands for **List Processing**. I also discovered that it's an incredibly powerful and dynamic language with features that are unique in its universe. When it comes to speed, I noticed that it outpaces the language I used before in my universe.
+
+To help me understand the differences between our worlds, Zimlav also sent me references with his self-made courier—a [[https://lisp-journey.gitlab.io/pythonvslisp/][Python vs. Lisp]] and [[https://norvig.com/python-lisp.html][Python and lisp by Peter Norvig]]—Also, I learned that Lisp is rich in features and offers a broad range of built-in functions. It includes top-tier features such as object-oriented programming, error handling, and macros, which allow you to create custom utilities for rapid development. Many of these ideas seemed familiar from what I had seen to my places before, though likely now, I discovered they were inspired from Lisp!
+
+I've been in the Paren universe for almost a year now, and within that time, Zimlav gave me another books such as [[https://www.cs.cmu.edu/~dst/LispBook/][Common Lisp: A Gentle Introduction to Symbolic Computation]] and [[https://www.paulgraham.com/onlisp.html][On Lisp]]. There’s still a lot for me to catch up on because, as Zimlav warned, there are no shortcuts when it comes to mastering this language. It may take time to absorb everything at different levels. At many times, I always feel like I'm already late learning everything, seeing how freely people in this universe can experiment and express themselves.
+
+While reading these books, I managed to wrote a parser, numerous executable pieces of code, created tests, learned about profiling and interacted with other Lispers (Yes, that’s what they call themselves). But that’s enough about me and let’s continue exploring these vast universe.
+
+The most I like in this universe is its interactive environment, the [[https://en.wikipedia.org/wiki/Read–eval–print_loop][REPL]] (Read-Eval-Print Loop). Where Lispers can test and debug code interactively. Lisp also has its core strengths that lies in type systems that optimize the performance and safety of your code. It can also boosts productivity and can achieve rapid prototyping—Yes, you can just shoot your existing ideas in your own style—because it helps catch errors earlier by evaluating these functions sooner and receiving type warnings during compilation, whether for the whole file or just the current or single function, yes only a single function.
+
+Code is data, and data is code. This isn't just a theoretical concept—it's a practical advantage that lets you bend the language to your will. It was invented and designed for expressing algorithms, making it easier for lisper to write and manipulate code. I learned that one of its key advantages is that it allows you to write programs that write programs and promotes code re-use.
+
+Lisp represented as lists, which are constructed with bunch of [[https://www.lispworks.com/documentation/HyperSpec/Body/26_glo_c.htm#cons][conses]]. The structure promotes brevity, making it easier to implement a bottom-up design. With this approach, you can gradually refine and clarify your program's design to achieve readability that also useful for maintainability and extendability that can be beneficial when other lisper wants to collaborate.
+
+Another good thing with Lisp is its nature, you can have a multi-paradigm support like functional programming (FP), object-oriented programming (OOP), or imperative styles. The choice of style depends on 1) the Lisper’s approach and 2) the nature of the problem. That’s the beauty of it and there are more wild things to come which we will explore soon.
+
+At first, you might not fully appreciate this universe, but over time, you'll realize that Paren universe is a fundamentally different and dynamic language. Like a single pistol but you can shoot in a rapid fire. As [[https://en.wikipedia.org/wiki/Paul_Graham_(programmer)][Paul Graham]] aptly put it,
+#+begin_quote
+"You don't just write your program down toward the language, you also build the language up toward your program."
+#+end_quote
+
+* The elitist
+
+Lisp is a true elitist language. Among all the languages I’ve tried with the previous universe before, Lisp stands out as the most consistent, feature-rich in terms of abstraction, and fastest. This isn’t just my personal opinion—many experienced Lispers who have backgrounds in various modern languages share the same view and they transitioned to =Paren universe= while some of them are now in some dialects called =Scheme or even in Clojure=. In Lisp, The primary focus is on solving problems using Lisp itself. Zimlav told me to watch this—[[https://www.youtube.com/watch?v=GVyoCh2chEs][Rise and Fall of Lisp]] that will fill more gaps about the history of it. In my honest opinion, it’s not about the syntax or any of the superficial aspects that limits why Lisp is not the most popular universe.
+
+Parentheses scare away some of the programmerer, that only those truly dedicated could survived the forest. Some avoid it, because it requires a lot of discipline to learn it effectively. It’s a language that tends to attract brilliant minds.
+
+In some areas in the forest, there were circulation of topics about its poor prefix notation and some people argue that it’s primarily for artificial intelligence, But Lisp has evolved beyond than that, with difference kind of advancements in both hardware and software making it more exposed in other universes. Those who have been with =Lisp= for a long time understand its value and I look up those talented hackers and elites who continue to push the boundaries of what’s possible.
+
+* The ascertainment
+
+I always found myself in a great conversation with Zimlav, aside from being a lisper, he is also an AI researcher for 20 years, and I learned why modern AI requires so much computational power. The discussion led me down to a rabbit hole that completely changed my perspective on how we should build AI systems.
+
+Here's what I discovered, Picture this okay? You've just dropped a fortune on a blazing-fast 16-core processor. Sweeeet! But here's the kicker—most of the popular tools we use for AI development in my previous universe can only effectively use one core at a time. It's like buying a Ferrari and never taking it out of first gear. In the ecosystem where they work, the people who are part of this other universe can't even see that the reason these AI systems are so energy-hungry is because a huge chunk of them use mainstream languages, and some of them are not true SMP ([[https://en.wikipedia.org/wiki/Symmetric_multiprocessing][Symmetric Multiprocessing]])—The system uses switching to distribute the tasks across the cores, but it can't use them all simultaneously. This is due to the [[https://en.wikipedia.org/wiki/Global_interpreter_lock][Global Interpreter Lock (GIL)]]. So for these universes, they need a lot of CPUs and servers to distribute the load, when a decent programming language that supports concurrency should be able to use all the cores of a CPU simultaneously. If you understand things down at that level, you have a lot of leverage and finally you can reason out about what technology to use.
+
+Then as I was thinking about, why we see so much software written for machine learning, neural networks, and the like in my previous universe? In my opinion, a lot of the developers in my world before are actually not a traditional software engineer but come from the academia itself. Their main focus is testing hypotheses and writing program proofs, not building industrial-grade applications. Most of them stick to these modern languages simply because that's what they learned to write their mathematical equations in, or because it's what everyone else is using in today's trend.
+
+Sure, my previous universe has given us libraries like NumPy, PyTorch, and others, the people from my universe might think this puts other programming approaches at a disadvantage. But now, I can actually see it differently. These modern approaches are pretty inefficient and resource-hungry when you really look at them. It's kind of like how an Roll Royce isn't trying to compete with Toyota—they're serving completely different markets. It actually reminds me of when I first read Paul Graham's—[[https://paulgraham.com/avg.html][Beating the Averages]]. Sometimes there's real value in choosing tools that give you fundamental advantages, even if they're not what everyone else is using.
+
+* Closing remarks
+
+The beauty of Paren universe remains timeless. He who fears nothing to its depths survives, and if you're just viewing it to 50,000 feet from distance will never fully grasp the power of Lisp. As a mere wanderer, start your journey of hunting!
+
+* Famous memes
+Here are some bonus memes with regards to Lisp
+(c) [[https://www.reddit.com/r/LispMemes/][LispMemes]] from Reddit.
+
+#+BEGIN_EXPORT html
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+<div style="flex: 1 1 30%; max-width: 30%; display: flex; justify-content: center;">
+<a href="/img/m.png">
+#+END_EXPORT
+[[../img/m.png]]
+#+BEGIN_EXPORT html
+</div>
+<div style="flex: 1 1 30%; max-width: 30%; display: flex; justify-content: center;">
+<a href="/img/m3.png">
+#+END_EXPORT
+[[../img/m3.png][../img/m3.png]]
+#+BEGIN_EXPORT html
+</div>
+<div style="flex: 1 1 30%; max-width: 30%; display: flex; justify-content: center;">
+<a href="/img/m4.png">
+#+END_EXPORT
+[[../img/m4.png][../img/m4.png]]
+#+BEGIN_EXPORT html
+</div>
+<div style="flex: 1 1 30%; max-width: 30%; display: flex; justify-content: center;">
+<a href="/img/m5.png">
+#+END_EXPORT
+[[../img/m5.png][../img/m5.png]]
+#+BEGIN_EXPORT html
+</div>
+<div style="flex: 1 1 30%; max-width: 30%; display: flex; justify-content: center;">
+<a href="/img/m6.png">
+#+END_EXPORT
+[[../img/m6.png][../img/m6.png]]
+#+BEGIN_EXPORT html
+</div>
+</div>
+#+END_EXPORT
+**Click the image for full view**.
