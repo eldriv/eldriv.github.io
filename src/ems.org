@@ -1,0 +1,308 @@
+#+title: Building 'ems' in Common Lisp with Clingon
+#+author:
+#+language: en
+#+startup: overview
+#+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/error1.png" standalone:t
+#+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/lock.png" standalone:t
+#+PANDOC_OPTIONS: standalone:t
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
+
+* Introduction
+In software development, engineers require tools that prioritize efficiency and flexibility. When dealing with complex systems, there's a constant need for solutions that should automate tasks, manage configurations, seamlessly integrate with various systems and have full control of the system without depending on GUIs—this is where [[https://en.wikipedia.org/wiki/Command-line_interface][command-line interfaces (CLIs)]] come in.
+
+This article will show you how to build a command-line tool using [[https://github.com/dnaeon/clingon][Clingon]] in Common-lisp. We'll dive to each of every functions and flow on how I built a CLI to manage the [[https://github.com/eldriv/flakes-dev/tree/main][Nix flake development environment]] for running Emacs
+called 'ems'—a feature mirror for my [[https://github.com/eldriv/scripts/tree/main/emacs-shell-script][bash script]]—Emacs development environment.
+
+To follow along, you'll need your preferred text editor—whether it's any flavors of Emacs or another editor of your choice. I personally use [[https://github.com/doomemacs/doomemacs][Doom Emacs]] and SBCL implementation. Clingon is compatible with several Common Lisp implementations, including [[https://www.lispworks.com/][LispWorks]], [[https://github.com/sbcl/sbcl][SBCL]], and [[https://ecl.common-lisp.dev/][ECL]]. If you're using other implementations on macOS or Linux, I recommend checking compatibility with your specific system before starting.
+
+The code we will create in this section will be stored in a file called =ems.lisp=.
+* Installation
+
+First, get Clingon by cloning its repository into your Quicklisp local-projects directory:
+#+begin_src lisp
+git clone https://github.com/dnaeon/clingon
+#+end_src
+Next, add Clingon to your local Quicklisp projects by running this command in the REPL:
+#+begin_src lisp
+CL-USER> (ql:register-local-projects)
+#+end_src
+Finally, load the Clingon library using:
+#+begin_Src lisp
+CL-USER> (ql:quickload :clingon)
+#+end_Src
+* Packages
+#+begin_src lisp
+(defpackage :ems
+  (:use :cl)
+  (:import-from :clingon)
+  (:export :main))
+
+(in-package :ems)
+#+end_src
+First I created a new package named "ems". By using =(:use :cl)=, we gain access to all standard Common Lisp functions and macros from the Common Lisp standard package. Then, =(:import-from :clingon)= brings in the necessary symbols from the Clingon package that we'll use to build a CLI tool. Finally, =(:export :main)= makes our main function publicly accessible that allows other code to interact with our CLI tool through this entry point.
+* Configuration
+#+begin_src lisp
+(defparameter *config*
+  (list
+     :name "ems"
+     :description "CLI tool for managing Lisp nix flake"
+     :version "1.0.0"
+     :usage "[command] [options]"
+     :dir (merge-pathnames #P"myflake/" (user-homedir-pathname))
+     :time 4.5))
+#+end_src
+When I am writing code, I am always concerned with organizing them at the first place, that's why I'm defining a central configuration using a property list stored in the special variable named *config*. This plist contains key parameters like name, description, version, usage, directory path, and time value. These configuration valuese are structured this way to make them easily accessible when we use them to configure commands with the =CLINGON:MAKE-COMMAND= function later in the top-level program.
+
+* Utilities
+Now, let's define some utility functions that will be used to construct for the top-level functions and commands later.
+#+begin_src lisp
+(defun get-config (key)
+  "Get information from the *config*."
+  (getf *config* key))
+#+end_src
+The =get-config function= is designed to retrieve values from a property list under *config* this will be use later for our top-level command, =CLINGON:MAKE-COMMAND= function.
+
+#+begin_src lisp
+(defun log-msg (cmd fmt &rest args)
+  "Log message if verbose mode is enabled."
+  (when (clingon:getopt cmd :verbose)
+    (apply #'format t fmt args)))
+#+end_src
+The =log-msg function= will help us to log a message when the verbose flag is enabled, and the verbosity check is performed using =(clingon:getopt cmd :verbose)= to help us give information to see what the command is doing.
+
+#+begin_src lisp
+(defun run-cmd (cmd command &rest args)
+  "Run a command with logging."
+  (log-msg cmd "Running command: ~A ~{~A ~}~%" command args)
+  (uiop:run-program (cons command args)
+                    :output :interactive
+                    :error-output :interactive))
+#+end_Src
+In this function, first, we used =log-msg= to print the message indicating the running command and its arguments that will be executed, later. Then, =uiop:run-program= is used to actually run the command. The command and its arguments are passed using cons to combine the command with the arguments. The =:output :interactive= and =:error-output :interactive= ensure that the output and errors from the command are displayed interactively on the terminal.
+
+#+begin_src lisp
+(defun run! (cmd command &rest args)
+  "Safely execute commands in myflake directory with logging."
+  (let ((dir (namestring (get-config :dir))))
+    (log-msg cmd "Changing to directory: ~A~%" dir)
+    (uiop:chdir dir)
+    (apply #'run-cmd cmd command args)))
+#+end_Src
+With =run!= function, It run a command inside a designated directory—"myflake". First, it retrieves the directory path from =*config*= using =(get-config :dir)=. Then, it logs a message to confirm that the directory change is correct while at the same time it changes the current working directory to the one specified in the configuration using =uiop:chdir=. Finally, it invokes =run-cmd= to run the command in the newly changed directory.
+* Run function commands
+Now we need to create a functions to specify some commands related to the development environment we have in nix flake.
+#+begin_Src lisp
+(defun run-handler (cmd)
+  "Run Emacs dev-env."
+  (run! cmd "nix" "develop" ".#lisp" "-c" "emacs"))
+
+(defun update-handler (cmd)
+  "Update flake."
+  (run! cmd "nix" "flake" "update"))
+
+(defun show-handler (cmd)
+  "Display error in flake."
+  (run! cmd "nix" "flake" "show"))
+
+(defun version-handler (cmd)
+  "Check SBCL version."
+  (run! cmd "nix" "develop" ".#lisp" "-c" "sbcl" "--version"))
+
+(defmacro define-flake-command (name alias description handler)
+  "Define a flake command with aliases prior to its handler."
+  (let ((maker-name (intern (format nil "MAKE-~A-COMMAND" name))))
+    `(defun ,maker-name ()
+       (clingon:make-command
+        :name ,name
+        :aliases (list ,alias)
+        :description ,description
+        :handler ,handler))))
+
+(define-flake-command "run" "r" "Run the Emacs shell" #'run-handler)
+(define-flake-command "update" "u" "Update the Lisp nix flake" #'update-handler)
+(define-flake-command "show" "s" "Show output attribute of the Lisp flake" #'show-handler)
+(define-flake-command "sbcl-version" "sv" "Check SBCL's version" #'version-handler)
+#+end_Src
+
+As you can see, the =run-handler= function allows us to launch Emacs within the nix flake, =update-handler= updates the nix flake, =show-handler= shows the attributes of the nix flake, and =version-handler= checks the version of SBCL in the nix environment.The latter, =define-flake-command= macro helps us define commands with a name, alias, description, and handler function, which can later be used as sub-commands under a top-level command later.
+* Top-level
+** clingon:make-option
+
+#+begin_src lisp
+(defmacro define-option (type short-name long-name description &key key)
+  "Define a CLI option with standard structure"
+  `(clingon:make-option
+    ,type
+    :short-name ,short-name
+    :long-name ,long-name
+    :description ,description
+    :key ,(or key (intern (string-upcase long-name) "KEYWORD"))))
+
+(defun make-cli-options ()
+  "Create CLI options"
+  (list
+   (define-option :counter #\v "verbose" "Enable verbose output" :key :verbose)
+   (define-option :string #\d "debug" "Enable debug mode" :key :debug)))
+#+end_src
+For the top-level program, as you can see, we created a macro named =define-option= that uses the =clingon:make-option= generic function where it allows developers to create and add new types of options to ensure that users can interact with all options through a consistent interface provided by the =CLINGON:MAKE-OPTION= function. Doing it with macro give us liberty and brevity whenever we add more options rather than doing it in a standard way of creating =make-option.= ([[https://github.com/dnaeon/clingon][See the manual]] in Clingon under a quick example).
+
+In =make-cli-options= function above, I defined it by type (e.g., =:counter= for counting occurrences, =:string= for a string argument), short and long names (e.g., =-v for verbose==, =-d for debug=), descriptions, and optional keys.
+
+** clingon:command-arguments
+
+#+begin_Src lisp
+(defun top-level-handler (cmd)
+  "Checks if there are any extra arguments, if there's any and if it's an unknown command return first condition, Otherwise return the general usage instructions."
+  (let ((args (clingon:command-arguments cmd)))
+    (cond (args (format t "Unknown command: ~A~%" (first args)))
+          (t (progn (format t "Usage: ~A~%" (get-config :usage))
+#+end_Src
+With the use of =clingon:command-arguments=, we can have a top-level handler checks, meaning it checks if there are any extra arguments provided when we run a command. If there are, it assumes that the first argument is an unknown command and will alert us. If there are no arguments, then it shows the general usage instructions for the command.
+
+** clingon:make-command
+
+#+begin_Src lisp
+(defun make-top-level-command ()
+  "Top-level commands"
+  (clingon:make-command
+   :name (get-config :name)
+   :description (get-config :description)
+   :version (get-config :version)
+   :usage (get-config :usage)
+   :authors '("Eldriv")
+   :options (make-cli-options)
+   :handler #'top-level/handler
+   :sub-commands (list
+                  (make-run-command)
+                  (make-update-command)
+                  (make-show-command)
+                  (make-sbcl-version-command))))
+
+#+end_src
+This function creates the main command structure, a top-level command for the tool itself, using the =clingon:make-command=, where,
+=(:name, :description, :version,:usage and, :authors)= - these are configurations the one that we are going to retrieved from *config* using =(get-config :key)= function which specify the basic information about the CLI tool. In =:options=, this is where we define command-line options named =(make-cli-options)=, =:handler= responsible for processing top-level commands and =:sub-commands=, it is a list of sub-commands that we have defined earlier in  *define-flake-command* macro and it is equivalent to =run or r=, =update or u=, =show or s= and =sbcl-version or sv=.
+
+** clingon:run
+
+#+begin_Src lisp
+(defun main ()
+  "Main entry point for the application"
+  (let ((app (make-top-level-command)))
+    (clingon:run app)))
+#+end_Src
+This is the main entry point of the application. It creates the top-level command and runs the application using Clingon's run function.
+
+* Test utilities
+#+begin_Src lisp
+(defparameter *app* (make-top-level-command))
+EMS > *app*
+#<CLINGON.COMMAND:COMMAND name=ems options=5 sub-commands=4> ;; You can inspect this
+#+end_Src
+Inspecting the returned instance of make-top-level-command slots would give you something like this:
+#+begin_Src lisp
+#<CLINGON.COMMAND:COMMAND {1004788843}>
+--------------------
+Class: #<STANDARD-CLASS CLINGON.COMMAND:COMMAND>
+--------------------
+Group slots by inheritance [ ]
+Sort slots alphabetically  [X]
+
+All Slots:
+[ ]  ALIASES          = NIL
+[ ]  ARGS-TO-PARSE    = NIL
+[ ]  ARGUMENTS        = NIL
+[ ]  AUTHORS          = ("Eldriv")
+[ ]  CONTEXT          = #<HASH-TABLE :TEST EQUAL :COUNT 0 {10047DFE93}>
+[ ]  DESCRIPTION      = "CLI tool for managing Lisp nix flake"
+[ ]  EXAMPLES         = NIL
+[ ]  HANDLER          = #<FUNCTION TOP-LEVEL-HANDLER>
+[ ]  LICENSE          = NIL
+[ ]  LONG-DESCRIPTION = NIL
+[ ]  NAME             = "ems"
+[ ]  OPTIONS          = (#<CLINGON.OPTIONS:OPTION-BOOLEAN-TRUE short=NIL long=bash-completions> #<CLINGON.OPTIONS:OPTION-BOOLEAN-TRUE short=NIL long=version> #<CLINGON.OPTIONS:OPTION-BOOLEAN-TRUE short=NIL long=help> #<CLINGON.OPTIONS:OPTION-COUNTER short=v long=verbose> #<CLINGON.OPTIONS::OPTION-STRING short=d long=debug>)
+[ ]  PARENT           = NIL
+[ ]  POST-HOOK        = NIL
+[ ]  PRE-HOOK         = NIL
+[ ]  SUB-COMMANDS     = (#<CLINGON.COMMAND:COMMAND name=run options=3 sub-commands=0> #<CLINGON.COMMAND:COMMAND name=update options=3 sub-commands=0> #<CLINGON.COMMAND:COMMAND name=show options=3 sub-commands=0> #<CLINGON.COMMAND:COMMAND name=sbcl-version options=3 sub-commands=0>)
+[ ]  USAGE            = "[command] [options]"
+[ ]  VERSION          = "1.0.0"
+#+end_Src
+The beauty of this is transparency of the inspection system. When you look at the command object, you can see both what you've configured and what's still missing (shown as NIL). You can quickly identify any gaps in your CLI configuration or spot potential issues in your command structure during development.
+
+You can also verify that your command-line help documentation is properly formatted by running this into the REPL:
+#+begin_Src lisp
+(clingon:print-usage *app* t)
+#+end_Src
+This displays the full help text exactly as we would see it when running the command with =--help=.
+
+* ASDF
+Now that we've completed the core functionality and seen how Clingon structures our application, we can set up the [[https://asdf.common-lisp.dev/][ASDF]] system definition. The application will use =main function= as its entry point, which is standard practice for ASDF systems. Below would be where we'd write our system definition to tie everything together.
+
+Here’s a system definition for the application we’ve developed so far.
+#+begin_src lisp
+(defsystem "ems"
+  :name "ems"
+  :version "1.0.0"
+  :author "Eldriv"
+  :license "MIT"
+  :description "CLI tool for managing Lisp nix flake in Emacs"
+  :depends-on (:clingon :uiop)
+  :components ((:module "intro"
+                :components ((:file "ems"))))
+  :build-operation "program-op"
+  :build-pathname "ems"
+  :entry-point "ems:main")
+#+end_src
+* Build
+To simplify the process of building and cleaning our application, we will use a [[https://www.gnu.org/software/make/manual/make.html][Makefile]] to automate the steps. This way, we don't have to manually re-enter build commands every time there are changes to the project.
+#+begin_Src lisp
+LISP = sbcl
+PROJECT_DIR = $(PWD)
+SYSTEM_NAME = :ems
+BUILD_OUTPUT = ems
+
+.PHONY: all
+all: build
+
+.PHONY: build clean
+
+build:
+$(LISP) --non-interactive \
+--eval '(require :asdf)' \
+--eval '(push #p"$(PROJECT_DIR)/" asdf:*central-registry*)' \
+--eval '(ql:quickload :$(SYSTEM_NAME))' \
+--eval '(asdf:make :$(SYSTEM_NAME))' \
+--eval '(quit)'
+
+clean:
+rm -f $(BUILD_OUTPUT)
+#+END_SRC
+To summarize this build, The =Makefile= automates the build and cleanup of our project. It uses =SBCL= as the Lisp implementation, sets the project directory with =PWD=. and specifies the system package =:ems=. When we run =make build= in the command line, it launches SBCL in non-interactive mode, we will add the =project directory= to the =central registry= after that we'll load the project using =Quicklisp=, and then compiles it using =(asdf:make)= for initial build, and lastly, it exits SBCL once the build is finiished. The clean target removes the output file, ensuring a fresh start for the next build.
+* Usage
+To ensure everything works correctly, it's important to have the right directory structure,
+#+begin_src lisp
+├── ems.asd              ;; ASDF
+├── intro                ;; Directory
+│   └── ems.lisp         ;; Lisp file containing the CLI developmenet
+├── Makefile             ;; Makefile
+#+end_src
+Once the project is set up, we can build it using this command,
+#+begin_src makefile
+$ make build
+#+end_src
+After building, an executable named ems will be created. You can run it from within the project directory using,
+#+begin_src makefile
+$ ./ems --help or ./ems
+#+end_src
+To make it accessible globally, insert this into your shell configuration files—.bashrc or .zshenv,
+#+begin_src lisp
+export PATH="$HOME<your/project/directory/>:$PATH"
+#+end_Src
+Then run,
+#+begin_Src lisp
+$ ems r  ;; To run Emacs development environment
+$ ems sv ;; To Check SBCL version
+#+end_Src
+* Closing remarks
+Using CLI tools lets you quickly manage multiple files with one command, saving time compared to clicking and typing commands through them. It boosts efficiency, allows remote access, and helps with troubleshooting. If you're a
+system administrator, software engineer, data scientist, or anyone in a technical role, the CLI gives you more control and can make your work easier

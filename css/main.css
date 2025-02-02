@@ -51,6 +51,11 @@ a[href="articles/tmux.html"] {
 a[href="articles/lisp.html"] {
   color: white;
 }
+
+a[href="articles/ems.html"] {
+  color: white;
+}
+
 li a {
   color: white;
   text-decoration: none;
@@ -131,3 +136,31 @@ p {
   color: blue;
   text-decoration: underline;
 }
+
+.verbatim 
+{
+  background: #001C38;
+  color: orange;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+  font-size: 85%;
+  border: 0.01px solid #000000;
+  display: inline-block;
+  margin: 0 2px;
+}
+
+.sourceCode {
+  background: beige;
+  color: black;
+  font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+  font-size: 95%;
+  display: block;  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);
+  padding: 0.4em;   
+  margin: 1em 0;   
+  white-space: pre;  
+  line-height: 1.5;  
+  width: 100%;      
+}
+

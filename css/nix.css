@@ -7,21 +7,32 @@ html {
 body {
   max-width: 45em; 
 }
-
-.sourceCode {
-    font-size: 12.5px;
-    font-family: monospace;
-    border-radius: 4px;
-    padding: 10px;
-    overflow-x: auto; 
-    white-space: pre; 
-    box-shadow: 0 0px 1px rgba(1,1,1,0.5); 
-    border: 1px solid #888888; 
+.verbatim code,
+.verbatim 
+{
+  background: #001C38;
+  color: orange;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+  font-size: 85%;
+  border: 0.01px solid #000000;
+  display: inline-block;
+  margin: 0 2px;
 }
 
-.sourceCode code {
-    display: block;
-    white-space: pre;
+.sourceCode {
+  background: #03fce3;
+  color: black;
+  font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+  font-size: 95%;
+  display: block;  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);
+  padding: 0.4em;   
+  margin: 1em 0;   
+  white-space: pre;  
+  line-height: 1.5;  
+  width: 100%;      
 }
 
 a {
@@ -89,16 +100,20 @@ p, li {
     text-decoration: underline; 
 }
 
+
 /* Code block for shell */
 .shell {
-    font-size: 15.5px;
-    font-family: monospace;
-    border-radius: 4px;
-    padding: 10px;
-    overflow-x: auto; 
-    white-space: pre; 
-    box-shadow: 0 0px 1px rgba(1,1,1,0.5); 
-    border: 1px solid #888888;
+  background: #03fce3;
+  color: black;
+  font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+  font-size: 95%;
+  display: block;  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);
+  padding: 0.4em;   
+  margin: 1em 0;   
+  white-space: pre;  
+  line-height: 1.5;  
+  width: 100%;      
 }
 
 .shell code {
