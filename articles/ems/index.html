@@ -420,7 +420,7 @@ class="verbatim">define-flake-command</code> macro helps us define
 commands with a name, alias, description, and handler function, which
 can later be used as sub-commands under a top-level command later.</p>
 <h1 id="top-level">Top-level</h1>
-<h2 id="clingonmake-option">clingon:make-option</h2>
+<h2 id="clingonmake-option">Clingon:make-option</h2>
 <div class="sourceCode" id="cb11" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defmacro</span><span class="fu"> define-option </span>(<span class="kw">type</span> short-name long-name description &amp;key key)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Define a CLI option with standard structure&quot;</span></span>
@@ -454,7 +454,7 @@ argument), short and long names (e.g., <code
 class="verbatim">-v for verbose=</code>, <code
 class="verbatim">-d for debug</code>), descriptions, and optional
 keys.</p>
-<h2 id="clingoncommand-arguments">clingon:command-arguments</h2>
+<h2 id="clingoncommand-arguments">Clingon:command-arguments</h2>
 <div class="sourceCode" id="cb12" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> top-level-handler </span>(cmd)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Checks if there are any extra arguments, if there&#39;s any and if it&#39;s an unknown command return first condition, Otherwise return the general usage instructions.&quot;</span></span>
@@ -468,7 +468,7 @@ arguments provided when we run a command. If there are, it assumes that
 the first argument is an unknown command and will alert us. If there are
 no arguments, then it shows the general usage instructions for the
 command.</p>
-<h2 id="clingonmake-command">clingon:make-command</h2>
+<h2 id="clingonmake-command">Clingon:make-command</h2>
 <div class="sourceCode" id="cb13" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> make-top-level-command </span>()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Top-level commands&quot;</span></span>
@@ -503,7 +503,7 @@ of sub-commands that we have defined earlier in
 class="verbatim">update or u</code>, <code
 class="verbatim">show or s</code> and <code
 class="verbatim">sbcl-version or sv</code>.</p>
-<h2 id="clingonrun">clingon:run</h2>
+<h2 id="clingonrun">Clingon:run</h2>
 <div class="sourceCode" id="cb14" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> main </span>()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Main entry point for the application&quot;</span></span>
