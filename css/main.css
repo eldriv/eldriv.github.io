@@ -25,34 +25,35 @@ li {
   color: white;
 }
 
-a[href="articles/ubuntu.html"] {
+a[href="ubuntu"] {
   color: white;
 }
 
-a[href="articles/fiveam.html"] {
+a[href="fiveam"] {
   color: white;
 }
 
-a[href="articles/nixos.html"] {
+a[href="nixos"] {
   color: white;
 }
 
-a[href="articles/docker.html"] {
+a[href="docker"] {
   color: white;
 }
 
-a[href="articles/parser.html"] {
+a[href="parser"] {
   color: white;
 }
 
-a[href="articles/tmux.html"] {
-  color: white;
-}
-a[href="articles/lisp.html"] {
+a[href="tmux"] {
   color: white;
 }
 
-a[href="articles/ems.html"] {
+a[href="lisp"] {
+  color: white;
+}
+
+a[href="ems"] {
   color: white;
 }
 
