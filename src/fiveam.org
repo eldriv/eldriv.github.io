@@ -1,12 +1,17 @@
 #+title: Testing a Testing Framework
-#+author: 
+#+author:
+#+BEGIN_EXPORT html
+<div class="update" style="text-align: center;">Last updated: September 22, 2024</div>
+<div style="text-align: center;">
+<iframe src="https://giphy.com/embed/DBSPJoZ9dxS7N6Rz1C/" width="300" height="180" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+#+END_EXPORT
 #+language: en
 #+startup: overview
 #+options: toc:nil html-postamble:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
 
 
-[[file:../index.html][Home]]   ✾   [[file:../about.html][About]]
 
 * Introduction
 I’ve been working with Common Lisp for about eight months now, and I’ve become curious about how to test my code in this language, similar to how it's done in other languages like *Pytest* for python or *Rspec* for Ruby. The good news is that there are several testing frameworks in Common Lisp, and the one I chose to delve is [[https://github.com/lispci/fiveam][FiveAM]].
@@ -142,3 +147,16 @@ In this file, We are going to test our function definition that we exported from
 
 
 
+
+
+#+BEGIN_EXPORT html
+<link rel="icon" href="../img/icon.png" type="image/png">
+<iframe src="https://giphy.com/embed/bfBiFD3UONtJ784iTI" width="300" height="199" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+<footer class="footer">
+  <div class="right">© 2025 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
+</footer>
+#+END_EXPORT

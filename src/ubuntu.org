@@ -1,5 +1,12 @@
 #+title: How I installed Ubuntu From Windows
-#+author: 
+#+author:
+#+HTML_HEAD: <link rel="icon" href="../img/icon.png" type="image/png">
+#+BEGIN_EXPORT html
+<div class="update" style="text-align: center;">Last updated: September 22, 2024</div>
+<div style="text-align: center;">
+ <iframe src="https://giphy.com/embed/bfBiFD3UONtJ784iTI" width="300" height="199" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+#+END_EXPORT
 #+language: en
 #+startup: overview
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/Rufus.png" standalone:t
@@ -9,9 +16,6 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/bitlocker.png" standalone:t
 #+PANDOC_OPTIONS: standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
-
-
-[[file:../index.html][Home]]   ✾   [[file:../about.html][About]]
 
 
 * Introduction
@@ -36,7 +40,6 @@ Once you are directed to this site, you will see various OS flavors to choose fr
  * Close the app then locate the bootable drive on the disk drives to see if it was successful and ready for distro installation.
  [[../img/Rufus2.png]]
 
-   
 *  Boot Process & Installation
  When the bootable USB is ready. Reboot the system and proceed to install the Ubuntu Distro.      
           
@@ -67,9 +70,22 @@ Once you are directed to this site, you will see various OS flavors to choose fr
  SOLUTION: 
  When I continue to install the Ubuntu when I solved the last issue, I encountered problem again on the process of erasing all my files on disk drive for partitioning. It says that the =bitlocker is enabled=. By that, I went back again on Windows to turn off the bitlocker,  that took me 30 minutes to decrypt the drive to make the installation work for partitioning. I used Powershell commands to view if it's already unlocked. There are tutorials on the internet how to decrypt your  =bitlocker on Windows.=
 
-
 * Appreciation
 /Thank you to [[https://github.com/ebzzry][Rommel Martinez]] for the corrections./
 
 Last updated: September 5, 2024 
 © 2024 Esoteric Hub
+
+
+#+BEGIN_EXPORT html
+<link rel="icon" href="../img/icon.png" type="image/png">
+<div class="update">Last updated: September 22, 2024</div>
+<iframe src="https://giphy.com/embed/bfBiFD3UONtJ784iTI" width="300" height="199" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+<footer class="footer">
+  <div class="right">© 2024 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
+</footer>
+#+END_EXPORT

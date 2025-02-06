@@ -1,14 +1,24 @@
 #+title: How NixOS Treated a Novice Sysadmin
 #+author:
+#+BEGIN_EXPORT html
+<div class="update" style="text-align: center;">Last updated: December 22, 2024</div>
+<div style="text-align: center;">
+<iframe
+    src="https://giphy.com/embed/FH1gGTZg8QCQRKG5KP"
+    width="200"
+    height="200"
+    style="border: none; margin-bottom: -100px;"
+    frameBorder="0"
+    class="giphy-embed">
+</iframe>
+</div>
+#+END_EXPORT
 #+language: en
 #+startup: overview
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/error1.png" standalone:t
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/lock.png" standalone:t
 #+PANDOC_OPTIONS: standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
-
-
-[[file:../index.html][Home]]   ✾   [[file:../about.html][About]]
 
 
 * Introduction
@@ -298,3 +308,14 @@ When you open the flake.nix file this is what it looks like:
  If you wish to know more about introduction of Nix Family you may go on this article—[[https://ebzzry.com/en/nix/#nixpaths][A Gentle Introduction to the Nix Family]] by [[https://ebzzry.com/eo/][ebzzry]]. Without his support, I won’t have my NixOS on my machine. Thanks to my cousin [[https://www.facebook.com/jasther25][Jasther]] who let me use his computer to gather information about NixOS, and [[https://www.facebook.com/rojieliamliezl][Roj]] who helped me to revive my corrupted boothable USB using *Hiren's BootCD* because of my negligence.
  
  
+
+ #+BEGIN_EXPORT html
+<link rel="icon" href="../img/icon.png" type="image/png">
+<footer class="footer">
+  <div class="right">© 2025 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
+</footer>
+#+END_EXPORT

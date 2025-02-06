@@ -1,5 +1,12 @@
 #+title: Docker Containers Are Fast
 #+author:
+
+#+BEGIN_EXPORT html
+<div class="update" style="text-align: center;">Last updated: September 22, 2024</div>
+<div style="text-align: center;">
+<iframe src="https://giphy.com/embed/LCjeC33hqL5iuhCSjj" width="300" height="190" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+#+END_EXPORT
 #+language: en
 #+startup: overview
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/v.png" standalone:t
@@ -11,8 +18,6 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/x.png" standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
 
-
-[[file:../index.html][Home]]   ✾   [[file:../about.html][About]]
 
 * Introduction
 Hello there! From the last article, I mentioned NixOS, right? My machine fully supports NixOS, and my experiences so far have exceeded my expectations. There was a time when I needed to install an application in my NixOS environment and forgot that NixOS uses Nix to install packages, meaning only software from Nixpkgs is installable. So, what’s one elegant way to install software applications outside of Nixpkgs? and that would be using [[https://www.docker.com][Docker]]. I don’t have any experience with Docker so far and [[https://github.com/ebzzry][ebzzry]] taught me the basics and techniques on how to use it, and I think delving it along the way is a good choice as part of your toolset as a developer.
@@ -256,3 +261,15 @@ This is what xclock look like:
 [[../img/x.png]]
 
 This is a GUI app from the guest OS (Ubuntu) connected to the host OS (NixOS). We have already installed an application inside Ubuntu using containers. In the first attempt, especially to the beginner it would take time, but after experimenting with each process, I found that everything could be done in just a matter of minutes. That's why containers are said to be so fast. You can freely experiment with them and install anything you want. 
+
+
+#+BEGIN_EXPORT html
+<link rel="icon" href="../img/icon.png" type="image/png">
+<footer class="footer">
+  <div class="right">© 2025 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
+</footer>
+#+END_EXPORT

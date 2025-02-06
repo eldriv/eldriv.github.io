@@ -1,11 +1,23 @@
 #+title: Exploring Parsing in S-expression. 
 #+author:
+#+BEGIN_EXPORT html
+<div class="update" style="text-align: center;">Last updated: October 21, 2024</div>
+<div style="text-align: center;">
+<iframe
+    src= "https://giphy.com/embed/v6NWXROtq9Y3LmHnWy"
+    width="200"
+    height="200"
+    style="border: none; margin-bottom: -100px;"
+    frameBorder="0"
+    class="giphy-embed">
+</iframe>
+</div>
+#+END_EXPORT
 #+language: en
 #+startup: overview
 #+PANDOC_OPTIONS: standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
 
-[[file:../index.html][Home]]   ✾   [[file:../about.html][About]]
 
 * Introduction
 Parsing is a technique where we use to analyze and understand the structure of a text or code in order to extract meaningful information. This process involves breaking down complex data structures or programming languages into simpler, more digestible parts, making them easier to analyze. Parsing finds applications in a variety of fields, such as natural language processing, compilers, and data analysis tools.
@@ -276,3 +288,15 @@ To handle a multiple objects, we can just create a new definition on our top-lev
 (("Name" "nycto" "Age" "22") ("Name" "sion" "Age" "20")
  ("Name" "Bob" "Age" "20")),T, T
 #+end_src
+
+
+#+BEGIN_EXPORT html
+<link rel="icon" href="../img/icon.png" type="image/png">
+<footer class="footer">
+  <div class="right">© 2025 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
+</footer>
+#+END_EXPORT

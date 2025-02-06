@@ -4,457 +4,251 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
- <link rel="icon" href="../img/icon.png" type="image/png">
   <title>Using Tmux to Perk Up Your Terminal Experience</title>
-<style>
-html {
-  color: #1a1a1a;
-  background-color: #fdfdfd;
-}
-
-body {
-  margin: 0 auto;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  hyphens: auto;
-  overflow-wrap: break-word;
-  text-rendering: optimizeLegibility;
-  font-kerning: normal;
-}
-
-@media (max-width: 600px) {
-  body {
-    font-size: 0.9em;
-    padding: 12px;
-  }
-  h1 {
-    font-size: 1.8em;
-  }
-}
-
-@media print {
-  html {
-    background-color: white;
-  }
-  body {
-    background-color: transparent;
-    color: black;
-    font-size: 12pt;
-  }
-  p, h2, h3 {
-    orphans: 3;
-    widows: 3;
-  }
-  h2, h3, h4 {
-    page-break-after: avoid;
-  }
-}
-
-p {
-  margin: 1em 0;
-}
-
-a {
-  color: #1a1a1a;
-}
-
-a:visited {
-  color: #1a1a1a;
-}
-
-img {
-  max-width: 100%;
-}
-
-svg {
-  height: auto;
-  max-width: 100%;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin-top: 1.4em;
-}
-
-h5, h6 {
-  font-size: 1em;
-  font-style: italic;
-}
-
-h6 {
-  font-weight: normal;
-}
-
-ol, ul {
-  padding-left: 1.7em;
-  margin-top: 1em;
-}
-
-li > ol, li > ul {
-  margin-top: 0;
-}
-
-blockquote {
-  margin: 1em 0 1em 1.7em;
-  padding-left: 1em;
-  border-left: 2px solid #e6e6e6;
-  color: #606060;
-}
-
-code {
-  font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-  font-size: 85%;
-  margin: 0;
-  hyphens: manual;
-}
-
-pre {
-  margin: 1em 0;
-  overflow: auto;
-}
-
-pre code {
-  padding: 0;
-  overflow: visible;
-  overflow-wrap: normal;
-}
-
-hr {
-  background-color: #1a1a1a;
-  border: none;
-  height: 1px;
-  margin: 1em 0;
-}
-
-table {
-  margin: 1em 0;
-  border-collapse: collapse;
-  width: 100%;
-  overflow-x: auto;
-  display: block;
-  font-variant-numeric: lining-nums tabular-nums;
-}
-
-table caption {
-  margin-bottom: 0.75em;
-}
-
-tbody {
-  margin-top: 0.5em;
-  border-top: 1px solid #1a1a1a;
-  border-bottom: 1px solid #1a1a1a;
-}
-
-th {
-  border-top: 1px solid #1a1a1a;
-  padding: 0.25em 0.5em 0.25em 0.5em;
-}
-
-td {
-  padding: 0.125em 0.5em 0.25em 0.5em;
-}
-
-header {
-  margin-bottom: 4em;
-  text-align: center;
-}
-
-#TOC li {
-  list-style: none;
-}
-
-#TOC ul {
-  padding-left: 1.3em;
-}
-
-#TOC > ul {
-  padding-left: 0;
-}
-
-#TOC a:not(:hover) {
-  text-decoration: none;
-}
-
-code {
-  white-space: pre-wrap;
-}
-
-span.smallcaps {
-  font-variant: small-caps;
-}
-
-div.columns {
-  display: flex;
-  gap: min(4vw, 1.5em);
-}
-
-div.column {
-  flex: auto;
-  overflow-x: auto;
-}
-
-div.hanging-indent {
-  margin-left: 1.5em;
-  text-indent: -1.5em;
-}
-
-ul.task-list[class] {
-  list-style: none;
-}
-
-ul.task-list li input[type="checkbox"] {
-  font-size: inherit;
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
-  vertical-align: middle;
-}
-
-.display.math {
-  display: block;
-  text-align: center;
-  margin: 0.5rem auto;
-}
-
-pre > code.sourceCode {
-  white-space: pre;
-  position: relative;
-}
-
-pre > code.sourceCode > span {
-  line-height: 1.25;
-}
-
-pre > code.sourceCode > span:empty {
-  height: 1.2em;
-}
-
-.sourceCode {
-  overflow: visible;
-}
-
-code.sourceCode > span {
-  color: inherit;
-  text-decoration: inherit;
-}
-
-div.sourceCode {
-  margin: 1em 0;
-}
-
-pre.sourceCode {
-  margin: 0;
-}
-
-@media screen {
-  div.sourceCode {
-    overflow: auto;
-  }
-}
-
-@media print {
-  pre > code.sourceCode {
-    white-space: pre-wrap;
-  }
-
-  pre > code.sourceCode > span {
-    display: inline-block;
-    text-indent: -5em;
-    padding-left: 5em;
-  }
-}
-
-pre.numberSource code {
-  counter-reset: source-line 0;
-}
-
-pre.numberSource code > span {
-  position: relative;
-  left: -4em;
-  counter-increment: source-line;
-}
-
-pre.numberSource code > span > a:first-child::before {
-  content: counter(source-line);
-  position: relative;
-  left: -1em;
-  text-align: right;
-  vertical-align: baseline;
-  border: none;
-  display: inline-block;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  padding: 0 4px;
-  width: 4em;
-  color: #aaaaaa;
-}
-
-pre.numberSource {
-  margin-left: 3em;
-  border-left: 1px solid #aaaaaa;
-  padding-left: 4px;
-}
-
-div.sourceCode {
-  margin: 1em 0;
-}
-
-@media screen {
-  pre > code.sourceCode > span > a:first-child::before {
-    text-decoration: underline;
-  }
-}
-
-code span.al {
-  color: #ff0000;
-  font-weight: bold;
-}
-
-code span.an {
-  color: #60a0b0;
-  font-weight: bold;
-  font-style: italic;
-}
-
-code span.at {
-  color: #7d9029;
-}
-
-code span.bn {
-  color: #40a070;
-}
-
-code span.bu {
-  color: #008000;
-}
-
-code span.cf {
-  color: #007020;
-  font-weight: bold;
-}
-
-code span.ch {
-  color: #4070a0;
-}
-
-code span.cn {
-  color: #880000;
-}
-
-code span.co {
-  color: #60a0b0;
-  font-style: italic;
-}
-
-code span.cv {
-  color: #60a0b0;
-  font-weight: bold;
-  font-style: italic;
-}
-
-code span.do {
-  color: #ba2121;
-  font-style: italic;
-}
-
-code span.dt {
-  color: #902000;
-}
-
-code span.dv {
-  color: #40a070;
-}
-
-code span.er {
-  color: #ff0000;
-  font-weight: bold;
-}
-
-code span.ex {
-}
-
-code span.fl {
-  color: #40a070;
-}
-
-code span.fu {
-  color: #06287e;
-}
-
-code span.im {
-  color: #008000;
-  font-weight: bold;
-}
-
-code span.in {
-  color: #60a0b0;
-  font-weight: bold;
-  font-style: italic;
-}
-
-code span.kw {
-  color: #007020;
-  font-weight: bold;
-}
-
-code span.op {
-  color: #666666;
-}
-
-code span.ot {
-  color: #007020;
-}
-
-code span.pp {
-  color: #bc7a00;
-}
-
-code span.sc {
-  color: #4070a0;
-}
-
-code span.ss {
-  color: #bb6688;
-}
-
-code span.st {
-  color: #4070a0;
-}
-
-code span.va {
-  color: #19177c;
-}
-
-code span.vs {
-  color: #4070a0;
-}
-
-code span.wa {
-  color: #60a0b0;
-  font-weight: bold;
-  font-style: italic;
-}
-
-</style
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" type="text/css" href="../css/nix.css">
 </head>
 <body>
 <header id="title-block-header">
-  <link rel="stylesheet" type="text/css" href="../css/nix.css">
 <h1 class="title">Using Tmux to Perk Up Your Terminal Experience</h1>
-<div class="update">Last updated: January 02, 2025</div>
-<iframe 
-    src="https://giphy.com/embed/vFgpGDdnxZK2evwh9J" 
-    width="200" 
-    height="200" 
-    style="border: none; margin-bottom: -100px;" 
-    frameBorder="0" 
+</header>
+<div class="update" style="text-align: center;">Last updated: January 02, 2025</div>
+<div style="text-align: center;">
+<iframe
+    src= "https://giphy.com/embed/v6NWXROtq9Y3LmHnWy"
+    width="200"
+    height="200"
+    style="border: none; margin-bottom: -100px;"
+    frameBorder="0"
     class="giphy-embed">
 </iframe>
-</header>
+</div>
+
 <h1 id="introduction">Introduction</h1>
 <p>As engineers, one of the essential tools we've always relied on is
 the terminal, due to its efficieny and speed that allows us to execute
@@ -467,32 +261,32 @@ article, we'll explore how <a href="https://github.com/tmux">tmux</a>
 can help us avoid that.</p>
 <h1 id="installation">Installation</h1>
 <h2 id="debianubuntu">Debian/Ubuntu</h2>
-<div class="sourceCode">$ sudo apt install tmux -y
-</div></pre>
+<pre><code>$ sudo apt install tmux -y
+</code></pre>
 <h2 id="arch">Arch</h2>
-<div class="sourceCode">$ sudo pacman -S tmux
-</div></pre>
+<pre><code>$ sudo pacman -S tmux
+</code></pre>
 <h2 id="centos8fedorarhel">CentOS8+/Fedora/RHEL</h2>
-<div class="sourceCode">$ sudo dnf install tmux -y
-</div></pre>
+<pre><code>$ sudo dnf install tmux -y
+</code></pre>
 <h2 id="nixos">NixOS</h2>
 <p><strong><strong>With flakes</strong></strong>:</p>
-<div class="sourceCode">$ nix profile install nixpkgs#tmux
-</div></pre>
+<pre><code>$ nix profile install nixpkgs#tmux
+</code></pre>
 <p><strong><strong>Without flakes</strong></strong>:</p>
-<div class="sourceCode">$ nix-env -iA nixpkgs.tmux
-</div></pre>
+<pre><code>$ nix-env -iA nixpkgs.tmux
+</code></pre>
 <p><strong><strong>To check if it is correctly
 installed</strong></strong>:</p>
-<div class="sourceCode">$ tmux -V
+<pre><code>$ tmux -V
 tmux 3.5a
-</div></pre>
+</code></pre>
 <h1 id="configuration">Configuration</h1>
 <p>To configure your tmux,If you don't have a configuratio file yet, you
 can reate a <code class="verbatim">~/.tmux.conf</code>. Since I am using
 vim now, here is my command:</p>
-<div class="sourceCode">$ vim ~/.tmux.conf
-</div></pre>
+<pre><code>$ vim ~/.tmux.conf
+</code></pre>
 <p>After you have your configuration file, you can begin editing it. To
 give you an overview, here are the main sections you might want to add
 or configure in tmux. I'll go over each of these configuration steps
@@ -502,20 +296,20 @@ with my own setup</p>
 the prefix key. This means that to issue most tmux commands, you need to
 press C-b first, but we are going to change it to <code
 class="verbatim">C-z (Ctrl + z)</code>.</p>
-<div class="sourceCode">set -g prefix C-z
-</div></pre>
+<pre><code>set -g prefix C-z
+</code></pre>
 <p>To reload the configuration, Binds the <code
 class="verbatim">.</code> key to reload the tmux configuration file,
 which is useful for quickly reloading any changes made to <code
 class="verbatim">~/.tmux.conf</code> and</p>
-<div class="sourceCode">bind . source-file ~/.tmux.conf
-</div></pre>
+<pre><code>bind . source-file ~/.tmux.conf
+</code></pre>
 <h2 id="unbinding-default-key-bindings">1. Unbinding Default Key
 Bindings</h2>
 <p>The reason for using unbind in tmux configuration is to ensure the
 keys are not already bound to any other function before you reassign
 it.</p>
-<div class="sourceCode">unbind C-b
+<pre><code>unbind C-b
 unbind C-l
 unbind &quot;&#39;&quot;
 unbind &#39;&quot;&#39;
@@ -530,7 +324,7 @@ unbind -n C-Left
 unbind -n C-Right
 unbind -n C-Up
 unbind -n C-Down
-</div></pre>
+</code></pre>
 <h2 id="vim-friendly">2. Vim-friendly</h2>
 <p>This section enables vim-like navigation to make tmux more
 user-friendly.</p>
@@ -816,12 +610,13 @@ preferences. By using tmux, you can optimize your terminal environment
 and make your development process even more productive. Feel free to
 explore further tmux plugins and configurations to continue improving
 your setup. Happy tmuxing!</p>
-</body>
+<link rel="icon" href="../img/icon.png" type="image/png">
 <footer class="footer">
-      <div class="right">© 2025 eldriv</div>
+  <div class="right">© 2025 eldriv</div>
   <div class="footer-menu">
-    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾ 
-  <a href="../about" class="footer-right">About</a>
-  </p>
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
 </footer>
+</body>
 </html>

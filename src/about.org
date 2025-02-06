@@ -1,5 +1,8 @@
 #+title: About
-#+author: 
+#+author:
+#+BEGIN_EXPORT html
+<div class="update" style="text-align: center;">Last updated: January 30, 2025</div>
+#+END_EXPORT
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
 #+language: en
 #+PANDOC_OPTIONS: standalone:t 
@@ -24,8 +27,13 @@ I don’t have all the answers yet, and that’s exactly what fuels me. The unkn
 * Colophon
 This website is built with /[[https://www.gnu.org/software/emacs/][Emacs]]/, /[[https://github.com/kawabata/ox-pandoc][Ox-pandoc]],/ /[[https://jekyllrb.com/docs/github-pages/][Jekyll]]/ and /[[https://orgmode.org/][Org]]./ Hosting provider; /[[https://pages.github.com/][Github Pages]]./
 
-Last updated: January 30, 2025
-© 2025 eldriv
-
-
-[[file:../index.html][Home]]
+#+BEGIN_EXPORT html
+<link rel="icon" href="../img/icon.png" type="image/png">
+<footer class="footer">
+  <div class="right">© 2025 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
+</footer>
+#+END_EXPORT

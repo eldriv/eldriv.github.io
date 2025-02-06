@@ -4,9 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
- <link rel="icon" href="../img/icon.png" type="image/png">
-  <meta name="author" content="Nycto" />
-  <title>Docker Containers Are Too Fast</title>
+  <meta name="author" content="" />
+  <title>Docker Containers Are Fast</title>
   <style>
     html {
       color: #1a1a1a;
@@ -238,9 +237,13 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Docker Containers Are Fast</h1>
-<div class="update">Last updated: September 22, 2024</div>
-<iframe src="https://giphy.com/embed/LCjeC33hqL5iuhCSjj" width="300" height="190" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+<p class="author"></p>
 </header>
+<div class="update" style="text-align: center;">Last updated: September 22, 2024</div>
+<div style="text-align: center;">
+<iframe src="https://giphy.com/embed/LCjeC33hqL5iuhCSjj" width="300" height="190" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+
 <h1 id="introduction">Introduction</h1>
 <p>Hello there! From the last article, I mentioned NixOS, right? My
 machine fully supports NixOS, and my experiences so far have exceeded my
@@ -274,7 +277,7 @@ class="sourceCode nix"><code class="sourceCode nix"><span id="cb1-1"><a href="#c
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   <span class="va">uid</span> <span class="op">=</span> <span class="dv">1000</span><span class="op">;</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>   <span class="va">extraGroups</span> <span class="op">=</span> <span class="op">[</span> <span class="st">&quot;docker&quot;</span> <span class="op">];</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> <span class="op">};</span></span></code></pre></div>
-<p>Don’t forget to save it once you already declare everything in your
+<p>Don't forget to save it once you already declare everything in your
 configuration then reboot your machine to take an effect:</p>
 <pre class="shell"><code>$ reboot
 </code></pre>
@@ -323,7 +326,7 @@ $ docker ps -a
 </code></pre>
 <p><em>NOTE: <strong>docker exec</strong> is for running commands
 directly inside the container, then it presents a shell for you to
-interact with. If this command doesn’t work on your end and received an
+interact with. If this command doesn't work on your end and received an
 error perform the next command below</em></p>
 <pre class="shell"><code>$ docker run -it --rm ubuntu
 </code></pre>
@@ -339,7 +342,7 @@ $ apt install lsb-release
 $ lsb_release -a
 </code></pre>
 <p><img src="../img/r.png" /></p>
-<p>Great! You now have Ubuntu inside NixOS and now we’re going to
+<p>Great! You now have Ubuntu inside NixOS and now we're going to
 install some appplication inside it.</p>
 <p><em>NOTE:When you exit the container created with <strong>docker run
 -it –rm ubuntu</strong>, it won’t exist anymore because of the
@@ -378,8 +381,8 @@ kind of error, Do this on a separate terminal/NixOS shell:</p>
 <p>Then run <code class="verbatim">xclock</code>, again, in the previous
 terminal/NixOS shell. The one that’s inside the container.</p>
 <p>If you don’t have xhost yet inside your NixOS:</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode nix"><code class="sourceCode nix"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nix profile install nixpkgs<span class="co">#xorg.xhost</span></span></code></pre></div>
+<pre><code>nix profile install nixpkgs#xorg.xhost
+</code></pre>
 <p>To check if it is already available on your environment:</p>
 <pre class="shell"><code>$ which xhost
 </code></pre>
@@ -456,15 +459,16 @@ src="../img/l.png" /></p>
 (NixOS). We have already installed an application inside Ubuntu using
 containers. In the first attempt, especially to the beginner it would
 take time, but after experimenting with each process, I found that
-everything could be done in just a matter of minutes. That’s why
+everything could be done in just a matter of minutes. That's why
 containers are said to be so fast. You can freely experiment with them
 and install anything you want.</p>
+<link rel="icon" href="../img/icon.png" type="image/png">
 <footer class="footer">
-      <div class="right">© 2024 eldriv</div>
+  <div class="right">© 2025 eldriv</div>
   <div class="footer-menu">
-    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾ 
-  <a href="../about" class="footer-right">About</a>
-  </p>
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
 </footer>
 </body>
 </html>

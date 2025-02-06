@@ -5,9 +5,7 @@
 #+options: toc:nil html-postamble:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
 
-[[file:../index.html][Home]]   ✾   [[file:../about.html][About]]
-
-* Introspection 1  
+* Introspection 1
 First. Believe in yourself. Remember that you are building a future and be part of an organization that's going to shape the way people all live, and think that, “If someone can be part of 1%, you can too.” whether the path ahead seems crumbling, challenging, or even the ground cracks open, or rocks fall from the sky, trust that it will unfold exactly as you need it to. Do not seek for other people's approval. Have faith in yourself—just believe in you, only you.
 
 * Introspection 2
@@ -37,3 +35,14 @@ Ninth. Some people stop because it's hard, some people start because it's hard.
 
 * Introspection 10
 Tenth. In order to be irreplaceable, one must always be different.
+
+#+BEGIN_EXPORT html
+<link rel="icon" href="../img/icon.png" type="image/png">
+<footer class="footer">
+  <div class="right">© 2025 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
+</footer>
+#+END_EXPORT

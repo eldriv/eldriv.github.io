@@ -1,5 +1,18 @@
 #+title: Building 'ems' in Common Lisp with Clingon
 #+author:
+#+BEGIN_EXPORT html
+<div class="update" style="text-align: center;">Last updated: February 03 2025</div>
+<div style="text-align: center;">
+<iframe
+    src= "https://giphy.com/embed/V9WjUdHzvCNtllJDzk"
+    width="200"
+    height="300"
+    style="border: none; margin-bottom: -100px;"
+    frameBorder="0"
+    class="giphy-embed">
+</iframe>
+</div>
+#+END_EXPORT
 #+language: en
 #+startup: overview
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/error1.png" standalone:t
@@ -126,7 +139,7 @@ Now we need to create a functions to specify some commands related to the develo
 
 As you can see, the =run-handler= function allows us to launch Emacs within the nix flake, =update-handler= updates the nix flake, =show-handler= shows the attributes of the nix flake, and =version-handler= checks the version of SBCL in the nix environment.The latter, =define-flake-command= macro helps us define commands with a name, alias, description, and handler function, which can later be used as sub-commands under a top-level command later.
 * Top-level
-** clingon:make-option
+** Clingon:make-option
 
 #+begin_src lisp
 (defmacro define-option (type short-name long-name description &key key)
@@ -148,7 +161,7 @@ For the top-level program, as you can see, we created a macro named =define-opti
 
 In =make-cli-options= function above, I defined it by type (e.g., =:counter= for counting occurrences, =:string= for a string argument), short and long names (e.g., =-v for verbose==, =-d for debug=), descriptions, and optional keys.
 
-** clingon:command-arguments
+** Clingon:command-arguments
 
 #+begin_Src lisp
 (defun top-level-handler (cmd)
@@ -159,7 +172,7 @@ In =make-cli-options= function above, I defined it by type (e.g., =:counter= for
 #+end_Src
 With the use of =clingon:command-arguments=, we can have a top-level handler checks, meaning it checks if there are any extra arguments provided when we run a command. If there are, it assumes that the first argument is an unknown command and will alert us. If there are no arguments, then it shows the general usage instructions for the command.
 
-** clingon:make-command
+** Clingon:make-command
 
 #+begin_Src lisp
 (defun make-top-level-command ()
@@ -182,7 +195,7 @@ With the use of =clingon:command-arguments=, we can have a top-level handler che
 This function creates the main command structure, a top-level command for the tool itself, using the =clingon:make-command=, where,
 =(:name, :description, :version,:usage and, :authors)= - these are configurations the one that we are going to retrieved from *config* using =(get-config :key)= function which specify the basic information about the CLI tool. In =:options=, this is where we define command-line options named =(make-cli-options)=, =:handler= responsible for processing top-level commands and =:sub-commands=, it is a list of sub-commands that we have defined earlier in  *define-flake-command* macro and it is equivalent to =run or r=, =update or u=, =show or s= and =sbcl-version or sv=.
 
-** clingon:run
+** Clingon:run
 
 #+begin_Src lisp
 (defun main ()
@@ -306,3 +319,15 @@ $ ems sv ;; To Check SBCL version
 * Closing remarks
 Using CLI tools lets you quickly manage multiple files with one command, saving time compared to clicking and typing commands through them. It boosts efficiency, allows remote access, and helps with troubleshooting. If you're a
 system administrator, software engineer, data scientist, or anyone in a technical role, the CLI gives you more control and can make your work easier
+
+
+#+BEGIN_EXPORT html
+<link rel="icon" href="../img/icon.png" type="image/png">
+<footer class="footer">
+  <div class="right">© 2025 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
+</footer>
+#+END_EXPORT

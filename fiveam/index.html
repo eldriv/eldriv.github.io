@@ -4,9 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
- <link rel="icon" href="../img/icon.png" type="image/png">
-  <meta name="author" content="Nycto" />
-  <title>CL’s Testing Framework—FiveAM Study Guide</title>
+  <meta name="author" content="" />
+  <title>Testing a Testing Framework</title>
   <style>
     html {
       color: #1a1a1a;
@@ -238,13 +237,17 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Testing a Testing Framework</h1>
-<div class="update">Last updated: September 22, 2024</div>
-<iframe src="https://giphy.com/embed/DBSPJoZ9dxS7N6Rz1C/" width="300" height="180" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+<p class="author"></p>
 </header>
+<div class="update" style="text-align: center;">Last updated: September 22, 2024</div>
+<div style="text-align: center;">
+<iframe src="https://giphy.com/embed/DBSPJoZ9dxS7N6Rz1C/" width="300" height="180" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
+
 <h1 id="introduction">Introduction</h1>
 <p>I’ve been working with Common Lisp for about eight months now, and
 I’ve become curious about how to test my code in this language, similar
-to how it’s done in other languages like <strong>Pytest</strong> for
+to how it's done in other languages like <strong>Pytest</strong> for
 python or <strong>Rspec</strong> for Ruby. The good news is that there
 are several testing frameworks in Common Lisp, and the one I chose to
 delve is <a href="https://github.com/lispci/fiveam">FiveAM</a>.</p>
@@ -295,13 +298,14 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb3-
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  :author <span class="st">&quot;nycto&quot;</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  :license <span class="st">&quot;&quot;</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  :depends-on (<span class="st">&quot;cl-sample&quot;</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;fiveam&quot;</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;fiveam&quot;</span>)</span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  :components ((:module <span class="st">&quot;tests&quot;</span></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                :components</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                ((:file <span class="st">&quot;main&quot;</span>))))</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  :description <span class="st">&quot;Test system for cl-sample&quot;</span></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  :perform (test-op (op c) (symbol-call :fiveam :run!</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>                                        (find-symbol* :cl-sample :cl-sample/tests/main))))</span></code></pre></div>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>                    (find-symbol* :cl-sample :cl-sample/tests/main))))</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
 <p>Once everything are already set-up. Make sure the project is on the
 source registry so we can be able to check the integration via <code
 class="verbatim">ASDF or quicklisp</code></p>
@@ -328,7 +332,8 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb5-
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Computes the factorial of N.&quot;</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">do</span> ((<span class="kw">count</span> <span class="dv">1</span> (<span class="op">1+</span> <span class="kw">count</span>))</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>       (res <span class="dv">1</span> (<span class="op">*</span> res <span class="kw">count</span>)))</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      ((<span class="op">&gt;</span> <span class="kw">count</span> n) res)))</span></code></pre></div>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      ((<span class="op">&gt;</span> <span class="kw">count</span> n) res)))</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
 <p>In this file, We are going to test our function definition that we
 exported from the package name— <code class="verbatim">cl-sample</code>.
 For this experimentation, we can obviously see below the basic check.
@@ -363,7 +368,8 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb6-
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  (is (<span class="op">=</span>  <span class="dv">1</span> (fact <span class="dv">1</span>))))</span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>(test test-fact1</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  (is (<span class="op">=</span> <span class="op">-</span><span class="dv">1</span> (fact <span class="dv">1</span>))))</span></code></pre></div>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  (is (<span class="op">=</span> <span class="op">-</span><span class="dv">1</span> (fact <span class="dv">1</span>))))</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
 <p>This is how we can execute the test on the SBCL:</p>
 <div class="sourceCode" id="cb7" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> (run! <span class="dt">&#39;cl-sample</span>) <span class="co">;; Run it through the Root Suite, if we want to; or</span></span>
@@ -374,12 +380,14 @@ this way:</p>
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> (<span class="dv">5</span>am:run-all-tests)</span></code></pre></div>
 <p><em>NOTE: <strong>run!</strong> accepts a name of suite or a test,
 then prints testing report in pretty output.</em></p>
+<link rel="icon" href="../img/icon.png" type="image/png">
+<iframe src="https://giphy.com/embed/bfBiFD3UONtJ784iTI" width="300" height="199" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 <footer class="footer">
-      <div class="right">© 2024 eldriv</div>
+  <div class="right">© 2025 eldriv</div>
   <div class="footer-menu">
-    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾ 
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
     <a href="../about" class="footer-right">About</a>
-  </p>
+  </div>
 </footer>
 </body>
 </html>

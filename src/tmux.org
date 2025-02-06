@@ -1,10 +1,22 @@
 #+title: Using Tmux to Perk Up Your Terminal Experience
 #+language: en
+#+BEGIN_EXPORT html
+<div class="update" style="text-align: center;">Last updated: January 02, 2025</div>
+<div style="text-align: center;">
+<iframe
+    src= "https://giphy.com/embed/v6NWXROtq9Y3LmHnWy"
+    width="200"
+    height="200"
+    style="border: none; margin-bottom: -100px;"
+    frameBorder="0"
+    class="giphy-embed">
+</iframe>
+</div>
+#+END_EXPORT
 #+startup: overview
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
 
 
-[[file:../index.html][Home]]   ✾   [[file:../about.html][About]]
 
 * Introduction
 As engineers, one of the essential tools we've always relied on is the terminal, due to its efficieny and
@@ -257,3 +269,15 @@ This sections will show you my favorite and important features while using tmux.
 
 * Closing Remarks
 On this tmux setup we've walked through, you can now use tmux with such great smooth transition by customizing the default key bindings, integrating plugins, and tailoring tmux's appearance to suit your preferences. By using tmux, you can optimize your terminal environment and make your development process even more productive. Feel free to explore further tmux plugins and configurations to continue improving your setup. Happy tmuxing!
+
+
+#+BEGIN_EXPORT html
+<link rel="icon" href="../img/icon.png" type="image/png">
+<footer class="footer">
+  <div class="right">© 2025 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="../about" class="footer-right">About</a>
+  </div>
+</footer>
+#+END_EXPORT

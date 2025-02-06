@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+ <title>(:constellations [awakening])</title>
+ <description>Technical articles and tutorials</description>
+ <link>https://eldriv.github.io</link>
+ <copyright>2025 eldriv.github.io All rights reserved</copyright>
+ <lastBuildDate>Mon, 29 Jan 2025 00:00:00 +0000</lastBuildDate>
+ <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
+ <ttl>1800</ttl>
+
+ <item>
+  <title>A Wanderer's Tale of Discovering Lisp</title>
+  <description>A journey through learning Common Lisp programming.</description>
+  <link>https://eldriv.github.io/articles/lisp.html</link>
+  <guid isPermaLink="true">https://eldriv.github.io/articles/lisp.html</guid>
+  <pubDate>Mon, 29 Jan 2025 00:00:00 +0000</pubDate>
+ </item>
+
+ <item>
+  <title>Using Tmux to Perk Up Your Terminal Experience</title>
+  <description>Guide to enhancing your terminal workflow with Tmux.</description>
+  <link>https://eldriv.github.io/articles/tmux.html</link>
+  <guid isPermaLink="true">https://eldriv.github.io/articles/tmux.html</guid>
+  <pubDate>Tue, 02 Jan 2025 00:00:00 +0000</pubDate>
+ </item>
+
+ <item>
+  <title>How NixOS Treated a Novice Sysadmin</title>
+  <description>Personal experience with NixOS from a beginner's perspective.</description>
+  <link>https://eldriv.github.io/articles/nixos.html</link>
+  <guid isPermaLink="true">https://eldriv.github.io/articles/nixos.html</guid>
+  <pubDate>Sun, 22 Dec 2024 00:00:00 +0000</pubDate>
+ </item>
+
+ <item>
+  <title>Explore Parsing in S-expression</title>
+  <description>Understanding parser implementation with S-expressions.</description>
+  <link>https://eldriv.github.io/articles/parser.html</link>
+  <guid isPermaLink="true">https://eldriv.github.io/articles/parser.html</guid>
+  <pubDate>Mon, 21 Oct 2024 00:00:00 +0000</pubDate>
+ </item>
+
+ <item>
+  <title>Docker Containers Are Fast</title>
+  <description>Exploring the speed and efficiency of Docker containers.</description>
+  <link>https://eldriv.github.io/articles/docker.html</link>
+  <guid isPermaLink="true">https://eldriv.github.io/articles/docker.html</guid>
+  <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
+ </item>
+
+ <item>
+  <title>Testing a Testing Framework</title>
+  <description>Exploring the FiveAM testing framework.</description>
+  <link>https://eldriv.github.io/articles/fiveam.html</link>
+  <guid isPermaLink="true">https://eldriv.github.io/articles/fiveam.html</guid>
+  <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
+ </item>
+
+ <item>
+  <title>How I Installed Ubuntu From Windows</title>
+  <description>Step-by-step guide to installing Ubuntu alongside Windows.</description>
+  <link>https://eldriv.github.io/articles/ubuntu.html</link>
+  <guid isPermaLink="true">https://eldriv.github.io/articles/ubuntu.html</guid>
+  <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
+ </item>
+
+</channel>
+</rss>
