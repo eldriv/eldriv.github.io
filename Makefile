@@ -5,20 +5,25 @@ ORGFILES := $(shell find src -maxdepth 1 -name "*.org" ! -name "*.tmp*" ! -name 
 # Convert src/example.org to example/index.html
 HTMLFILES := $(patsubst src/%.org,%/index.html,$(ORGFILES))
 
-# Default target
-all: $(HTMLFILES)
+all: 
+	$(HTMLFILES)
 
-# Convert .org to .html
-%/index.html: src/%.org
+%/index.html: src/%.org   	
+	# Convert .org to .html
 	@mkdir -p $(dir $@)   
 	@echo "Converting: $<"
 	pandoc -f org -t html5 --quiet \
-		-s \
-		-o $@ $<
+	-s \ 
+	-o $@ $<
 
 # Clean up the generated HTML files
 clean:
 	rm -rf $(dir $(HTMLFILES)) # Remove recursively the directories
 
 # Rebuild by cleaning and then running the all target
-rebuild: clean all
+rebuild: 
+	clean all
+
+debug:
+	@echo $(ORGFILES)
+	@echo $(HTMLFILES)
