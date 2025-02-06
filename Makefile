@@ -9,6 +9,8 @@ HTMLFILES := $(patsubst src/%.org,%/index.html,$(ORGFILES))
 
 all:	clean	$(HTMLFILES) 
 	
+install:	$(HTMLFILES)
+
 %/index.html: src/%.org
 	@mkdir -p $(dir $@)
 	@echo "Converting: $<"
