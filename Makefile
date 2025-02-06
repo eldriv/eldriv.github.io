@@ -4,7 +4,7 @@
 # Find all .org files in the src directory, excluding temporary and backup files.
 ORGFILES := $(shell find src -maxdepth 1 -name "*.org" ! -name "*.tmp*" ! -name "*~")
 
-# Convert src/example.org to example/index.html
+# Convert src/foo.org to foo/index.html
 HTMLFILES := $(patsubst src/%.org,%/index.html,$(ORGFILES))
 
 all:	$(HTMLFILES)
