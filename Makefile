@@ -13,7 +13,7 @@ all: $(HTMLFILES)
 	@mkdir -p $(dir $@)   
 	@echo "Converting: $<"
 	pandoc -f org -t html5 --quiet \
-		--standalone \
+		-s \
 		-o $@ $<
 
 # Clean up the generated HTML files
