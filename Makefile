@@ -7,8 +7,8 @@ ORGFILES := $(shell find src -maxdepth 1 -name "*.org" ! -name "*.tmp*" ! -name 
 # Convert src/foo.org to foo/index.html
 HTMLFILES := $(patsubst src/%.org,%/index.html,$(ORGFILES))
 
-all:	$(HTMLFILES)
-
+all:	clean	$(HTMLFILES) 
+	
 %/index.html: src/%.org
 	@mkdir -p $(dir $@)
 	@echo "Converting: $<"
@@ -18,9 +18,6 @@ all:	$(HTMLFILES)
 
 clean:
 	rm -rf $(dir $(HTMLFILES)) 
-
-# Rebuild by cleaning and then running the all target
-rebuild: clean all
 
 debug:
 	@echo $(ORGFILES)
