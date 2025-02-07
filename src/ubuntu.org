@@ -73,10 +73,6 @@ Once you are directed to this site, you will see various OS flavors to choose fr
 * Appreciation
 /Thank you to [[https://github.com/ebzzry][Rommel Martinez]] for the corrections./
 
-Last updated: September 5, 2024 
-© 2024 Esoteric Hub
-
-
 #+BEGIN_EXPORT html
 <link rel="icon" href="../img/icon.png" type="image/png">
 <div class="update">Last updated: September 22, 2024</div>
