@@ -481,16 +481,16 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb17
 <span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Read a JSON file and return the parsed object.&quot;</span></span>
 <span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">let</span> ((json-string (read-json-file filename)))</span>
 <span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>    (parse-file json-string)))</span></code></pre></div>
-<p>The <strong>=parse-json</strong> function matches the structure of a
-JSON object by using pattern matching to identify an opening brace,
-whitespace, key-value pairs, and a closing brace and flattens them into
-a single list. The <strong>parse-file</strong> function serves as a
-wrapper that applies the =parse-json parser to a given input. The
-<strong>read-json-file</strong> function reads the contents of a
-specified JSON file into a string. Finally, the <strong>parse-json-
-file</strong> function combines file reading and parsing, first fetching
-the JSON string from the file and then applying the parsing
-function.</p>
+<p>The *=parse-json* function matches the structure of a JSON object by
+using pattern matching to identify an opening brace, whitespace,
+key-value pairs, and a closing brace and flattens them into a single
+list. The <code class="verbatim">PARSE-FILE</code> function serves as a
+wrapper that applies the <code class="verbatim">PARSE-JSON</code> parser
+to a given input. The <code class="verbatim">READ-JSON-FILE</code>
+function reads the contents of a specified JSON file into a string.
+Finally, the <code class="verbatim">PARSE-JSON-FILE</code> function
+combines file reading and parsing, first fetching the JSON string from
+the file and then applying the parsing function.</p>
 <p><strong>Result:</strong></p>
 <div class="sourceCode" id="cb18" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(parse {</span>

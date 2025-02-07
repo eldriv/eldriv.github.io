@@ -22,7 +22,7 @@
 
 I have been using Windows for about 10 years, so switching to a different operating system was a brave move for me. I chose [[https://ubuntu.com/][Ubuntu]] Linux as my new companion. Ubuntu is an open-source operating system based on [[https://en.wikipedia.org/wiki/Debian][Debian]]. It is known for its user-friendliness, stability, and wide support community. Ubuntu is used for both personal and professional purposes and is popular for its ease of installation and regular updates.
 
-*  Go to [[https://ubuntu.com/download][Ubuntu]] website
+* Go to [[https://ubuntu.com/download][Ubuntu]] website
 
 Once you are directed to this site, you will see various OS flavors to choose from based on your needs. I selected the Desktop-use option and the Ubuntu 23.10 version (Mantic Minotaur), which is the 39th Ubuntu release. This is not the Long-Term Support (LTS) version. You can choose according to your preferences, but I recommend opting for the LTS version instead, as it is generally the most stable and secure.
 
@@ -40,7 +40,7 @@ Once you are directed to this site, you will see various OS flavors to choose fr
  * Close the app then locate the bootable drive on the disk drives to see if it was successful and ready for distro installation.
  [[../img/Rufus2.png]]
 
-*  Boot Process & Installation
+* Boot Process & Installation
  When the bootable USB is ready. Reboot the system and proceed to install the Ubuntu Distro.      
           
  1. I pressed @@html:<kbd>@@Shift@@html:</kbd>@@ before I reboot my system to access the boot manager and chose the bootable device USB which you can see along the process. You have to know what key you should hit to access the book manager of your machine.
@@ -80,7 +80,6 @@ Last updated: September 5, 2024
 #+BEGIN_EXPORT html
 <link rel="icon" href="../img/icon.png" type="image/png">
 <div class="update">Last updated: September 22, 2024</div>
-<iframe src="https://giphy.com/embed/bfBiFD3UONtJ784iTI" width="300" height="199" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 <footer class="footer">
   <div class="right">© 2024 eldriv</div>
   <div class="footer-menu">

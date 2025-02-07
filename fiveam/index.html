@@ -263,8 +263,8 @@ the correctness of our code.</p>
 <p>Obviously, we have to set up first our project and load
 <strong>FiveAM</strong> via Quicklisp on our Lisp implementations.</p>
 <div class="sourceCode" id="cb1" data-org-language="lisp"><pre
-class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(ql:quickload <span class="st">&quot;cl-project&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(ql:quickload <span class="st">&quot;fiveam&quot;</span>)</span></code></pre></div>
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(ql:quickload :cl-project)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(ql:quickload :fiveam<span class="st">&quot;)</span></span></code></pre></div>
 <h1 id="tree-directory">Tree directory</h1>
 <p>This should be the tree directory layout or skeleton produced by <a
 href="https://github.com/fukamachi/cl-project">cl-project</a>. See <a
@@ -310,11 +310,11 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb3-
 source registry so we can be able to check the integration via <code
 class="verbatim">ASDF or quicklisp</code></p>
 <div class="sourceCode" id="cb4" data-org-language="lisp"><pre
-class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(ql:quickload <span class="st">&quot;cl-sample&quot;</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>(ql:quickload <span class="st">&quot;cl-sample/tests&quot;</span>)</span></code></pre></div>
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(ql:quickload :cl-sample)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>(ql:quickload :cl-sample/tests)</span></code></pre></div>
 <h1 id="basic-checks">Basic checks</h1>
-<p>In the, Tree Section under <strong>~/src</strong>, a
-<strong>main.lisp</strong> file. We can write there our own
+<p>In the, Tree Section under <code class="verbatim">/src</code>, a
+<code class="verbatim">main.lisp</code> file. We can write there our own
 experimentation for testing. For example, we could write a function to
 compute the factorial of <code class="verbatim">N</code>. This will
 allow us to test the function using FiveAM.</p>
