@@ -11,8 +11,6 @@
 #+options: toc:nil html-postamble:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
 
-
-
 * Introduction
 I’ve been working with Common Lisp for about eight months now, and I’ve become curious about how to test my code in this language, similar to how it's done in other languages like *Pytest* for python or *Rspec* for Ruby. The good news is that there are several testing frameworks in Common Lisp, and the one I chose to delve is [[https://github.com/lispci/fiveam][FiveAM]].
 
@@ -23,8 +21,8 @@ I’ve been working with Common Lisp for about eight months now, and I’ve beco
 ** Pre-requisites
 Obviously, we have to set up first our project and load *FiveAM* via Quicklisp on our Lisp implementations.
 #+begin_src lisp
-  (ql:quickload "cl-project")
-  (ql:quickload "fiveam")
+  (ql:quickload :cl-project)
+  (ql:quickload :fiveam")
 #+end_src
 
 *  Tree directory
@@ -73,12 +71,12 @@ Here what our integration should look like:
 Once everything are already set-up. Make sure the project is on the source registry so we can be able to check the integration via =ASDF or quicklisp=
 
 #+begin_src lisp
-  (ql:quickload "cl-sample")
-  (ql:quickload "cl-sample/tests")
+  (ql:quickload :cl-sample)
+  (ql:quickload :cl-sample/tests)
 #+end_src
 
 * Basic checks
- In the, Tree Section under *~/src*, a *main.lisp* file. We can write there our own experimentation for testing. For example, we could write a function to compute the factorial of =N=. This will allow us to test the function using FiveAM.
+ In the, Tree Section under =/src=, a =main.lisp= file. We can write there our own experimentation for testing. For example, we could write a function to compute the factorial of =N=. This will allow us to test the function using FiveAM.
  
  #+begin_src lisp
 ;;; main.lisp --> our main file 

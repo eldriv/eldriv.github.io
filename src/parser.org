@@ -225,7 +225,7 @@ This function matches and returns two items without brackets. It uses =list to s
       (parse-file json-string)))
 #+end_src
 
-The *=parse-json* function matches the structure of a JSON object by using pattern matching to identify an opening brace, whitespace, key-value pairs, and a closing brace and flattens them into a single list. The *parse-file* function serves as a wrapper that applies the =parse-json parser to a given input. The *read-json-file* function reads the contents of a specified JSON file into a string. Finally, the *parse-json- file* function combines file reading and parsing, first fetching the JSON string from the file and then applying the parsing function.
+The *=parse-json* function matches the structure of a JSON object by using pattern matching to identify an opening brace, whitespace, key-value pairs, and a closing brace and flattens them into a single list. The =PARSE-FILE= function serves as a wrapper that applies the =PARSE-JSON= parser to a given input. The =READ-JSON-FILE= function reads the contents of a specified JSON file into a string. Finally, the =PARSE-JSON-FILE= function combines file reading and parsing, first fetching the JSON string from the file and then applying the parsing function.
 
 *Result:*
 #+begin_src lisp
