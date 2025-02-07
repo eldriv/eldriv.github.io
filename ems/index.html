@@ -299,7 +299,8 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb4-
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  (:export :main))</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>(<span class="kw">in-package</span> :ems)</span></code></pre></div>
-<p>First I created a new package named "ems". By using <code
+<p>First I created a new package named <code
+class="verbatim">ems</code>. By using <code
 class="verbatim">(:use :cl)</code>, we gain access to all standard
 Common Lisp functions and macros from the Common Lisp standard package.
 Then, <code class="verbatim">(:import-from :clingon)</code> brings in
@@ -333,7 +334,7 @@ construct for the top-level functions and commands later.</p>
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> get-config </span>(key)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Get information from the *config*.&quot;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">getf</span> *config* key))</span></code></pre></div>
-<p>The <code class="verbatim">get-config function</code> is designed to
+<p>The <code class="verbatim">GET-CONFIG</code> function is designed to
 retrieve values from a property list under <strong>config</strong> this
 will be use later for our top-level command, <code
 class="verbatim">CLINGON:MAKE-COMMAND</code> function.</p>
@@ -342,10 +343,10 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb7-
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Log message if verbose mode is enabled.&quot;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">when</span> (clingon:getopt cmd <span class="bu">:verbose</span>)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">apply</span> <span class="op">#&#39;</span>format <span class="kw">t</span> fmt args)))</span></code></pre></div>
-<p>The <code class="verbatim">log-msg function</code> will help us to
+<p>The <code class="verbatim">LOG-MSG</code> function will help us to
 log a message when the verbose flag is enabled, and the verbosity check
 is performed using <code
-class="verbatim">(clingon:getopt cmd :verbose)</code> to help us give
+class="verbatim">(CLINGON:GET-OPT cmd :verbose)</code> to help us give
 information to see what the command is doing.</p>
 <div class="sourceCode" id="cb8" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> run-cmd </span>(cmd command &amp;<span class="kw">rest</span> args)</span>
@@ -355,9 +356,9 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb8-
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">:output</span> :interactive</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                    :error-output :interactive))</span></code></pre></div>
 <p>In this function, first, we used <code
-class="verbatim">log-msg</code> to print the message indicating the
+class="verbatim">LOG-MSG</code> to print the message indicating the
 running command and its arguments that will be executed, later. Then,
-<code class="verbatim">uiop:run-program</code> is used to actually run
+<code class="verbatim">UIOP:RUN-PROGRAM</code> is used to actually run
 the command. The command and its arguments are passed using cons to
 combine the command with the arguments. The <code
 class="verbatim">:output :interactive</code> and <code
@@ -371,14 +372,14 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb9-
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    (log-msg cmd <span class="st">&quot;Changing to directory: ~A~%&quot;</span> dir)</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    (uiop:chdir dir)</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">apply</span> <span class="op">#&#39;</span>run-cmd cmd command args)))</span></code></pre></div>
-<p>With <code class="verbatim">run!</code> function, It run a command
+<p>With <code class="verbatim">RUN!</code> function, It run a command
 inside a designated directory—"myflake". First, it retrieves the
 directory path from <code class="verbatim">*config*</code> using <code
-class="verbatim">(get-config :dir)</code>. Then, it logs a message to
+class="verbatim">(GET-CONFIG :dir)</code>. Then, it logs a message to
 confirm that the directory change is correct while at the same time it
 changes the current working directory to the one specified in the
-configuration using <code class="verbatim">uiop:chdir</code>. Finally,
-it invokes <code class="verbatim">run-cmd</code> to run the command in
+configuration using <code class="verbatim">UIOP:CHDIR</code>. Finally,
+it invokes <code class="verbatim">RUN-CMD</code> to run the command in
 the newly changed directory.</p>
 <h1 id="run-function-commands">Run function commands</h1>
 <p>Now we need to create a functions to specify some commands related to
@@ -414,17 +415,17 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb10
 <span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>(define-flake-command <span class="st">&quot;update&quot;</span> <span class="st">&quot;u&quot;</span> <span class="st">&quot;Update the Lisp nix flake&quot;</span> <span class="op">#&#39;</span>update-handler)</span>
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>(define-flake-command <span class="st">&quot;show&quot;</span> <span class="st">&quot;s&quot;</span> <span class="st">&quot;Show output attribute of the Lisp flake&quot;</span> <span class="op">#&#39;</span>show-handler)</span>
 <span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>(define-flake-command <span class="st">&quot;sbcl-version&quot;</span> <span class="st">&quot;sv&quot;</span> <span class="st">&quot;Check SBCL&#39;s version&quot;</span> <span class="op">#&#39;</span>version-handler)</span></code></pre></div>
-<p>As you can see, the <code class="verbatim">run-handler</code>
+<p>As you can see, the <code class="verbatim">RUN-HANDLER</code>
 function allows us to launch Emacs within the nix flake, <code
-class="verbatim">update-handler</code> updates the nix flake, <code
-class="verbatim">show-handler</code> shows the attributes of the nix
-flake, and <code class="verbatim">version-handler</code> checks the
+class="verbatim">UPDATE-HANDLER</code> updates the nix flake, <code
+class="verbatim">SHOW-HANDLER</code> shows the attributes of the nix
+flake, and <code class="verbatim">VERSION-HANDLER</code> checks the
 version of SBCL in the nix environment.The latter, <code
-class="verbatim">define-flake-command</code> macro helps us define
+class="verbatim">DEFINE-FLAKE-COMMAND</code> macro helps us define
 commands with a name, alias, description, and handler function, which
 can later be used as sub-commands under a top-level command later.</p>
 <h1 id="top-level">Top-level</h1>
-<h2 id="clingonmake-option">Clingon:make-option</h2>
+<h2 id="clingonmake-option">CLINGON:MAKE-OPTION</h2>
 <div class="sourceCode" id="cb11" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defmacro</span><span class="fu"> define-option </span>(<span class="kw">type</span> short-name long-name description &amp;key key)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Define a CLI option with standard structure&quot;</span></span>
@@ -441,14 +442,14 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb11
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>   (define-option :counter <span class="ch">#\v</span> <span class="st">&quot;verbose&quot;</span> <span class="st">&quot;Enable verbose output&quot;</span> <span class="bu">:key</span> <span class="bu">:verbose</span>)</span>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>   (define-option :string <span class="ch">#\d</span> <span class="st">&quot;debug&quot;</span> <span class="st">&quot;Enable debug mode&quot;</span> <span class="bu">:key</span> :debug)))</span></code></pre></div>
 <p>For the top-level program, as you can see, we created a macro named
-<code class="verbatim">define-option</code> that uses the <code
-class="verbatim">clingon:make-option</code> generic function where it
+<code class="verbatim">DEFINE-OPTION</code> that uses the <code
+class="verbatim">CLINGON:MAKE-OPTION</code> generic function where it
 allows developers to create and add new types of options to ensure that
 users can interact with all options through a consistent interface
 provided by the <code class="verbatim">CLINGON:MAKE-OPTION</code>
 function. Doing it with macro give us liberty and brevity whenever we
 add more options rather than doing it in a standard way of creating
-<code class="verbatim">make-option.</code> (<a
+<code class="verbatim">MAKE-OPTION</code>. (<a
 href="https://github.com/dnaeon/clingon">See the manual</a> in Clingon
 under a quick example).</p>
 <p>In <code class="verbatim">make-cli-options</code> function above, I
@@ -458,7 +459,7 @@ argument), short and long names (e.g., <code
 class="verbatim">-v for verbose=</code>, <code
 class="verbatim">-d for debug</code>), descriptions, and optional
 keys.</p>
-<h2 id="clingoncommand-arguments">Clingon:command-arguments</h2>
+<h2 id="clingoncommand-arguments">CLINGON:COMMAND-ARGUMENTS</h2>
 <div class="sourceCode" id="cb12" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> top-level-handler </span>(cmd)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Checks if there are any extra arguments, if there&#39;s any and if it&#39;s an unknown command return first condition, Otherwise return the general usage instructions.&quot;</span></span>
@@ -466,13 +467,13 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb12
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">cond</span> (args (<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;Unknown command: ~A~%&quot;</span> (<span class="kw">first</span> args)))</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>          (<span class="kw">t</span> (<span class="kw">progn</span> (<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;Usage: ~A~%&quot;</span> (get-config :usage))</span></code></pre></div>
 <p>With the use of <code
-class="verbatim">clingon:command-arguments</code>, we can have a
+class="verbatim">CLINGON:COMMAND-ARGUMENTS</code>, we can have a
 top-level handler checks, meaning it checks if there are any extra
 arguments provided when we run a command. If there are, it assumes that
 the first argument is an unknown command and will alert us. If there are
 no arguments, then it shows the general usage instructions for the
 command.</p>
-<h2 id="clingonmake-command">Clingon:make-command</h2>
+<h2 id="clingonmake-command">CLINGON:MAKE-COMMAND</h2>
 <div class="sourceCode" id="cb13" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> make-top-level-command </span>()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Top-level commands&quot;</span></span>
@@ -492,23 +493,24 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb13
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
 <p>This function creates the main command structure, a top-level command
 for the tool itself, using the <code
-class="verbatim">clingon:make-command</code>, where, <code
+class="verbatim">CLINGON:MAKE-COMMAND</code>, where, <code
 class="verbatim">(:name, :description, :version,:usage and, :authors)</code>
 - these are configurations the one that we are going to retrieved from
 <strong>config</strong> using <code
 class="verbatim">(get-config :key)</code> function which specify the
 basic information about the CLI tool. In <code
 class="verbatim">:options</code>, this is where we define command-line
-options named <code class="verbatim">(make-cli-options)</code>, <code
+options named <code class="verbatim">MAKE-CLI-OPTIONS</code>, <code
 class="verbatim">:handler</code> responsible for processing top-level
 commands and <code class="verbatim">:sub-commands</code>, it is a list
 of sub-commands that we have defined earlier in
 <strong>define-flake-command</strong> macro and it is equivalent to
-<code class="verbatim">run or r</code>, <code
-class="verbatim">update or u</code>, <code
-class="verbatim">show or s</code> and <code
-class="verbatim">sbcl-version or sv</code>.</p>
-<h2 id="clingonrun">Clingon:run</h2>
+<code class="verbatim">run</code> or <code class="verbatim">r</code>,
+<code class="verbatim">update</code> or <code class="verbatim">u</code>,
+<code class="verbatim">show or s</code>, and <code
+class="verbatim">sbcl-version</code> or <code
+class="verbatim">sv</code>.</p>
+<h2 id="clingronrun">CLINGRON:RUN</h2>
 <div class="sourceCode" id="cb14" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> main </span>()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Main entry point for the application&quot;</span></span>
@@ -566,7 +568,7 @@ running the command with <code class="verbatim">--help</code>.</p>
 <p>Now that we've completed the core functionality and seen how Clingon
 structures our application, we can set up the <a
 href="https://asdf.common-lisp.dev/">ASDF</a> system definition. The
-application will use <code class="verbatim">main function</code> as its
+application will use <code class="verbatim">MAIN</code> function as its
 entry point, which is standard practice for ASDF systems. Below would be
 where we'd write our system definition to tie everything together.</p>
 <p>Here’s a system definition for the application we’ve developed so
@@ -576,54 +578,65 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb18
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">:name</span> <span class="st">&quot;ems&quot;</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">:version</span> <span class="st">&quot;1.0.0&quot;</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  :author <span class="st">&quot;Eldriv&quot;</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  :license <span class="st">&quot;MIT&quot;</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  :description <span class="st">&quot;CLI tool for managing Lisp nix flake in Emacs&quot;</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  :depends-on (:clingon :uiop)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  :components ((:module <span class="st">&quot;intro&quot;</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                :components ((:file <span class="st">&quot;ems&quot;</span>))))</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  :build-operation <span class="st">&quot;program-op&quot;</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  :build-pathname <span class="st">&quot;ems&quot;</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  :entry-point <span class="st">&quot;ems:main&quot;</span>)</span></code></pre></div>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  :description <span class="st">&quot;CLI tool for managing Lisp nix flake in Emacs&quot;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  :depends-on (:clingon :uiop)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  :components ((:module <span class="st">&quot;intro&quot;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                :components ((:file <span class="st">&quot;ems&quot;</span>))))</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  :build-operation <span class="st">&quot;program-op&quot;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  :build-pathname <span class="st">&quot;ems&quot;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  :entry-point <span class="st">&quot;ems:main&quot;</span>)</span></code></pre></div>
 <h1 id="build">Build</h1>
 <p>To simplify the process of building and cleaning our application, we
 will use a <a
-href="https://www.gnu.org/software/make/manual/make.html">Makefile</a>
+href="https://www.gnu.org/software/make/manual/make.html">makefile</a>
 to automate the steps. This way, we don't have to manually re-enter
 build commands every time there are changes to the project.</p>
-<div class="sourceCode" id="cb19" data-org-language="lisp"><pre
-class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>LISP <span class="op">=</span> sbcl</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>PROJECT_DIR <span class="op">=</span> $(PWD)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>SYSTEM_NAME <span class="op">=</span> :ems</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>BUILD_OUTPUT <span class="op">=</span> ems</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>.PHONY: all</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>all: build</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>.PHONY: build clean</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>build:</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>$(LISP) --non-interactive \</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>--eval &#39;(<span class="kw">require</span> :asdf)&#39; \</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>--eval &#39;(<span class="kw">push</span> #p<span class="st">&quot;$(PROJECT_DIR)/&quot;</span> asdf:*central-registry*)&#39; \</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>--eval &#39;(ql:quickload :$(SYSTEM_NAME))&#39; \</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>--eval &#39;(asdf:make :$(SYSTEM_NAME))&#39; \</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>--eval &#39;(quit)&#39;</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>clean:</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>rm <span class="op">-</span>f $(BUILD_OUTPUT)</span></code></pre></div>
-<p>To summarize this build, The <code class="verbatim">Makefile</code>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#———————————————————————————————————————————————————————————————————————————————</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># HEAD</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="dt">SHELL</span> <span class="ch">:=</span><span class="st"> bash</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="dt">MAKEFLAGS</span> <span class="ch">+=</span><span class="st"> --warn-undefined-variables</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="dt">MAKEFLAGS</span> <span class="ch">+=</span><span class="st"> --no-builtin-rules</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="ot">.ONESHELL:</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="dt">.SHELLFLAGS</span> <span class="ch">:=</span><span class="st"> -eu -o pipefail -c</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="ot">.DELETE_ON_ERROR:</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#———————————————————————————————————————————————————————————————————————————————</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># BODY</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="dt">LISP</span> <span class="ch">=</span><span class="st"> sbcl</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="dt">PROJECT_DIR</span> <span class="ch">=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">PWD</span><span class="ch">)</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="dt">SYSTEM_NAME</span> <span class="ch">=</span><span class="st"> ems</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="dt">BUILD_OUTPUT</span> <span class="ch">=</span><span class="st"> ems</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="ot">.PHONY:</span><span class="dt"> all</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="dv">all:</span><span class="dt"> build</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="ot">.PHONY:</span><span class="dt"> build clean</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="dv">build:</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="er">    </span><span class="ch">$(</span><span class="dt">LISP</span><span class="ch">)</span> --non-interactive \</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        <span class="ch">-</span><span class="fu">-eval </span><span class="st">&#39;(require :asdf)&#39;</span><span class="fu"> </span><span class="ch">\</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="fu">        --eval </span><span class="st">&#39;(push #p&quot;</span><span class="ch">$(</span><span class="dt">PROJECT_DIR</span><span class="ch">)</span><span class="st">/&quot; asdf:*central-registry*)&#39;</span><span class="fu"> </span><span class="ch">\</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="fu">        --eval </span><span class="st">&#39;(ql:quickload :</span><span class="ch">$(</span><span class="dt">SYSTEM_NAME</span><span class="ch">)</span><span class="st">)&#39;</span><span class="fu"> </span><span class="ch">\</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="fu">        --eval </span><span class="st">&#39;(asdf:make :</span><span class="ch">$(</span><span class="dt">SYSTEM_NAME</span><span class="ch">)</span><span class="st">)&#39;</span><span class="fu"> </span><span class="ch">\</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="fu">        --eval </span><span class="st">&#39;(quit)&#39;</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="dv">clean:</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="er">    </span>rm -f <span class="ch">$(</span><span class="dt">BUILD_OUTPUT</span><span class="ch">)</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<p>To summarize this build, The <code class="verbatim">makefile</code>
 automates the build and cleanup of our project. It uses <code
 class="verbatim">SBCL</code> as the Lisp implementation, sets the
 project directory with <code class="verbatim">PWD</code>. and specifies
 the system package <code class="verbatim">:ems</code>. When we run <code
 class="verbatim">make build</code> in the command line, it launches SBCL
 in non-interactive mode, we will add the <code
-class="verbatim">project directory</code> to the <code
-class="verbatim">central registry</code> after that we'll load the
-project using <code class="verbatim">Quicklisp</code>, and then compiles
-it using <code class="verbatim">(asdf:make)</code> for initial build,
-and lastly, it exits SBCL once the build is finiished. The clean target
-removes the output file, ensuring a fresh start for the next build.</p>
+class="verbatim">project directory</code> to the <strong>central
+registry</strong> after that we'll load the project using <code
+class="verbatim">Quicklisp</code>, and then compiles it using <code
+class="verbatim">(asdf:make)</code> for initial build, and lastly, it
+exits SBCL once the build is finiished. The clean target removes the
+output file, ensuring a fresh start for the next build.</p>
 <h1 id="usage">Usage</h1>
 <p>To ensure everything works correctly, it's important to have the
 right directory structure,</p>
@@ -631,22 +644,33 @@ right directory structure,</p>
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>├── ems.asd              <span class="co">;; ASDF</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>├── intro                <span class="co">;; Directory</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>│   └── ems.<span class="kw">lisp</span>         <span class="co">;; Lisp file containing the CLI developmenet</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>├── Makefile             <span class="co">;; Makefile</span></span></code></pre></div>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>├── makefile             <span class="co">;; makefile</span></span></code></pre></div>
 <p>Once the project is set up, we can build it using this command,</p>
 <div class="sourceCode" id="cb21"><pre
 class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ch">$ </span>make build</span></code></pre></div>
 <p>After building, an executable named ems will be created. You can run
 it from within the project directory using,</p>
 <div class="sourceCode" id="cb22"><pre
-class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ch">$ </span>./ems --help or ./ems</span></code></pre></div>
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ch">$ </span>./ems --help</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<p>or</p>
+<pre class="shell"><code>$ ./ems
+</code></pre>
 <p>To make it accessible globally, insert this into your shell
-configuration files—.bashrc or .zshenv,</p>
-<div class="sourceCode" id="cb23" data-org-language="lisp"><pre
-class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">export</span> PATH=<span class="st">&quot;$HOME&lt;your/project/directory/&gt;:$PATH&quot;</span></span></code></pre></div>
-<p>Then run,</p>
+configuration files like <code class="verbatim">.bashrc</code> or <code
+class="verbatim">.zshenv</code>,</p>
 <div class="sourceCode" id="cb24" data-org-language="lisp"><pre
-class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>$ ems r  <span class="co">;; To run Emacs development environment</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>$ ems sv <span class="co">;; To Check SBCL version</span></span></code></pre></div>
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>$ vim .zshenv</span></code></pre></div>
+<p>Then paste this in the upper level of the config,</p>
+<pre class="shell"><code>export PATH=&quot;$HOME&lt;your/project/directory/&gt;:$PATH&quot;
+</code></pre>
+<p>Then to open the Emacs development environment, run,</p>
+<pre class="shell"><code>$ ems r
+</code></pre>
+<p>tps://www.youtube.com/watch?v=svmPz5oxMlITo check the SBCL
+version,</p>
+<pre class="shell"><code>$ ems sv
+</code></pre>
 <h1 id="closing-remarks">Closing remarks</h1>
 <p>Using CLI tools lets you quickly manage multiple files with one
 command, saving time compared to clicking and typing commands through

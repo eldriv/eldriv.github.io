@@ -52,7 +52,7 @@ CL-USER> (ql:quickload :clingon)
 
 (in-package :ems)
 #+end_src
-First I created a new package named "ems". By using =(:use :cl)=, we gain access to all standard Common Lisp functions and macros from the Common Lisp standard package. Then, =(:import-from :clingon)= brings in the necessary symbols from the Clingon package that we'll use to build a CLI tool. Finally, =(:export :main)= makes our main function publicly accessible that allows other code to interact with our CLI tool through this entry point.
+First I created a new package named =ems=. By using =(:use :cl)=, we gain access to all standard Common Lisp functions and macros from the Common Lisp standard package. Then, =(:import-from :clingon)= brings in the necessary symbols from the Clingon package that we'll use to build a CLI tool. Finally, =(:export :main)= makes our main function publicly accessible that allows other code to interact with our CLI tool through this entry point.
 * Configuration
 #+begin_src lisp
 (defparameter *config*
@@ -73,7 +73,7 @@ Now, let's define some utility functions that will be used to construct for the 
   "Get information from the *config*."
   (getf *config* key))
 #+end_src
-The =get-config function= is designed to retrieve values from a property list under *config* this will be use later for our top-level command, =CLINGON:MAKE-COMMAND= function.
+The =GET-CONFIG= function is designed to retrieve values from a property list under *config* this will be use later for our top-level command, =CLINGON:MAKE-COMMAND= function.
 
 #+begin_src lisp
 (defun log-msg (cmd fmt &rest args)
@@ -81,7 +81,7 @@ The =get-config function= is designed to retrieve values from a property list un
   (when (clingon:getopt cmd :verbose)
     (apply #'format t fmt args)))
 #+end_src
-The =log-msg function= will help us to log a message when the verbose flag is enabled, and the verbosity check is performed using =(clingon:getopt cmd :verbose)= to help us give information to see what the command is doing.
+The =LOG-MSG= function will help us to log a message when the verbose flag is enabled, and the verbosity check is performed using =(CLINGON:GET-OPT cmd :verbose)= to help us give information to see what the command is doing.
 
 #+begin_src lisp
 (defun run-cmd (cmd command &rest args)
@@ -91,7 +91,7 @@ The =log-msg function= will help us to log a message when the verbose flag is en
                     :output :interactive
                     :error-output :interactive))
 #+end_Src
-In this function, first, we used =log-msg= to print the message indicating the running command and its arguments that will be executed, later. Then, =uiop:run-program= is used to actually run the command. The command and its arguments are passed using cons to combine the command with the arguments. The =:output :interactive= and =:error-output :interactive= ensure that the output and errors from the command are displayed interactively on the terminal.
+In this function, first, we used =LOG-MSG= to print the message indicating the running command and its arguments that will be executed, later. Then, =UIOP:RUN-PROGRAM= is used to actually run the command. The command and its arguments are passed using cons to combine the command with the arguments. The =:output :interactive= and =:error-output :interactive= ensure that the output and errors from the command are displayed interactively on the terminal.
 
 #+begin_src lisp
 (defun run! (cmd command &rest args)
@@ -101,7 +101,7 @@ In this function, first, we used =log-msg= to print the message indicating the r
     (uiop:chdir dir)
     (apply #'run-cmd cmd command args)))
 #+end_Src
-With =run!= function, It run a command inside a designated directory—"myflake". First, it retrieves the directory path from =*config*= using =(get-config :dir)=. Then, it logs a message to confirm that the directory change is correct while at the same time it changes the current working directory to the one specified in the configuration using =uiop:chdir=. Finally, it invokes =run-cmd= to run the command in the newly changed directory.
+With =RUN!= function, It run a command inside a designated directory—"myflake". First, it retrieves the directory path from =*config*= using =(GET-CONFIG :dir)=. Then, it logs a message to confirm that the directory change is correct while at the same time it changes the current working directory to the one specified in the configuration using =UIOP:CHDIR=. Finally, it invokes =RUN-CMD= to run the command in the newly changed directory.
 * Run function commands
 Now we need to create a functions to specify some commands related to the development environment we have in nix flake.
 #+begin_Src lisp
@@ -137,9 +137,9 @@ Now we need to create a functions to specify some commands related to the develo
 (define-flake-command "sbcl-version" "sv" "Check SBCL's version" #'version-handler)
 #+end_Src
 
-As you can see, the =run-handler= function allows us to launch Emacs within the nix flake, =update-handler= updates the nix flake, =show-handler= shows the attributes of the nix flake, and =version-handler= checks the version of SBCL in the nix environment.The latter, =define-flake-command= macro helps us define commands with a name, alias, description, and handler function, which can later be used as sub-commands under a top-level command later.
+As you can see, the =RUN-HANDLER= function allows us to launch Emacs within the nix flake, =UPDATE-HANDLER= updates the nix flake, =SHOW-HANDLER= shows the attributes of the nix flake, and =VERSION-HANDLER= checks the version of SBCL in the nix environment.The latter, =DEFINE-FLAKE-COMMAND= macro helps us define commands with a name, alias, description, and handler function, which can later be used as sub-commands under a top-level command later.
 * Top-level
-** Clingon:make-option
+** CLINGON:MAKE-OPTION
 
 #+begin_src lisp
 (defmacro define-option (type short-name long-name description &key key)
@@ -157,11 +157,11 @@ As you can see, the =run-handler= function allows us to launch Emacs within the 
    (define-option :counter #\v "verbose" "Enable verbose output" :key :verbose)
    (define-option :string #\d "debug" "Enable debug mode" :key :debug)))
 #+end_src
-For the top-level program, as you can see, we created a macro named =define-option= that uses the =clingon:make-option= generic function where it allows developers to create and add new types of options to ensure that users can interact with all options through a consistent interface provided by the =CLINGON:MAKE-OPTION= function. Doing it with macro give us liberty and brevity whenever we add more options rather than doing it in a standard way of creating =make-option.= ([[https://github.com/dnaeon/clingon][See the manual]] in Clingon under a quick example).
+For the top-level program, as you can see, we created a macro named =DEFINE-OPTION= that uses the =CLINGON:MAKE-OPTION= generic function where it allows developers to create and add new types of options to ensure that users can interact with all options through a consistent interface provided by the =CLINGON:MAKE-OPTION= function. Doing it with macro give us liberty and brevity whenever we add more options rather than doing it in a standard way of creating =MAKE-OPTION=. ([[https://github.com/dnaeon/clingon][See the manual]] in Clingon under a quick example).
 
 In =make-cli-options= function above, I defined it by type (e.g., =:counter= for counting occurrences, =:string= for a string argument), short and long names (e.g., =-v for verbose==, =-d for debug=), descriptions, and optional keys.
 
-** Clingon:command-arguments
+** CLINGON:COMMAND-ARGUMENTS
 
 #+begin_Src lisp
 (defun top-level-handler (cmd)
@@ -170,9 +170,9 @@ In =make-cli-options= function above, I defined it by type (e.g., =:counter= for
     (cond (args (format t "Unknown command: ~A~%" (first args)))
           (t (progn (format t "Usage: ~A~%" (get-config :usage))
 #+end_Src
-With the use of =clingon:command-arguments=, we can have a top-level handler checks, meaning it checks if there are any extra arguments provided when we run a command. If there are, it assumes that the first argument is an unknown command and will alert us. If there are no arguments, then it shows the general usage instructions for the command.
+With the use of =CLINGON:COMMAND-ARGUMENTS=, we can have a top-level handler checks, meaning it checks if there are any extra arguments provided when we run a command. If there are, it assumes that the first argument is an unknown command and will alert us. If there are no arguments, then it shows the general usage instructions for the command.
 
-** Clingon:make-command
+** CLINGON:MAKE-COMMAND
 
 #+begin_Src lisp
 (defun make-top-level-command ()
@@ -192,10 +192,10 @@ With the use of =clingon:command-arguments=, we can have a top-level handler che
                   (make-sbcl-version-command))))
 
 #+end_src
-This function creates the main command structure, a top-level command for the tool itself, using the =clingon:make-command=, where,
-=(:name, :description, :version,:usage and, :authors)= - these are configurations the one that we are going to retrieved from *config* using =(get-config :key)= function which specify the basic information about the CLI tool. In =:options=, this is where we define command-line options named =(make-cli-options)=, =:handler= responsible for processing top-level commands and =:sub-commands=, it is a list of sub-commands that we have defined earlier in  *define-flake-command* macro and it is equivalent to =run or r=, =update or u=, =show or s= and =sbcl-version or sv=.
+This function creates the main command structure, a top-level command for the tool itself, using the =CLINGON:MAKE-COMMAND=, where,
+=(:name, :description, :version,:usage and, :authors)= - these are configurations the one that we are going to retrieved from *config* using =(get-config :key)= function which specify the basic information about the CLI tool. In =:options=, this is where we define command-line options named =MAKE-CLI-OPTIONS=, =:handler= responsible for processing top-level commands and =:sub-commands=, it is a list of sub-commands that we have defined earlier in  *define-flake-command* macro and it is equivalent to =run= or =r=, =update= or =u=, =show or s=, and =sbcl-version= or =sv=.
 
-** Clingon:run
+** CLINGRON:RUN
 
 #+begin_Src lisp
 (defun main ()
@@ -249,7 +249,7 @@ You can also verify that your command-line help documentation is properly format
 This displays the full help text exactly as we would see it when running the command with =--help=.
 
 * ASDF
-Now that we've completed the core functionality and seen how Clingon structures our application, we can set up the [[https://asdf.common-lisp.dev/][ASDF]] system definition. The application will use =main function= as its entry point, which is standard practice for ASDF systems. Below would be where we'd write our system definition to tie everything together.
+Now that we've completed the core functionality and seen how Clingon structures our application, we can set up the [[https://asdf.common-lisp.dev/][ASDF]] system definition. The application will use =MAIN= function as its entry point, which is standard practice for ASDF systems. Below would be where we'd write our system definition to tie everything together.
 
 Here’s a system definition for the application we’ve developed so far.
 #+begin_src lisp
@@ -257,7 +257,6 @@ Here’s a system definition for the application we’ve developed so far.
   :name "ems"
   :version "1.0.0"
   :author "Eldriv"
-  :license "MIT"
   :description "CLI tool for managing Lisp nix flake in Emacs"
   :depends-on (:clingon :uiop)
   :components ((:module "intro"
@@ -267,11 +266,22 @@ Here’s a system definition for the application we’ve developed so far.
   :entry-point "ems:main")
 #+end_src
 * Build
-To simplify the process of building and cleaning our application, we will use a [[https://www.gnu.org/software/make/manual/make.html][Makefile]] to automate the steps. This way, we don't have to manually re-enter build commands every time there are changes to the project.
-#+begin_Src lisp
+To simplify the process of building and cleaning our application, we will use a [[https://www.gnu.org/software/make/manual/make.html][makefile]] to automate the steps. This way, we don't have to manually re-enter build commands every time there are changes to the project.
+#+begin_Src makefile
+#———————————————————————————————————————————————————————————————————————————————
+# HEAD
+SHELL := bash
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
+.ONESHELL:
+.SHELLFLAGS := -eu -o pipefail -c
+.DELETE_ON_ERROR:
+
+#———————————————————————————————————————————————————————————————————————————————
+# BODY
 LISP = sbcl
 PROJECT_DIR = $(PWD)
-SYSTEM_NAME = :ems
+SYSTEM_NAME = ems
 BUILD_OUTPUT = ems
 
 .PHONY: all
@@ -280,24 +290,25 @@ all: build
 .PHONY: build clean
 
 build:
-$(LISP) --non-interactive \
---eval '(require :asdf)' \
---eval '(push #p"$(PROJECT_DIR)/" asdf:*central-registry*)' \
---eval '(ql:quickload :$(SYSTEM_NAME))' \
---eval '(asdf:make :$(SYSTEM_NAME))' \
---eval '(quit)'
+	$(LISP) --non-interactive \
+		--eval '(require :asdf)' \
+		--eval '(push #p"$(PROJECT_DIR)/" asdf:*central-registry*)' \
+		--eval '(ql:quickload :$(SYSTEM_NAME))' \
+		--eval '(asdf:make :$(SYSTEM_NAME))' \
+		--eval '(quit)'
 
 clean:
-rm -f $(BUILD_OUTPUT)
+	rm -f $(BUILD_OUTPUT)
+
 #+END_SRC
-To summarize this build, The =Makefile= automates the build and cleanup of our project. It uses =SBCL= as the Lisp implementation, sets the project directory with =PWD=. and specifies the system package =:ems=. When we run =make build= in the command line, it launches SBCL in non-interactive mode, we will add the =project directory= to the =central registry= after that we'll load the project using =Quicklisp=, and then compiles it using =(asdf:make)= for initial build, and lastly, it exits SBCL once the build is finiished. The clean target removes the output file, ensuring a fresh start for the next build.
+To summarize this build, The =makefile= automates the build and cleanup of our project. It uses =SBCL= as the Lisp implementation, sets the project directory with =PWD=. and specifies the system package =:ems=. When we run =make build= in the command line, it launches SBCL in non-interactive mode, we will add the =project directory= to the *central registry* after that we'll load the project using =Quicklisp=, and then compiles it using =(asdf:make)= for initial build, and lastly, it exits SBCL once the build is finiished. The clean target removes the output file, ensuring a fresh start for the next build.
 * Usage
 To ensure everything works correctly, it's important to have the right directory structure,
 #+begin_src lisp
 ├── ems.asd              ;; ASDF
 ├── intro                ;; Directory
 │   └── ems.lisp         ;; Lisp file containing the CLI developmenet
-├── Makefile             ;; Makefile
+├── makefile             ;; makefile
 #+end_src
 Once the project is set up, we can build it using this command,
 #+begin_src makefile
@@ -305,16 +316,28 @@ $ make build
 #+end_src
 After building, an executable named ems will be created. You can run it from within the project directory using,
 #+begin_src makefile
-$ ./ems --help or ./ems
+$ ./ems --help
+
+#+end_Src
+or
+#+begin_Src shell
+$ ./ems
 #+end_src
-To make it accessible globally, insert this into your shell configuration files—.bashrc or .zshenv,
+To make it accessible globally, insert this into your shell configuration files like =.bashrc= or =.zshenv=,
 #+begin_src lisp
+$ vim .zshenv
+#+end_src
+Then paste this in the upper level of the config,
+#+begin_Src shell
 export PATH="$HOME<your/project/directory/>:$PATH"
 #+end_Src
-Then run,
-#+begin_Src lisp
-$ ems r  ;; To run Emacs development environment
-$ ems sv ;; To Check SBCL version
+Then to open the Emacs development environment, run,
+#+begin_Src shell
+$ ems r
+#+end_Src
+tps://www.youtube.com/watch?v=svmPz5oxMlITo check the SBCL version,
+#+begin_Src shell
+$ ems sv
 #+end_Src
 * Closing remarks
 Using CLI tools lets you quickly manage multiple files with one command, saving time compared to clicking and typing commands through them. It boosts efficiency, allows remote access, and helps with troubleshooting. If you're a
