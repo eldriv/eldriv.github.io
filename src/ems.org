@@ -28,7 +28,7 @@ called 'ems'—a feature mirror for my [[https://github.com/eldriv/scripts/tree/
 
 To follow along, you'll need your preferred text editor—whether it's any flavors of Emacs or another editor of your choice. I personally use [[https://github.com/doomemacs/doomemacs][Doom Emacs]] and SBCL implementation. Clingon is compatible with several Common Lisp implementations, including [[https://www.lispworks.com/][LispWorks]], [[https://github.com/sbcl/sbcl][SBCL]], and [[https://ecl.common-lisp.dev/][ECL]]. If you're using other implementations on macOS or Linux, I recommend checking compatibility with your specific system before starting.
 
-The code we will create in this section will be stored in a file called =ems.lisp=.
+The code we will create in this section will be stored in a file called [[https://github.com/eldriv/ems/blob/main/src/ems.lisp][ems.lisp]].
 * Installation
 
 First, get Clingon by cloning its repository into your Quicklisp local-projects directory:
