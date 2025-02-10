@@ -22,7 +22,7 @@ I don’t have all the answers yet, and that’s exactly what fuels me. The unkn
 * Contact
 - Twitter: [[https://x.com/eldrivi][@eldriv]]
 - GitHub: [[https://github.com/eldriv][eldriv]]
-- LinkedIn: [[https://www.linkedin.com/in/michael-adrian-villareal-9885a9202/][Michael Adrian Villareal]]
+- LinkedIn: [[https://www.linkedin.com/in/michael-adrian-villareal-9a344634a/][Michael Adrian Villareal]]
 
 * Colophon
 This website is built with /[[https://www.gnu.org/software/emacs/][Emacs]]/, /[[https://github.com/kawabata/ox-pandoc][Ox-pandoc]],/ /[[https://jekyllrb.com/docs/github-pages/][Jekyll]]/ and /[[https://orgmode.org/][Org]]./ Hosting provider; /[[https://pages.github.com/][Github Pages]]./
