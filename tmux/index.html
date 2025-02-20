@@ -260,26 +260,23 @@ and we need to open another terminal to do another tasks. In this
 article, we'll explore how <a href="https://github.com/tmux">tmux</a>
 can help us avoid that.</p>
 <h1 id="installation">Installation</h1>
-<h2 id="debianubuntu">Debian/Ubuntu</h2>
-<pre><code>$ sudo apt install tmux -y
-</code></pre>
-<h2 id="arch">Arch</h2>
-<pre><code>$ sudo pacman -S tmux
-</code></pre>
-<h2 id="centos8fedorarhel">CentOS8+/Fedora/RHEL</h2>
-<pre><code>$ sudo dnf install tmux -y
-</code></pre>
-<h2 id="nixos">NixOS</h2>
+<h2 id="nix">Nix</h2>
 <p><strong><strong>With flakes</strong></strong>:</p>
-<pre><code>$ nix profile install nixpkgs#tmux
-</code></pre>
-<p><strong><strong>Without flakes</strong></strong>:</p>
-<pre><code>$ nix-env -iA nixpkgs.tmux
+<pre><code>nix profile install nixpkgs#tmux
 </code></pre>
 <p><strong><strong>To check if it is correctly
 installed</strong></strong>:</p>
-<pre><code>$ tmux -V
+<pre><code> tmux -V
 tmux 3.5a
+</code></pre>
+<h2 id="centos8fedora">CentOS8+/Fedora</h2>
+<pre><code>sudo dnf install tmux -y
+</code></pre>
+<h2 id="debianubuntu">Debian/Ubuntu</h2>
+<pre><code>sudo apt install tmux -y
+</code></pre>
+<h2 id="arch-linux">Arch Linux</h2>
+<pre><code>sudo pacman -S tmux
 </code></pre>
 <h1 id="configuration">Configuration</h1>
 <p>To configure your tmux,If you don't have a configuratio file yet, you
@@ -328,20 +325,20 @@ unbind -n C-Down
 <h2 id="vim-friendly">2. Vim-friendly</h2>
 <p>This section enables vim-like navigation to make tmux more
 user-friendly.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vim keys</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> mode-keys vi</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vim keys</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> mode-keys vi</span></code></pre></div>
 <p>This makes the navigation keys <code class="verbatim">h</code>, <code
 class="verbatim">j</code>, <code class="verbatim">k</code>, and <code
 class="verbatim">l</code> behave like they do in vim.</p>
 <h2 id="navigating-between-windows">3. Navigating Between Windows</h2>
 <p>Next, the configuration customizes the arrow keys to efficiently
 navigate between tmux windows.</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> Left  previous-window                                     <span class="co">#1</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> Right next-window                                         <span class="co">#2</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> Up    swap-window <span class="at">-t</span> <span class="at">-1\;</span> previous-window                 <span class="co">#3</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> Down  swap-window <span class="at">-t</span> +1<span class="dt">\;</span> next-window                     <span class="co">#4</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> Left  previous-window                                     <span class="co">#1</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> Right next-window                                         <span class="co">#2</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> Up    swap-window <span class="at">-t</span> <span class="at">-1\;</span> previous-window                 <span class="co">#3</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> Down  swap-window <span class="at">-t</span> +1<span class="dt">\;</span> next-window                     <span class="co">#4</span></span></code></pre></div>
 <ol>
 <li>Binds the left arrow key to navigate to the previous window.</li>
 <li>Binds the right arrow key to navigate to the next window.</li>
@@ -353,9 +350,9 @@ switches to the next window.</li>
 <h2 id="creating-and-moving-windows">4. Creating and Moving Windows</h2>
 <p>This section customizes keys for creating new windows and moving
 windows around.</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> c new-window <span class="at">-c</span> <span class="st">&quot;#{pane_current_path}&quot;</span>                    <span class="co">#1</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> C new-window <span class="at">-c</span> ~                                         <span class="co">#2</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> c new-window <span class="at">-c</span> <span class="st">&quot;#{pane_current_path}&quot;</span>                    <span class="co">#1</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> C new-window <span class="at">-c</span> ~                                         <span class="co">#2</span></span></code></pre></div>
 <ol>
 <li>Binds <code class="verbatim">c</code> to create a new window in the
 current pane's directory.</li>
@@ -366,11 +363,11 @@ home directory (<code class="verbatim">~</code>).</li>
 Panes and Navigating Between Windows</h2>
 <p>This section binds keys for splitting the terminal into multiple
 panes and for switching between the first to the last window.</p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> <span class="st">&quot;&#39;&quot;</span> split-window <span class="at">-v</span> <span class="at">-c</span> <span class="st">&quot;#{pane_current_path}&quot;</span>              <span class="co">#1</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> / split-window <span class="at">-h</span> <span class="at">-c</span> <span class="st">&quot;#{pane_current_path}&quot;</span>                <span class="co">#2</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> v split-window <span class="at">-h</span> <span class="at">-c</span> <span class="st">&quot;#{pane_current_path}&quot;</span>                <span class="co">#3</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> Space last-window                                          <span class="co">#4</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> <span class="st">&quot;&#39;&quot;</span> split-window <span class="at">-v</span> <span class="at">-c</span> <span class="st">&quot;#{pane_current_path}&quot;</span>              <span class="co">#1</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> / split-window <span class="at">-h</span> <span class="at">-c</span> <span class="st">&quot;#{pane_current_path}&quot;</span>                <span class="co">#2</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> v split-window <span class="at">-h</span> <span class="at">-c</span> <span class="st">&quot;#{pane_current_path}&quot;</span>                <span class="co">#3</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> Space last-window                                          <span class="co">#4</span></span></code></pre></div>
 <ol>
 <li>Binds <code class="verbatim">'</code> to split the current pane
 vertically, and the new pane will inherit the current directory.</li>
@@ -382,14 +379,14 @@ horizontally, just like <code class="verbatim">/</code>.</li>
 toggle between the last two windows.</li>
 </ol>
 <h2 id="general-settings">6. General Settings</h2>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> default-terminal <span class="st">&quot;screen-256color&quot;</span>                       <span class="co">#1</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> default-shell <span class="va">$SHELL</span>                                     <span class="co">#2</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> base-index 1                                             <span class="co">#3</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> history-limit 100000                                     <span class="co">#4</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">set-option</span> <span class="at">-ga</span> terminal-overrides <span class="st">&quot;,screen-256color:Tc&quot;</span>         <span class="co">#5</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ex">set-option</span> <span class="at">-g</span> automatic-rename on                               <span class="co">#6</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="ex">set-option</span> <span class="at">-g</span> automatic-rename-format <span class="st">&#39;#{b:pane_current_path}&#39;</span>  <span class="co">#7</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> default-terminal <span class="st">&quot;screen-256color&quot;</span>                       <span class="co">#1</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> default-shell <span class="va">$SHELL</span>                                     <span class="co">#2</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> base-index 1                                             <span class="co">#3</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> history-limit 100000                                     <span class="co">#4</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ex">set-option</span> <span class="at">-ga</span> terminal-overrides <span class="st">&quot;,screen-256color:Tc&quot;</span>         <span class="co">#5</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="ex">set-option</span> <span class="at">-g</span> automatic-rename on                               <span class="co">#6</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ex">set-option</span> <span class="at">-g</span> automatic-rename-format <span class="st">&#39;#{b:pane_current_path}&#39;</span>  <span class="co">#7</span></span></code></pre></div>
 <ol>
 <li>Specifies the terminal type to be <code
 class="verbatim">screen-256color</code>, which supports
@@ -417,26 +414,26 @@ its directory.</li>
 <h2 id="window-and-pane-settings">7. Window and Pane Settings</h2>
 <p>This section customizes the appearance and behavior of tmux windows
 and panes.</p>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">set-window-option</span> <span class="at">-g</span> mode-keys vi                                <span class="co">#1</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-active-style <span class="st">&#39;bg=#181107&#39;</span>                         <span class="co">#2</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-style <span class="st">&#39;bg=#181107&#39;</span>                                <span class="co">#3</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-status-format <span class="st">&quot;#I:#W#F &quot;</span>                          <span class="co">#4</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-status-style <span class="st">&#39;fg=white,bg=#090702,bold&#39;</span>           <span class="co">#5</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-status-current-format <span class="st">&quot;#I:#W#F &quot;</span>                  <span class="co">#6</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-status-current-style <span class="st">&#39;fg=orange,bg=#181107,bold&#39;</span>  <span class="co">#7</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-interval 1                                         <span class="co">#8</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-position bottom                                    <span class="co">#9</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-bg <span class="st">&quot;#090702&quot;</span>                                       <span class="co">#10</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-fg <span class="st">&quot;#D4D4D4&quot;</span>                                       <span class="co">#11</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-left <span class="st">&#39;&#39;</span>                                            <span class="co">#12</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-left-style <span class="st">&#39;fg=orange,bg=#181107&#39;</span>                  <span class="co">#13</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-right <span class="st">&#39;#{prefix_highlight}&#39;</span>                        <span class="co">#14</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-right-length 50                                    <span class="co">#15</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-right-style <span class="st">&#39;fg=orange,bg=#181107&#39;</span>                 <span class="co">#16</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> pane-border-style <span class="st">&#39;fg=#090702,bg=#181107&#39;</span>                 <span class="co">#17</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> pane-active-border-style <span class="st">&#39;fg=orange,bg=#181107&#39;</span>           <span class="co">#18</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> pane-border-lines <span class="st">&#39;heavy&#39;</span>                                 <span class="co">#19</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">set-window-option</span> <span class="at">-g</span> mode-keys vi                                <span class="co">#1</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-active-style <span class="st">&#39;bg=#181107&#39;</span>                         <span class="co">#2</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-style <span class="st">&#39;bg=#181107&#39;</span>                                <span class="co">#3</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-status-format <span class="st">&quot;#I:#W#F &quot;</span>                          <span class="co">#4</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-status-style <span class="st">&#39;fg=white,bg=#090702,bold&#39;</span>           <span class="co">#5</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-status-current-format <span class="st">&quot;#I:#W#F &quot;</span>                  <span class="co">#6</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="ex">setw</span> <span class="at">-g</span> window-status-current-style <span class="st">&#39;fg=orange,bg=#181107,bold&#39;</span>  <span class="co">#7</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-interval 1                                         <span class="co">#8</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-position bottom                                    <span class="co">#9</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-bg <span class="st">&quot;#090702&quot;</span>                                       <span class="co">#10</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-fg <span class="st">&quot;#D4D4D4&quot;</span>                                       <span class="co">#11</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-left <span class="st">&#39;&#39;</span>                                            <span class="co">#12</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-left-style <span class="st">&#39;fg=orange,bg=#181107&#39;</span>                  <span class="co">#13</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-right <span class="st">&#39;#{prefix_highlight}&#39;</span>                        <span class="co">#14</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-right-length 50                                    <span class="co">#15</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> status-right-style <span class="st">&#39;fg=orange,bg=#181107&#39;</span>                 <span class="co">#16</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> pane-border-style <span class="st">&#39;fg=#090702,bg=#181107&#39;</span>                 <span class="co">#17</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> pane-active-border-style <span class="st">&#39;fg=orange,bg=#181107&#39;</span>           <span class="co">#18</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> pane-border-lines <span class="st">&#39;heavy&#39;</span>                                 <span class="co">#19</span></span></code></pre></div>
 <ol>
 <li>Enables <strong><strong>vi</strong></strong>-style key bindings for
 tmux's copy mode. This allows you to navigate through the output using
@@ -485,15 +482,15 @@ the borders more prominent.</li>
 <h2 id="plugin-management">8. Plugin Management</h2>
 <p>This section sets up the plugins for tmux, allowing you to enhance
 its functionality with various tmux plugins.</p>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tpm&#39;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tmux-resurrect&#39;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tmux-sensible&#39;</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tmux-yank&#39;</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tmux-continuum&#39;</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tmux-prefix-highlight&#39;</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @continuum-restore <span class="st">&#39;on&#39;</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;christoomey/vim-tmux-navigator&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tpm&#39;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tmux-resurrect&#39;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tmux-sensible&#39;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tmux-yank&#39;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tmux-continuum&#39;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;tmux-plugins/tmux-prefix-highlight&#39;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @continuum-restore <span class="st">&#39;on&#39;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-g</span> @plugin <span class="st">&#39;christoomey/vim-tmux-navigator&#39;</span></span></code></pre></div>
 <h3 id="tmux-plugin-manager"><a
 href="https://github.com/tmux-plugins/tpm">Tmux Plugin Manager:</a></h3>
 <p>This enables the <strong><strong>tmux plugin
@@ -535,8 +532,8 @@ class="verbatim">j</code>, <code class="verbatim">k</code>, <code
 class="verbatim">l</code>).</p>
 <h2 id="initializing-plugins">9. Initializing Plugins</h2>
 <p>Finally, this line loads the tmux plugins configured above.</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">run</span> <span class="st">&#39;~/.tmux/plugins/tpm/tpm&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">run</span> <span class="st">&#39;~/.tmux/plugins/tpm/tpm&#39;</span></span></code></pre></div>
 <p>This loads the tmux plugin manager (TPM) and installs the plugins
 that have been specified. To install the plugins, you can just use <code
 class="verbatim">C-z I</code>.</p>

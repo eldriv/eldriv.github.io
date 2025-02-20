@@ -15,50 +15,40 @@
 #+END_EXPORT
 #+startup: overview
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
-
-
-
 * Introduction
 As engineers, one of the essential tools we've always relied on is the terminal, due to its efficieny and
 speed that allows us to execute commands directly and quickly without the overhead of navigating through
 Graphical User Interfaces (GUIs). This is very useful for tasks like file management, system administration
 and building a project. One of us probably consumes a lot of time to work extensively in a single terminal
 and we need to open another terminal to do another tasks. In this article, we'll explore how [[https://github.com/tmux][tmux]] can help us avoid that.
-
 * Installation
-** Debian/Ubuntu
-#+begin_src
-$ sudo apt install tmux -y
-#+end_src
-** Arch
-#+begin_Src
-$ sudo pacman -S tmux
-#+end_src
-** CentOS8+/Fedora/RHEL
-#+begin_src
-$ sudo dnf install tmux -y
-#+end_src
-** NixOS
+** Nix
 **With flakes**:
 #+begin_src
-$ nix profile install nixpkgs#tmux
+ nix profile install nixpkgs#tmux
 #+END_SRC
-**Without flakes**:
-#+begin_src
-$ nix-env -iA nixpkgs.tmux
-#+end_src
 **To check if it is correctly installed**:
 #+begin_src
-$ tmux -V
+ tmux -V
 tmux 3.5a
 #+end_src
-
+** CentOS8+/Fedora
+#+begin_src
+ sudo dnf install tmux -y
+#+end_src
+** Debian/Ubuntu
+#+begin_src
+ sudo apt install tmux -y
+#+end_src
+** Arch Linux
+#+begin_Src
+ sudo pacman -S tmux
+#+end_src
 * Configuration
 To configure your tmux,If you don't have a configuratio file yet, you can reate a =~/.tmux.conf=. Since I am using vim now, here is my command:
 #+begin_src
 $ vim ~/.tmux.conf
 #+end_src
-
 After you have your configuration file, you can begin editing it. To give you an overview, here are the main
 sections you might want to add or configure in tmux. I'll go over each of these configuration steps with my own setup
 ** Reload Configuration
@@ -269,8 +259,6 @@ This sections will show you my favorite and important features while using tmux.
 
 * Closing Remarks
 On this tmux setup we've walked through, you can now use tmux with such great smooth transition by customizing the default key bindings, integrating plugins, and tailoring tmux's appearance to suit your preferences. By using tmux, you can optimize your terminal environment and make your development process even more productive. Feel free to explore further tmux plugins and configurations to continue improving your setup. Happy tmuxing!
-
-
 #+BEGIN_EXPORT html
 <link rel="icon" href="../img/icon.png" type="image/png">
 <footer class="footer">
