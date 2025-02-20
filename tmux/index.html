@@ -262,22 +262,22 @@ can help us avoid that.</p>
 <h1 id="installation">Installation</h1>
 <h2 id="nix">Nix</h2>
 <p><strong><strong>With flakes</strong></strong>:</p>
-<pre><code>nix profile install nixpkgs#tmux
-</code></pre>
+<div class="sourceCode" id="cb1" data-org-language="sh"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nix</span> profile install nixpkgs#tmux</span></code></pre></div>
 <p><strong><strong>To check if it is correctly
 installed</strong></strong>:</p>
-<pre><code> tmux -V
-tmux 3.5a
-</code></pre>
+<div class="sourceCode" id="cb2" data-org-language="sh"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a> <span class="ex">tmux</span> <span class="at">-V</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span> 3.5a</span></code></pre></div>
 <h2 id="centos8fedora">CentOS8+/Fedora</h2>
-<pre><code>sudo dnf install tmux -y
-</code></pre>
+<div class="sourceCode" id="cb3" data-org-language="sh"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install tmux <span class="at">-y</span></span></code></pre></div>
 <h2 id="debianubuntu">Debian/Ubuntu</h2>
-<pre><code>sudo apt install tmux -y
-</code></pre>
+<div class="sourceCode" id="cb4" data-org-language="sh"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install tmux <span class="at">-y</span></span></code></pre></div>
 <h2 id="arch-linux">Arch Linux</h2>
-<pre><code>sudo pacman -S tmux
-</code></pre>
+<div class="sourceCode" id="cb5" data-org-language="sh"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> pacman <span class="at">-S</span> tmux</span></code></pre></div>
 <h1 id="configuration">Configuration</h1>
 <p>To configure your tmux,If you don't have a configuratio file yet, you
 can reate a <code class="verbatim">~/.tmux.conf</code>. Since I am using

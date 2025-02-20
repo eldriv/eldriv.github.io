@@ -24,24 +24,24 @@ and we need to open another terminal to do another tasks. In this article, we'll
 * Installation
 ** Nix
 **With flakes**:
-#+begin_src
+#+begin_src sh
  nix profile install nixpkgs#tmux
 #+END_SRC
 **To check if it is correctly installed**:
-#+begin_src
+#+begin_src sh
  tmux -V
 tmux 3.5a
 #+end_src
 ** CentOS8+/Fedora
-#+begin_src
+#+begin_src sh
  sudo dnf install tmux -y
 #+end_src
 ** Debian/Ubuntu
-#+begin_src
+#+begin_src sh
  sudo apt install tmux -y
 #+end_src
 ** Arch Linux
-#+begin_Src
+#+begin_Src sh
  sudo pacman -S tmux
 #+end_src
 * Configuration
