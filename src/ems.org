@@ -335,7 +335,7 @@ Then to open the Emacs development environment, run,
 #+begin_Src shell
 $ ems r
 #+end_Src
-tps://www.youtube.com/watch?v=svmPz5oxMlITo check the SBCL version,
+To check the SBCL version,
 #+begin_Src shell
 $ ems sv
 #+end_Src
