@@ -79,7 +79,7 @@ Once the bootable device is ready, reboot the system in able to boot into the Ni
  
 Here what you can do inside =gdisk=, it is a command on Linux to create, manage, and delete standard partitions.
 
- #+begin_src 
+ #+begin_src lisp
  # gdisk /dev/nvme0n 1  #GPT partitioning 
     > ?       # list all commands
     > p      # list all partitions
@@ -109,63 +109,63 @@ Here what you can do inside =gdisk=, it is a command on Linux to create, manage,
 *NOTE:* /this commands will essentially wiping your disk so triple check what drive you are actually using in modifying the partitions./
 
 ** Format /dev/nvme0n1p1 into FAT32 file system.
-  #+begin_src
+  #+begin_src shell
   # mkfs.vfat -F 32 /dev/nvme0n1p1   
   #+end_src 
 ** Create physical volume:
-#+begin_src
+#+begin_src shell
  # pvcreate /dev/nvme0n1p2
-#+end_src
+#+end_src shell
 ** Create volume group:
-#+begin_src
+#+begin_src shell
 #  vgcreate  vg /dev/nvme0n1p2
-#+end_src
+#+end_src shell
 ** Create logical volumes:
-#+begin_src
+#+begin_src shell
   # lvcreate -L 20G -n swap vg
   # lvcreate -l 100%FREE -n root vg
 #+end_src
 ** After the creation of volumes, It's time to encrypt the root:
- #+begin_src
+ #+begin_src shell
 # cryptsetup luksFormat /dev/vg/root
 # cryptsetup luksOpen /dev/vg/root root
  #+end_src
 ** Format root:
-#+begin_src
+#+begin_src shell
 # mkfs.ext4 -j -L root /dev/mapper/root
 #+end_src
 ** Format swap:
-#+begin_src
+#+begin_src shell
   # mkswap -L swap /dev/vg/swap
 #+end_src
 ** Mount the filesystems:
-#+begin_src
+#+begin_src shell
 # mount /dev/mapper/root /mnt
 # mkdir /mnt/boot
 # mount /dev/nvme0n1p1 /mnt/boot
 #+end_src
 ** Enable swap:
-#+begin_src
+#+begin_src shell
 # swapon /dev/vg/swap
 #+end_src
 
 As you can see above, Basically I manually created GPT partitions, volumes, and encrypted my disk. Now, this is the time to install the NixOS on the top of it.
 
 ** Create the base configuration:
- #+begin_src
+ #+begin_src shell
   # nixos-generate-config --root /mnt
  #+end_src
 ** Edit the configuration file:
  You may see this [[https://ebzzry.com/en/nix/#nixpaths][link]] under the =install to disk= of *ebzzry's* article—[[https://ebzzry.com/en/nix/#nixpaths][A Gentle Introduction to the Nix Family]] because I followed his own configuration for my first crack of NixOS system environment. Remember, there are parts there that you have to replace. To save the edited configuration file, just pressed @@html:<kbd>@@Ctrl@@html:</kbd>@@ + o and then press RET to save the file. If you wish to leave to the editor, press @@html:<kbd>@@Ctrl@@html:</kbd>@@ + x.
 
 ** Install NixOS 
-#+begin_src
+#+begin_src shell
   # nixos-install
 #+end_src
 
  If there are errors, you can be able to go back on the configuration file and edit it again. Otherwise, *reboot* the system.
 
- #+begin_src
+ #+begin_src shell
    # reboot
  #+end_src
  
@@ -232,11 +232,11 @@ To list the packages:
 
 * Nix commands
 To enable the nix command in NixOS, copy and paste this snippet into your root NixOS configuration.
-#+begin_src
+#+begin_src shell
  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
 #+end_src
 After your NixOS rebuild, make sure to test some main-commands like executing nix repl to make sure that it works.
-#+begin_src
+#+begin_src shell
 nix repl
 
 nix-repl> 1000 * 1000
@@ -274,7 +274,7 @@ define their dependencies or outputs and lastly self-contained, a flake is a com
 Since I am not that familiar on Nix expressions syntax yet. I am going to give you an example provided from the manual.
 
 To build a flake just follow the snippet below:
-#+begin_src
+#+begin_src shell
 > nix flake new hello
 > cd hello
 > nix build

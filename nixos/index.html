@@ -346,75 +346,77 @@ replace.</em></p>
 <p>Here what you can do inside <code class="verbatim">gdisk</code>, it
 is a command on Linux to create, manage, and delete standard
 partitions.</p>
-<pre><code># gdisk /dev/nvme0n 1  #GPT partitioning 
-   &gt; ?       # list all commands
-   &gt; p      # list all partitions
-   &gt; d      # delete a partition
-
-   &gt; o        # create a new empty GPT partition table
-       &gt; Y    # validate new empty GPT (⚠️ delete all pre-existing partitions)
-
-   &gt; n # create a new partition (boot partition)
-       &gt; RET   # enter to leave default part number (1 for nvme0n1p1)
-       &gt; RET    # enter to leave default first sector
-       &gt; +512Mib  # specify a 512Mo partition size
-       &gt; EF00  # specify an EFI System boot partition type
-
-   &gt; n # create new partition (optional swap)
-       &gt; RET    # enter to leave default part number (2 for nvme0n1p2)
-       &gt; RET    # enter to leave default first sector
-       &gt; RET    # enter for the rest of a partition size
-       &gt; 8E00  # specify a Linux LVM
-
-
-   &gt; p  # print the table to ensure that it is correct
-
-   &gt; w  # write the table, validate all previous actions and quit
-       &gt; Y  # validate new table
-</code></pre>
+<div class="sourceCode" id="cb4" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a># gdisk /dev/nvme0n <span class="dv">1</span>  #GPT partitioning </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   <span class="op">&gt;</span> ?       # <span class="kw">list</span> all commands</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>   <span class="op">&gt;</span> p      # <span class="kw">list</span> all partitions</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>   <span class="op">&gt;</span> d      # <span class="kw">delete</span> a partition</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>   <span class="op">&gt;</span> o        # create a new empty GPT partition table</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>       <span class="op">&gt;</span> Y    # validate new empty GPT (⚠️ <span class="kw">delete</span> all pre-existing partitions)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>   <span class="op">&gt;</span> n # create a new partition (boot partition)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>       <span class="op">&gt;</span> RET   # enter to leave default part <span class="kw">number</span> (<span class="dv">1</span> for nvme0n1p1)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>       <span class="op">&gt;</span> RET    # enter to leave default <span class="kw">first</span> sector</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>       <span class="op">&gt;</span> +512Mib  # specify a <span class="dv">512</span>Mo partition size</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>       <span class="op">&gt;</span> EF00  # specify an EFI System boot partition <span class="kw">type</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>   <span class="op">&gt;</span> n # create new partition (optional swap)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>       <span class="op">&gt;</span> RET    # enter to leave default part <span class="kw">number</span> (<span class="dv">2</span> for nvme0n1p2)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>       <span class="op">&gt;</span> RET    # enter to leave default <span class="kw">first</span> sector</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>       <span class="op">&gt;</span> RET    # enter for <span class="kw">the</span> <span class="kw">rest</span> of a partition size</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>       <span class="op">&gt;</span> <span class="fl">8E00</span>  # specify a Linux LVM</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>   <span class="op">&gt;</span> p  # <span class="kw">print</span> <span class="kw">the</span> table to ensure that it is correct</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>   <span class="op">&gt;</span> w  # <span class="kw">write</span> <span class="kw">the</span> table, validate all previous actions <span class="kw">and</span> quit</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>       <span class="op">&gt;</span> Y  # validate new table</span></code></pre></div>
 <p><strong>NOTE:</strong> <em>this commands will essentially wiping your
 disk so triple check what drive you are actually using in modifying the
 partitions.</em></p>
 <h2 id="format-devnvme0n1p1-into-fat32-file-system.">Format
 /dev/nvme0n1p1 into FAT32 file system.</h2>
-<pre><code># mkfs.vfat -F 32 /dev/nvme0n1p1   
+<pre class="shell"><code># mkfs.vfat -F 32 /dev/nvme0n1p1   
 </code></pre>
 <h2 id="create-physical-volume">Create physical volume:</h2>
-<pre><code># pvcreate /dev/nvme0n1p2
+<pre class="shell"><code># pvcreate /dev/nvme0n1p2
 </code></pre>
+<p>shell</p>
 <h2 id="create-volume-group">Create volume group:</h2>
-<pre><code>#  vgcreate  vg /dev/nvme0n1p2
+<pre class="shell"><code>#  vgcreate  vg /dev/nvme0n1p2
 </code></pre>
+<p>shell</p>
 <h2 id="create-logical-volumes">Create logical volumes:</h2>
-<pre><code># lvcreate -L 20G -n swap vg
+<pre class="shell"><code># lvcreate -L 20G -n swap vg
 # lvcreate -l 100%FREE -n root vg
 </code></pre>
 <h2
 id="after-the-creation-of-volumes-its-time-to-encrypt-the-root">After
 the creation of volumes, It's time to encrypt the root:</h2>
-<pre><code># cryptsetup luksFormat /dev/vg/root
+<pre class="shell"><code># cryptsetup luksFormat /dev/vg/root
 # cryptsetup luksOpen /dev/vg/root root
 </code></pre>
 <h2 id="format-root">Format root:</h2>
-<pre><code># mkfs.ext4 -j -L root /dev/mapper/root
+<pre class="shell"><code># mkfs.ext4 -j -L root /dev/mapper/root
 </code></pre>
 <h2 id="format-swap">Format swap:</h2>
-<pre><code># mkswap -L swap /dev/vg/swap
+<pre class="shell"><code># mkswap -L swap /dev/vg/swap
 </code></pre>
 <h2 id="mount-the-filesystems">Mount the filesystems:</h2>
-<pre><code># mount /dev/mapper/root /mnt
+<pre class="shell"><code># mount /dev/mapper/root /mnt
 # mkdir /mnt/boot
 # mount /dev/nvme0n1p1 /mnt/boot
 </code></pre>
 <h2 id="enable-swap">Enable swap:</h2>
-<pre><code># swapon /dev/vg/swap
+<pre class="shell"><code># swapon /dev/vg/swap
 </code></pre>
 <p>As you can see above, Basically I manually created GPT partitions,
 volumes, and encrypted my disk. Now, this is the time to install the
 NixOS on the top of it.</p>
 <h2 id="create-the-base-configuration">Create the base
 configuration:</h2>
-<pre><code># nixos-generate-config --root /mnt
+<pre class="shell"><code># nixos-generate-config --root /mnt
 </code></pre>
 <h2 id="edit-the-configuration-file">Edit the configuration file:</h2>
 <p>You may see this <a
@@ -428,12 +430,12 @@ configuration file, just pressed <kbd>Ctrl</kbd> + o and then press RET
 to save the file. If you wish to leave to the editor, press
 <kbd>Ctrl</kbd> + x.</p>
 <h2 id="install-nixos">Install NixOS</h2>
-<pre><code># nixos-install
+<pre class="shell"><code># nixos-install
 </code></pre>
 <p>If there are errors, you can be able to go back on the configuration
 file and edit it again. Otherwise, <strong>reboot</strong> the
 system.</p>
-<pre><code># reboot
+<pre class="shell"><code># reboot
 </code></pre>
 <p>The next several section will be the behind the scene errors and how
 I overcome them during my installation process and how I restore
@@ -514,11 +516,11 @@ class="sourceCode nix"><code class="sourceCode nix"><span id="cb21-1"><a href="#
 <h1 id="nix-commands">Nix commands</h1>
 <p>To enable the nix command in NixOS, copy and paste this snippet into
 your root NixOS configuration.</p>
-<pre><code>nix.settings.experimental-features = [ &quot;nix-command&quot; &quot;flakes&quot; ]; 
+<pre class="shell"><code>nix.settings.experimental-features = [ &quot;nix-command&quot; &quot;flakes&quot; ]; 
 </code></pre>
 <p>After your NixOS rebuild, make sure to test some main-commands like
 executing nix repl to make sure that it works.</p>
-<pre><code>nix repl
+<pre class="shell"><code>nix repl
 
 nix-repl&gt; 1000 * 1000
 1000000
@@ -563,7 +565,7 @@ flake.nix file</h1>
 <p>Since I am not that familiar on Nix expressions syntax yet. I am
 going to give you an example provided from the manual.</p>
 <p>To build a flake just follow the snippet below:</p>
-<pre><code>&gt; nix flake new hello
+<pre class="shell"><code>&gt; nix flake new hello
 &gt; cd hello
 &gt; nix build
 &gt; nix run
