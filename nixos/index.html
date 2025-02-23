@@ -323,17 +323,17 @@ into the NixOS installer. If you installed an ISO that supports grahical
 interface you can open a terminal inside it and you will be logged in
 automatically as <strong>root</strong>.</p>
 <h2 id="to-list-an-available-network">To list an available network:</h2>
-<pre><code># nmcli d wifi list
+<pre class="shell"><code># nmcli d wifi list
 </code></pre>
 <h2 id="to-connect-through-your-router">To connect through your
 router:</h2>
-<pre><code># nmcli d wifi connect [router_name] password [router_password]
+<pre class="shell"><code># nmcli d wifi connect [router_name] password [router_password]
 </code></pre>
 <p><strong>Note:</strong> <em>Inside of “[ ]” represents your router’s
 name and password, do not use “[” or “]” during the execution.</em></p>
 <h2 id="manually-create-the-partitions">Manually create the
 partitions:</h2>
-<pre><code># gdisk /dev/nvme0n1
+<pre class="shell"><code># gdisk /dev/nvme0n1
 </code></pre>
 <p><strong>Note:</strong> <em>You should know what drive you are going
 to use in creating the partitions. You can use command like <code
@@ -582,7 +582,7 @@ that you'll see on the directory helps you ensure that running the
 project at different times or on different machines will produce the
 same results, as long as the lock file is used.</p>
 <p>When you open the flake.nix file this is what it looks like:</p>
-<pre><code>  {
+<pre class="shell"><code>  {
   description = &quot;A very basic flake&quot;;
 
   inputs = {

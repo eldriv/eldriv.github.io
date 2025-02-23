@@ -60,11 +60,11 @@ Under “Partition scheme,” select “MBR” and under “Target system,” se
 Once the bootable device is ready, reboot the system in able to boot into the NixOS installer. If you installed an ISO that supports grahical interface you can open a terminal inside it and you will be logged in automatically as *root*. 
 
 ** To list an available network:
-#+begin_src
+#+begin_src shell
   # nmcli d wifi list
 #+end_src
 ** To connect through your router:
-#+begin_src 
+#+begin_src shell 
   # nmcli d wifi connect [router_name] password [router_password]
 #+end_src
 
@@ -72,7 +72,7 @@ Once the bootable device is ready, reboot the system in able to boot into the Ni
 
 ** Manually create the partitions:
 
-#+begin_src
+#+begin_src shell
  # gdisk /dev/nvme0n1
  #+end_src
 *Note:* /You should know what drive you are going to use in creating the partitions. You can use command like =lsblk= in able to display block devices such as hard drives, solid-state drives, and other storage-related devices.  During my installation I got confused what I am going to use. Instead understanding what it is, I continuously executing their used commands so please remember there are parts here that you have to replace./
@@ -287,7 +287,7 @@ from your root directory to hello directory, The third one is build the default 
 project at different times or on different machines will produce the same results, as long as the lock file is used.
 
 When you open the flake.nix file this is what it looks like:
-#+begin_src
+#+begin_src shell
   {
   description = "A very basic flake";
 
