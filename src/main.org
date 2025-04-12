@@ -1,28 +1,39 @@
-#+title: (:Constellation [Awakening])
-#+author: Nycto
 #+language: en
 #+startup: overview
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/main.css">
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/const.png" standalone:t
 
-ᜈ᜔ᜌ᜔ᜃ᜔ᜆᜓ
-Last updated: January 21, 2025
-The entries are sorted in reverse chronological order.
+#+BEGIN_EXPORT html
+<h1 class="title">(:constellations [awakening])</h1>
+<p class="author" style="text-align: center; margin-bottom: 100px; font-size: 20px;">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+<div class="update" style="text-align: center; padding-top: 20px;">Last updated: April 12, 2025 <br>The entries are sorted in reverse chronological order.</div>
+#+END_EXPORT
 
 [[../img/const.png]]
 
 This passage reflects a personal journey through life and technology. The author aims to inspire others to explore their own paths, awakening to the profound possibilities that lie within their consciousness and beyond.
 
-
-- [[file:articles/ems.html][Building ‘adz’ in Common Lisp With Clingon]]
-- [[file:articles/lisp.html][A Wanderer's Tale of Discovering Lisp]]
-- [[file:articles/tmux.html][Using Tmux to Perk Up Your Terminal Experience]]
-- [[file:articles/docker.html][Docker Containers Are Fast]]
-- [[file:articles/nixos.html][How NixOS Treated a Novice Sysadmin]]
-- [[file:articles/fiveam.html][Testing a Testing Framework]]
-- [[file:articles/parser.html][Explore Parsing in S-expression]]
-- [[file:articles/ubuntu.html][How I installed Ubuntu From Windows]]
-[[file:about.html][About]] ✾ [[file:life.html][Introspection]]
-Last updated: January 21, 2025
-© Nycto 2024 
-
+#+BEGIN_EXPORT html
+<ul>
+<li><a href="adz">Building ‘Adz’ in Common Lisp With Clingon</a></li>
+<li><a href="lisp">A Wanderer's Tale of Discovering Lisp</a></li>
+<li><a href="tmux">Using Tmux to Perk Up Your Terminal
+Experience</a></li>
+<li><a href="nixos">How NixOS Treated a Novice
+Sysadmin</a></li>
+<li><a href="docker">Docker Containers Are Fast</a></li>
+<li><a href="fiveam">Testing a Testing Framework</a></li>
+<li><a href="parser">Explore Parsing in S-expression</a></li>
+<li><a href="ubuntu">How I Installed Ubuntu From
+Windows</a></li>
+</ul>
+#+END_EXPORT
+#+BEGIN_EXPORT html
+<footer class="footer">
+      <div class="right">© 2025 eldriv</div>
+  <div class="footer-menu">
+    <a href="about" class="footer-right">About</a> ✾
+  <a href="life" class="footer-right">Introspection</a>
+  </p>
+</footer>
+#+END_EXPORT
