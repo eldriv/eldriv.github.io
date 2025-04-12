@@ -37,7 +37,7 @@ Ninth. Some people stop because it's hard, some people start because it's hard.
 Tenth. In order to be irreplaceable, one must always be different.
 
 * Introspection 11
-Eleventh. Some people are always pretentious. Always doubt.
+Eleventh. Some people always pretend. Always doubt, doubt, and doubt.
 
 #+BEGIN_EXPORT html
 <link rel="icon" href="../img/icon.png" type="image/png">
