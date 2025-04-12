@@ -36,6 +36,9 @@ Ninth. Some people stop because it's hard, some people start because it's hard.
 * Introspection 10
 Tenth. In order to be irreplaceable, one must always be different.
 
+* Introspection 11
+Eleventh. Some people are always pretentious. Always doubt.
+
 #+BEGIN_EXPORT html
 <link rel="icon" href="../img/icon.png" type="image/png">
 <footer class="footer">
