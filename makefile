@@ -9,7 +9,8 @@ HTMLFILES := $(patsubst src/%.org,%/index.html,$(ORGFILES))
 
 all:	clean	$(HTMLFILES) 
 
-install:	$(HTMLFILES)
+
+push-rebuild:	$(HTMLFILES)
 
 %/index.html: src/%.org
 	@mkdir -p $(dir $@)
