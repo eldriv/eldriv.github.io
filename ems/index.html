@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="" />
-  <title>Building 'ems' in Common Lisp with Clingon</title>
+  <title>Building 'adz' in Common Lisp with Clingon</title>
   <style>
     html {
       color: #1a1a1a;
@@ -236,7 +236,7 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Building 'ems' in Common Lisp with Clingon</h1>
+<h1 class="title">Building 'adz' in Common Lisp with Clingon</h1>
 <p class="author"></p>
 </header>
 <div class="update" style="text-align: center;">Last updated: February 03, 2025</div>
@@ -263,7 +263,7 @@ interfaces (CLIs)</a> come in.</p>
 href="https://github.com/dnaeon/clingon">Clingon</a> in Common-lisp.
 We'll dive to each of every functions and flow on how I built a CLI to
 manage the <a href="https://github.com/eldriv/flakes-dev/tree/main">Nix
-flake development environment</a> for running Emacs called 'ems'—a
+flake development environment</a> for running Emacs called 'adz'—a
 feature mirror for my <a
 href="https://github.com/eldriv/scripts/tree/main/emacs-shell-script">bash
 script</a>—Emacs development environment.</p>
@@ -277,9 +277,9 @@ href="https://github.com/sbcl/sbcl">SBCL</a>, and <a
 href="https://ecl.common-lisp.dev/">ECL</a>. If you're using other
 implementations on macOS or Linux, I recommend checking compatibility
 with your specific system before starting.</p>
-<p>The code we will create in this section will be stored in a file
-called <a
-href="https://github.com/eldriv/ems/blob/main/src/ems.lisp">ems.lisp</a>.</p>
+<p>The full source code we will create in this article and probably
+already been refactored in the future will be stored in this <a
+href="https://github.com/eldriv/adz">repository</a>.</p>
 <h1 id="installation">Installation</h1>
 <p>First, get Clingon by cloning its repository into your Quicklisp
 local-projects directory:</p>
@@ -294,14 +294,14 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb2-
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>CL-USER&gt; (ql:quickload :clingon)</span></code></pre></div>
 <h1 id="packages">Packages</h1>
 <div class="sourceCode" id="cb4" data-org-language="lisp"><pre
-class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defpackage</span><span class="fu"> </span>:ems</span>
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defpackage</span><span class="fu"> </span>:adz</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  (<span class="bu">:use</span> :cl)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  (:import-from :clingon)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  (:export :main))</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>(<span class="kw">in-package</span> :ems)</span></code></pre></div>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>(<span class="kw">in-package</span> :adz)</span></code></pre></div>
 <p>First I created a new package named <code
-class="verbatim">ems</code>. By using <code
+class="verbatim">adz</code>. By using <code
 class="verbatim">(:use :cl)</code>, we gain access to all standard
 Common Lisp functions and macros from the Common Lisp standard package.
 Then, <code class="verbatim">(:import-from :clingon)</code> brings in
@@ -313,12 +313,11 @@ with our CLI tool through this entry point.</p>
 <div class="sourceCode" id="cb5" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defparameter</span><span class="fu"> *config*</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">list</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>     <span class="bu">:name</span> <span class="st">&quot;ems&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>     <span class="bu">:name</span> <span class="st">&quot;adz&quot;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>     :description <span class="st">&quot;CLI tool for managing Lisp nix flake&quot;</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>     <span class="bu">:version</span> <span class="st">&quot;1.0.0&quot;</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>     :usage <span class="st">&quot;[command] [options]&quot;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>     :dir (<span class="kw">merge-pathnames</span> #P<span class="st">&quot;myflake/&quot;</span> (<span class="kw">user-homedir-pathname</span>))</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>     :time <span class="fl">4.5</span>))</span></code></pre></div>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>     :dir (<span class="kw">merge-pathnames</span> #P<span class="st">&quot;myflake/&quot;</span> (<span class="kw">user-homedir-pathname</span>))))</span></code></pre></div>
 <p>When I am writing code, I am always concerned with organizing them at
 the first place, that's why I'm defining a central configuration using a
 property list stored in the special variable named
@@ -523,8 +522,8 @@ function.</p>
 <h1 id="test-utilities">Test utilities</h1>
 <div class="sourceCode" id="cb15" data-org-language="lisp"><pre
 class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defparameter</span><span class="fu"> *app* </span>(make-top-level-command))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>EMS <span class="op">&gt;</span> *app*</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>#&lt;CLINGON.COMMAND:COMMAND name=ems options=<span class="dv">5</span> sub-commands=<span class="dv">4</span>&gt; <span class="co">;; You can inspect this</span></span></code></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>adz <span class="op">&gt;</span> *app*</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>#&lt;CLINGON.COMMAND:COMMAND name=adz options=<span class="dv">5</span> sub-commands=<span class="dv">4</span>&gt; <span class="co">;; You can inspect this</span></span></code></pre></div>
 <p>Inspecting the returned instance of make-top-level-command slots
 would give you something like this:</p>
 <div class="sourceCode" id="cb16" data-org-language="lisp"><pre
@@ -546,7 +545,7 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb16
 <span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>[ ]  HANDLER          <span class="op">=</span> #&lt;FUNCTION TOP-LEVEL-HANDLER&gt;</span>
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>[ ]  LICENSE          <span class="op">=</span> NIL</span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>[ ]  LONG-DESCRIPTION <span class="op">=</span> NIL</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>[ ]  NAME             <span class="op">=</span> <span class="st">&quot;ems&quot;</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>[ ]  NAME             <span class="op">=</span> <span class="st">&quot;adz&quot;</span></span>
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>[ ]  OPTIONS          <span class="op">=</span> (#&lt;CLINGON.OPTIONS:OPTION-BOOLEAN-TRUE short=NIL long=bash-completions&gt; #&lt;CLINGON.OPTIONS:OPTION-BOOLEAN-TRUE short=NIL long=version&gt; #&lt;CLINGON.OPTIONS:OPTION-BOOLEAN-TRUE short=NIL long=help&gt; #&lt;CLINGON.OPTIONS:OPTION-COUNTER short=v long=verbose&gt; #&lt;CLINGON.OPTIONS::OPTION-STRING short=d long=debug&gt;)</span>
 <span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>[ ]  PARENT           <span class="op">=</span> NIL</span>
 <span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>[ ]  POST-HOOK        <span class="op">=</span> NIL</span>
@@ -575,17 +574,17 @@ where we'd write our system definition to tie everything together.</p>
 <p>Here’s a system definition for the application we’ve developed so
 far.</p>
 <div class="sourceCode" id="cb18" data-org-language="lisp"><pre
-class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(defsystem <span class="st">&quot;ems&quot;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">:name</span> <span class="st">&quot;ems&quot;</span></span>
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(defsystem <span class="st">&quot;adz&quot;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">:name</span> <span class="st">&quot;adz&quot;</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">:version</span> <span class="st">&quot;1.0.0&quot;</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  :author <span class="st">&quot;Eldriv&quot;</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  :description <span class="st">&quot;CLI tool for managing Lisp nix flake in Emacs&quot;</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  :depends-on (:clingon :uiop)</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  :components ((:module <span class="st">&quot;intro&quot;</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                :components ((:file <span class="st">&quot;ems&quot;</span>))))</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                :components ((:file <span class="st">&quot;adz&quot;</span>))))</span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  :build-operation <span class="st">&quot;program-op&quot;</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  :build-pathname <span class="st">&quot;ems&quot;</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  :entry-point <span class="st">&quot;ems:main&quot;</span>)</span></code></pre></div>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  :build-pathname <span class="st">&quot;adz&quot;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  :entry-point <span class="st">&quot;adz:main&quot;</span>)</span></code></pre></div>
 <h1 id="build">Build</h1>
 <p>To simplify the process of building and cleaning our application, we
 will use a <a
@@ -606,8 +605,8 @@ class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb19-1">
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># BODY</span></span>
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="dt">LISP</span> <span class="ch">=</span><span class="st"> sbcl</span></span>
 <span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="dt">PROJECT_DIR</span> <span class="ch">=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">PWD</span><span class="ch">)</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="dt">SYSTEM_NAME</span> <span class="ch">=</span><span class="st"> ems</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="dt">BUILD_OUTPUT</span> <span class="ch">=</span><span class="st"> ems</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="dt">SYSTEM_NAME</span> <span class="ch">=</span><span class="st"> adz</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="dt">BUILD_OUTPUT</span> <span class="ch">=</span><span class="st"> adz</span></span>
 <span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="ot">.PHONY:</span><span class="dt"> all</span></span>
 <span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="dv">all:</span><span class="dt"> build</span></span>
@@ -629,7 +628,7 @@ class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb19-1">
 automates the build and cleanup of our project. It uses <code
 class="verbatim">SBCL</code> as the Lisp implementation, sets the
 project directory with <code class="verbatim">PWD</code>. and specifies
-the system package <code class="verbatim">:ems</code>. When we run <code
+the system package <code class="verbatim">:adz</code>. When we run <code
 class="verbatim">make build</code> in the command line, it launches SBCL
 in non-interactive mode, we will add the <code
 class="verbatim">project directory</code> to the <strong>central
@@ -642,20 +641,20 @@ output file, ensuring a fresh start for the next build.</p>
 <p>To ensure everything works correctly, it's important to have the
 right directory structure,</p>
 <div class="sourceCode" id="cb20" data-org-language="lisp"><pre
-class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>├── ems.asd              <span class="co">;; ASDF</span></span>
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>├── adz.asd              <span class="co">;; ASDF</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>├── intro                <span class="co">;; Directory</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>│   └── ems.<span class="kw">lisp</span>         <span class="co">;; Lisp file containing the CLI developmenet</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>│   └── adz.<span class="kw">lisp</span>         <span class="co">;; Lisp file containing the CLI developmenet</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>├── makefile             <span class="co">;; makefile</span></span></code></pre></div>
 <p>Once the project is set up, we can build it using this command,</p>
 <div class="sourceCode" id="cb21"><pre
 class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ch">$ </span>make build</span></code></pre></div>
-<p>After building, an executable named ems will be created. You can run
+<p>After building, an executable named adz will be created. You can run
 it from within the project directory using,</p>
 <div class="sourceCode" id="cb22"><pre
-class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ch">$ </span>./ems --help</span>
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ch">$ </span>./adz --help</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
 <p>or</p>
-<pre class="shell"><code>$ ./ems
+<pre class="shell"><code>$ ./adz
 </code></pre>
 <p>To make it accessible globally, insert this into your shell
 configuration files like <code class="verbatim">.bashrc</code> or <code
@@ -666,10 +665,10 @@ class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb24
 <pre class="shell"><code>export PATH=&quot;$HOME&lt;your/project/directory/&gt;:$PATH&quot;
 </code></pre>
 <p>Then to open the Emacs development environment, run,</p>
-<pre class="shell"><code>$ ems r
+<pre class="shell"><code>$ adz r
 </code></pre>
 <p>To check the SBCL version,</p>
-<pre class="shell"><code>$ ems sv
+<pre class="shell"><code>$ adz sv
 </code></pre>
 <h1 id="closing-remarks">Closing remarks</h1>
 <p>Using CLI tools lets you quickly manage multiple files with one

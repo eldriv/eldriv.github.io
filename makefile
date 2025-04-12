@@ -8,7 +8,7 @@ ORGFILES := $(shell find src -maxdepth 1 -name "*.org" ! -name "*.tmp*" ! -name 
 HTMLFILES := $(patsubst src/%.org,%/index.html,$(ORGFILES))
 
 all:	clean	$(HTMLFILES) 
-	
+
 install:	$(HTMLFILES)
 
 %/index.html: src/%.org
