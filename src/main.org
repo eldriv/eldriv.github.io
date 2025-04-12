@@ -14,7 +14,7 @@ The entries are sorted in reverse chronological order.
 This passage reflects a personal journey through life and technology. The author aims to inspire others to explore their own paths, awakening to the profound possibilities that lie within their consciousness and beyond.
 
 
-- [[file:articles/ems.html][Building ‘Ems’ in Common Lisp With Clingon]]
+- [[file:articles/ems.html][Building ‘adz’ in Common Lisp With Clingon]]
 - [[file:articles/lisp.html][A Wanderer's Tale of Discovering Lisp]]
 - [[file:articles/tmux.html][Using Tmux to Perk Up Your Terminal Experience]]
 - [[file:articles/docker.html][Docker Containers Are Fast]]
