@@ -9,14 +9,6 @@ Clone the repository
    
      $ git clone git@github.com:eldriv/eldriv.github.io.git
 
-If you have [Nix](htpts://nixos.org/nix) installed in your machine, run the following command:
-
-    $ nix develop .#eldriv -c make
-
-Otherwise, run the following command:
-
-    $ make
-
 If you have changes, rebuld it with:
    
     $ make rebuild
