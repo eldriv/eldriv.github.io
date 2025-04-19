@@ -17,3 +17,6 @@ If you have [Nix](htpts://nixos.org/nix) installed in your machine, run the foll
 Otherwise, run the following command:
 
     $ make
+
+If you have changes, rebuld it with:
+    $ make rebuild
