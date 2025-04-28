@@ -22,10 +22,9 @@ they resemble networks similar to quantum physics, these links begins with inves
 * Contact
 + Twitter: [[https://x.com/eldrivi][@eldriv]]
 + GitHub: [[https://github.com/eldriv][eldriv]]
-+ LinkedIn: [[https://www.linkedin.com/in/michael-adrian-villareal-9a344634a/][Michael Adrian Villareal]]
-+ Instagram: https://www.instagram.com/eldrivi/
++ Instagram: [[https://instagram.com/eldrivi][@eldrivi]]
 + Protonmail: [[mailto:eldriv@proton.me][eldriv@proton.me]]
-
++ LinkedIn: [[https://www.linkedin.com/in/michael-adrian-villareal-9a344634a/][Michael Adrian Villareal]]
 * Colophon
 This website is built with /[[https://www.gnu.org/software/emacs/][Emacs]]/, /[[https://github.com/kawabata/ox-pandoc][Ox-pandoc]],/ /[[https://jekyllrb.com/docs/github-pages/][Jekyll]]/ and /[[https://orgmode.org/][Org]]./ Hosting provider; /[[https://pages.github.com/][Github Pages]]./
 
