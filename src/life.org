@@ -40,7 +40,9 @@ when you know it's everything you want.
 * Introspection 14
 14th. If something is bound to happen, it will happen. If an event happens, at least once, it implies, that there's a great possibility of it happening again.
 * Introspection 15
-15th. A lion does not concern himself with the opinion of a sheep.
+15th. It's not what you say, it's what you do.
+* Introspection 16
+16th. A lion does not concern himself with the opinion of a sheep.
 #+BEGIN_EXPORT html
 <link rel="icon" href="../img/icon.png" type="image/png">
 <footer class="footer">

@@ -5,6 +5,7 @@ ORGFILES := $(shell find src -maxdepth 1 -name "*.org" ! -name "*.tmp*" ! -name 
 
 # Convert src/foo.org to foo/index.html
 HTMLFILES := $(patsubst src/%.org,%/index.html,$(ORGFILES))
+FILESTOPUSH := $(shell git status --porcelain | awk '{print $$2}')
 
 all:	clean	$(HTMLFILES) 
 
@@ -20,6 +21,12 @@ rebuild:	$(HTMLFILES)
 
 clean:
 	rm -rf $(dir $(HTMLFILES)) 
+
+push:
+	git add $(FILESTOPUSH)
+	git commit -m "t"
+	git push
+
 
 debug:
 	@echo $(ORGFILES)
