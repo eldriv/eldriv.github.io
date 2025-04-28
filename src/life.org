@@ -7,7 +7,6 @@
 
 * Introspection 1
 1st. Believe in yourself. Remember that you are building a future and be part of an organization that's going to shape the way people all live, and think that, “If someone can be part of 1%, you can too.” whether the path ahead seems crumbling, challenging, or even the ground cracks open, or rocks fall from the sky, trust that it will unfold exactly as you need it to. Do not seek for other people's approval. Have faith in yourself—just believe in you, only you.
-
 * Introspection 2
 2nd. Don’t place any value on others' judgments or beliefs about you. Many people, even those close to you or even family, may try to elevate themselves by doubting your path, time and efforts. Look them in the eye, smile, and recognize how small-minded they must be to focus on saying something about you that they don't really know about without understanding your journey. Remember, no words you say can change who they are, so silence is the best response.
 
@@ -39,7 +38,9 @@ when you know it's everything you want.
 * Introspection 13
 13th. Vanity prevents improvement.
 * Introspection 14
-14th. A lion does not concern himself with the opinion of a sheep.
+14th. If something is bound to happen, it will happen. If an event happens, at least once, it implies, that there's a great possibility of it happening again.
+* Introspection 15
+15th. A lion does not concern himself with the opinion of a sheep.
 #+BEGIN_EXPORT html
 <link rel="icon" href="../img/icon.png" type="image/png">
 <footer class="footer">

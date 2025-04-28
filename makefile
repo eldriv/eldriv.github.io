@@ -1,6 +1,5 @@
 .PHONY: all clean rebuild debug
 
-
 # Find all .org files in the src directory, excluding temporary and backup files.
 ORGFILES := $(shell find src -maxdepth 1 -name "*.org" ! -name "*.tmp*" ! -name "*~")
 
