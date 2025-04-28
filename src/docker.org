@@ -17,7 +17,13 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/d.png" standalone:t
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/x.png" standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
-
+* Table of contents :TOC:
+- [[#introduction][Introduction]]
+- [[#docker][Docker]]
+- [[#installation][Installation]]
+- [[#usage][Usage]]
+  - [[#install-ubuntu][Install Ubuntu]]
+  - [[#install-application-inside-ubuntu][Install Application Inside Ubuntu.]]
 
 * Introduction
 Hello there! From the last article, I mentioned NixOS, right? My machine fully supports NixOS, and my experiences so far have exceeded my expectations. There was a time when I needed to install an application in my NixOS environment and forgot that NixOS uses Nix to install packages, meaning only software from Nixpkgs is installable. So, what’s one elegant way to install software applications outside of Nixpkgs? and that would be using [[https://www.docker.com][Docker]]. I don’t have any experience with Docker so far and [[https://github.com/ebzzry][ebzzry]] taught me the basics and techniques on how to use it, and I think delving it along the way is a good choice as part of your toolset as a developer.

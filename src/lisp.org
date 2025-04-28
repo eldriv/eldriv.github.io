@@ -17,6 +17,14 @@
 #+options: toc:nil html-postamble:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
 
+* Table of Contents :TOC:
+- [[#the-first-contact][The first contact]]
+- [[#the-hunt][The hunt]]
+- [[#exploration][Exploration]]
+- [[#the-elitist][The elitist]]
+- [[#the-ascertainment][The ascertainment]]
+- [[#closing-remarks][Closing remarks]]
+- [[#famous-memes][Famous memes]]
 
 * The first contact
 

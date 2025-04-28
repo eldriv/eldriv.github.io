@@ -19,6 +19,24 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/lock.png" standalone:t
 #+PANDOC_OPTIONS: standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
+* Table of contents :TOC:
+- [[#introduction][Introduction]]
+- [[#installation][Installation]]
+- [[#packages][Packages]]
+- [[#configuration][Configuration]]
+- [[#utilities][Utilities]]
+- [[#run-function-commands][Run function commands]]
+- [[#top-level][Top-level]]
+  - [[#clingonmake-option][CLINGON:MAKE-OPTION]]
+  - [[#clingoncommand-arguments][CLINGON:COMMAND-ARGUMENTS]]
+  - [[#clingonmake-command][CLINGON:MAKE-COMMAND]]
+  - [[#clingronrun][CLINGRON:RUN]]
+- [[#test-utilities][Test utilities]]
+- [[#asdf][ASDF]]
+- [[#build][Build]]
+- [[#usage][Usage]]
+- [[#closing-remarks][Closing remarks]]
+
 * Introduction
 In software development, engineers require tools that prioritize efficiency and flexibility. When dealing with complex systems, there’s a constant need for solutions that should automate tasks, manage configurations, seamlessly integrate with various systems, and have full control of the system without depending on GUIs—this is where [[https://en.wikipedia.org/wiki/Command-line_interface][command-line interfaces (CLIs)]] come in.
 

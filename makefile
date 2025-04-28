@@ -22,7 +22,7 @@ rebuild:	$(HTMLFILES)
 clean:
 	rm -rf $(dir $(HTMLFILES)) 
 
-push:
+ph:
 	git add $(FILESTOPUSH)
 	git commit -m "t"
 	git push
