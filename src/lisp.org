@@ -17,7 +17,7 @@
 #+options: toc:nil html-postamble:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
 
-* Table of Contents :TOC:
+* Table of Contents
 - [[#the-first-contact][The first contact]]
 - [[#the-hunt][The hunt]]
 - [[#exploration][Exploration]]

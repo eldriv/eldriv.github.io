@@ -17,7 +17,7 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/d.png" standalone:t
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/x.png" standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
-* Table of contents :TOC:
+* Table of contents 
 - [[#introduction][Introduction]]
 - [[#docker][Docker]]
 - [[#installation][Installation]]

@@ -19,7 +19,7 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/lock.png" standalone:t
 #+PANDOC_OPTIONS: standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
-* Table of contents :TOC:
+* Table of contents 
 - [[#introduction][Introduction]]
 - [[#installation][Installation]]
 - [[#packages][Packages]]
