@@ -20,9 +20,11 @@ including Lisp programming and web design and development. He also has a deep cu
 they resemble networks similar to quantum physics, these links begins with investigating the way how universe connects to our human mind.
 
 * Contact
-- Twitter: [[https://x.com/eldrivi][@eldriv]]
-- GitHub: [[https://github.com/eldriv][eldriv]]
-- LinkedIn: [[https://www.linkedin.com/in/michael-adrian-villareal-9a344634a/][Michael Adrian Villareal]]
++ Twitter: [[https://x.com/eldrivi][@eldriv]]
++ GitHub: [[https://github.com/eldriv][eldriv]]
++ LinkedIn: [[https://www.linkedin.com/in/michael-adrian-villareal-9a344634a/][Michael Adrian Villareal]]
++ Instagram: https://www.instagram.com/eldrivi/
++ Protonmail: [[mailto:eldriv@proton.me][eldriv@proton.me]]
 
 * Colophon
 This website is built with /[[https://www.gnu.org/software/emacs/][Emacs]]/, /[[https://github.com/kawabata/ox-pandoc][Ox-pandoc]],/ /[[https://jekyllrb.com/docs/github-pages/][Jekyll]]/ and /[[https://orgmode.org/][Org]]./ Hosting provider; /[[https://pages.github.com/][Github Pages]]./
