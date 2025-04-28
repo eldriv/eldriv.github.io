@@ -1,4 +1,4 @@
-#+title: eldriv | Introspectio(n)
+#+title: Introspectio(n)
 #+author:
 #+language: en
 #+startup: overview
