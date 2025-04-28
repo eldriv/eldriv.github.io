@@ -1,5 +1,5 @@
 
-#+title: About
+#+title: Eldriv | About
 #+author:
 #+BEGIN_EXPORT html
 <div class="update" style="text-align: center;">Last updated: January 30, 2025</div>
