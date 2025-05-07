@@ -27,6 +27,8 @@ ph:
 	git commit -m "t"
 	git push
 
+delete-main:
+	git rm -r main
 
 debug:
 	@echo $(ORGFILES)

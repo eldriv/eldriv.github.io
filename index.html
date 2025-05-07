@@ -20,21 +20,69 @@ body {
   text-rendering: optimizeLegibility;
   font-kerning: normal;
   font-family: 'Roboto', sans-serif; /* Modern font */
-  line-height: 1.6; /* Improve readability */
-  background-color: #181818; /* Slightly lighter than background for contrast */
+  line-height: 1.2;
+  background-color: #181818; 
 }
 
 p {
-  color: #d1d1d1; /* Slightly muted white for paragraphs */
+  color: #d1d1d1; 
 }
 
 a {
-  color: #1e90ff; /* Bright blue for links */
-  text-decoration: none; /* Remove underline */
+  color: #1e90ff; 
+  text-decoration: none; 
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0.5em;
+}
+
+ul li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 22px; 
+}
+
+ul li:before {
+  content: '☼'; 
+  position: absolute;
+  left: 0;
+  color: #555; 
+  transition: all 0.3s ease;
+}
+
+ul li:hover:before {
+  content: '☀';
+  color: #FD8128; 
+}
+
+ul li a {
+  display: inline-block;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+ul li a:hover {
+  color: #FD8128; 
+  text-shadow: 0 0 1px rgba(253, 129, 40, 0.2); 
 }
 
 a:hover {
-  text-decoration: underline; /* Underline on hover for better UX */
+  text-decoration: none!important; 
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0.5em;
+  color: #d1d1d1;
+}
+
+ul li {
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
 }
 
 @media (max-width: 600px) {
@@ -198,7 +246,7 @@ The author aims to inspire others to explore their own paths, awakening
 to the profound possibilities that lie within their consciousness and
 beyond.</p>
 <ul>
-<li><a href="adz">Building ‘Adz’ in Common Lisp With Clingon</a></li>
+<li><a href="adz">Building 'Adz' in Common Lisp With Clingon</a></li>
 <li><a href="lisp">A Wanderer's Tale of Discovering Lisp</a></li>
 <li><a href="tmux">Using Tmux to Perk Up Your Terminal
 Experience</a></li>
@@ -218,4 +266,4 @@ Windows</a></li>
   <a href="life" class="footer-right">Introspection</a>
   </p>
 </footer>
-</html
+</html>
