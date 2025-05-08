@@ -18,7 +18,7 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/error1.png" standalone:t
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/lock.png" standalone:t
 #+PANDOC_OPTIONS: standalone:t
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
 
 
 * Introduction
@@ -174,7 +174,7 @@ The next several section will be the behind the scene errors and how I overcome 
 * Faced Issues:
 These are the errors I experienced during the installation of NixOS.
 ** Hardware-configurations and configuration.nix has conflicts
-[[../img/error1.png]]
+[[../../img/error1.png]]
 
 *Solution:*
 #+begin_src nix
@@ -194,7 +194,7 @@ These are the errors I experienced during the installation of NixOS.
  *lib.mkForce* function ensures that the root filesystem configuration *("/")* is applied even if other configurations might conflict or override it. This is particularly useful in situations where the root filesystem configuration needs to be explicitly set and maintained despite of any other potential conflicts.
  
 ** Root account is locked.
- [[../img/lock.png]]
+ [[../../img/lock.png]]
 
 While I was already inside NixOS, I accidentally deleted an important directory in my *root* account due to bad assumption. You might be wondering how I resolved this. Yes, I came back from scratch because I can't use a terminal on the live environment because my root account is locked, So I need to go on the live installation again when my boothable USB was already corrupted that time and I don't have an extra one. /Do you know now why article title is like that?./
 
@@ -310,12 +310,12 @@ When you open the flake.nix file this is what it looks like:
  
 
  #+BEGIN_EXPORT html
-<link rel="icon" href="../img/icon.png" type="image/png">
+<link rel="icon" href="../../img/icon.png" type="image/png">
 <footer class="footer">
   <div class="right">© 2025 eldriv</div>
   <div class="footer-menu">
     <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
-    <a href="../about" class="footer-right">About</a>
+    <a href="https://eldriv.com/about" class="footer-right">About</a>
   </div>
 </footer>
 #+END_EXPORT

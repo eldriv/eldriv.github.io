@@ -15,7 +15,7 @@
 #+END_EXPORT
 #+startup: overview
 #+options: toc:nil html-postamble:nil
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
 
 * Table of Contents
 - [[#the-first-contact][The first contact]]
@@ -115,31 +115,31 @@ Here are some bonus memes with regards to Lisp
 <div style="flex: 1 1 30%; max-width: 30%; display: flex; justify-content: center;">
 <a href="/img/m.png">
 #+END_EXPORT
-[[../img/m.png]]
+[[../../img/m.png]]
 #+BEGIN_EXPORT html
 </div>
 <div style="flex: 1 1 30%; max-width: 30%; display: flex; justify-content: center;">
 <a href="/img/m3.png">
 #+END_EXPORT
-[[../img/m3.png][../img/m3.png]]
+[[../../img/m3.png][../../img/m3.png]]
 #+BEGIN_EXPORT html
 </div>
 <div style="flex: 1 1 30%; max-width: 30%; display: flex; justify-content: center;">
 <a href="/img/m4.png">
 #+END_EXPORT
-[[../img/m4.png][../img/m4.png]]
+[[../../img/m4.png][../../img/m4.png]]
 #+BEGIN_EXPORT html
 </div>
 <div style="flex: 1 1 30%; max-width: 30%; display: flex; justify-content: center;">
 <a href="/img/m5.png">
 #+END_EXPORT
-[[../img/m5.png][../img/m5.png]]
+[[../../img/m5.png][../../img/m5.png]]
 #+BEGIN_EXPORT html
 </div>
 <div style="flex: 1 1 30%; max-width: 30%; display: flex; justify-content: center;">
 <a href="/img/m6.png">
 #+END_EXPORT
-[[../img/m6.png][../img/m6.png]]
+[[../../img/m6.png][../../img/m6.png]]
 #+BEGIN_EXPORT html
 </div>
 </div>

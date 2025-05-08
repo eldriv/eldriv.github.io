@@ -15,7 +15,7 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/rst.png" standalone:t
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/bitlocker.png" standalone:t
 #+PANDOC_OPTIONS: standalone:t
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
 
 
 * Introduction
@@ -35,10 +35,10 @@ Once you are directed to this site, you will see various OS flavors to choose fr
  * Go and find some application on the internet which makes your USB a boothable one. In my option, I used Rufus; Here is the  [[https://rufus.ie/en/][Rufus Website]] to download the latest version of Rufus 4.4.exe in able to create a bootable USB.
  
  * When the .exe file was downloaded. Open the application and start partitioning your .ISO/image file. See a tutorial on the internet about how to use your downloaded application.    
- [[../img/Rufus.png]]
+ [[../../img/Rufus.png]]
 
  * Close the app then locate the bootable drive on the disk drives to see if it was successful and ready for distro installation.
- [[../img/Rufus2.png]]
+ [[../../img/Rufus2.png]]
 
 * Boot Process & Installation
  When the bootable USB is ready. Reboot the system and proceed to install the Ubuntu Distro.      
@@ -46,7 +46,7 @@ Once you are directed to this site, you will see various OS flavors to choose fr
  1. I pressed @@html:<kbd>@@Shift@@html:</kbd>@@ before I reboot my system to access the boot manager and chose the bootable device USB which you can see along the process. You have to know what key you should hit to access the book manager of your machine.
                      
  2. You will see installation options; I chose *Install Ubuntu*. Here it will look like:
-[[../img/try-or-install.png]]
+[[../../img/try-or-install.png]]
 
  3. When I am on the desktop already, there was a =Ubuntu installation pop-up= and after setting up several things, you will see a process for full and default installation.  I clicked the 
  =Full installation of Ubuntu and other options support for additional formats.= The whole installation process took me one hour to finish due to RST and Bitlocker problem. To solve that 
@@ -56,14 +56,14 @@ Once you are directed to this site, you will see various OS flavors to choose fr
  Here are my some of my technical issue during Ubuntu installation process:
 
 ** Disable RST or Intel® Rapid Storage Technology
-[[../img/rst.png]]
+[[../../img/rst.png]]
 
 
  SOLUTION: 
  On this issue, I restart into Windows again to disable the =RST= on my =UEFI firmware Settings=. After that, I went back again to the installation process and it worked.
 
 ** Bitlocker is enabled
-  [[../img/bitlocker.png]]
+  [[../../img/bitlocker.png]]
 
 
 
@@ -79,7 +79,7 @@ Once you are directed to this site, you will see various OS flavors to choose fr
   <div class="right">© 2024 eldriv</div>
   <div class="footer-menu">
     <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
-    <a href="../about" class="footer-right">About</a>
+    <a href="https://eldriv.com/about" class="footer-right">About</a>
   </div>
 </footer>
 #+END_EXPORT

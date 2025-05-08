@@ -1,6 +1,6 @@
 #+language: en
 #+startup: overview
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/main.css">
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/main.css">
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/const.png" standalone:t
 
 #+BEGIN_EXPORT html
@@ -32,8 +32,8 @@ Windows</a></li>
 <footer class="footer">
       <div class="right">© 2025 eldriv</div>
   <div class="footer-menu">
-    <a href="about" class="footer-right">About</a> ✾
-  <a href="life" class="footer-right">Introspection</a>
+    <a href="https://eldriv.com/about" class="footer-right">About</a> ✾
+  <a href="https://eldriv.com/life" class="footer-right">Introspection</a>
   </p>
 </footer>
 #+END_EXPORT

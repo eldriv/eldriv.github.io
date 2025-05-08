@@ -16,7 +16,7 @@
 #+language: en
 #+startup: overview
 #+PANDOC_OPTIONS: standalone:t
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
 
 
 * Introduction
@@ -291,12 +291,12 @@ To handle a multiple objects, we can just create a new definition on our top-lev
 
 
 #+BEGIN_EXPORT html
-<link rel="icon" href="../img/icon.png" type="image/png">
+<link rel="icon" href="../../img/icon.png" type="image/png">
 <footer class="footer">
   <div class="right">© 2025 eldriv</div>
   <div class="footer-menu">
     <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
-    <a href="../about" class="footer-right">About</a>
+    <a href="https://edlriv.com/about" class="footer-right">About</a>
   </div>
 </footer>
 #+END_EXPORT

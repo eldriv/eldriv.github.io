@@ -7,7 +7,7 @@
     src= "https://giphy.com/embed/V9WjUdHzvCNtllJDzk"
     width="200"
     height="300"
-    style="border: none; margin-bottom: -100px;"
+    style="border: none; margin-bottom: 0px;"
     frameBorder="0"
     class="giphy-embed">
 </iframe>
@@ -15,10 +15,8 @@
 #+END_EXPORT
 #+language: en
 #+startup: overview
-#+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/error1.png" standalone:t
-#+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/lock.png" standalone:t
 #+PANDOC_OPTIONS: standalone:t
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
 * Table of contents 
 - [[#introduction][Introduction]]
 - [[#installation][Installation]]
@@ -357,7 +355,7 @@ system administrator, software engineer, data scientist, or anyone in a technica
   <div class="right">© 2025 eldriv</div>
   <div class="footer-menu">
     <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
-    <a href="../about" class="footer-right">About</a>
+    <a href="https://eldriv.com/about" class="footer-right">About</a>
   </div>
 </footer>
 #+END_EXPORT

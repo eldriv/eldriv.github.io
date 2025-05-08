@@ -16,7 +16,7 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/u.png" standalone:t
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/d.png" standalone:t
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/x.png" standalone:t
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/nix.css">
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
 * Table of contents 
 - [[#introduction][Introduction]]
 - [[#docker][Docker]]
@@ -101,7 +101,7 @@ $ docker exec -it ubuntu bash
 #+begin_src  shell
 $ docker run -it --rm ubuntu
 #+end_src
-[[../img/v.png]]
+[[../../img/v.png]]
 
 Inside the container:
 #+begin_src  shell
@@ -114,7 +114,7 @@ $ apt update
 $ apt install lsb-release
 $ lsb_release -a
 #+end_src
- [[../img/r.png]]
+ [[../../img/r.png]]
 
 Great! You now have Ubuntu inside NixOS and now we're going to install some appplication inside it.
 
@@ -138,7 +138,7 @@ $ docker ps -a
 #+end_src
 
 You will likely to get a result exactly like this:
-[[../img/t.png]]
+[[../../img/t.png]]
 
 As you can see our containers have different names now compare to the former by using the command above. Thank you to /ebzzry/ for cooking this command for me.
 
@@ -150,7 +150,7 @@ $ xclock
  #+end_src
 
 Expected Error:
-[[../img/q.png]]
+[[../../img/q.png]]
 When you received this kind of error, Do this on a separate terminal/NixOS shell:
 #+begin_src  shell
 $ xhost +localhost
@@ -169,7 +169,7 @@ $ which xhost
 #+end_src
 
 If you received this kind of error:
-[[../img/u.png]]
+[[../../img/u.png]]
 
 Do this command to create the root user: 
 #+begin_src  shell
@@ -213,7 +213,7 @@ Inside the user:
 #+begin_src  shell
 $ which sudo
 #+end_src
-[[../img/d.png]]
+[[../../img/d.png]]
 
 Execute this again:
 #+begin_src shell 
@@ -261,10 +261,12 @@ Then:
 #+end_src
 
 If you have this error, Go to NixOS shell, and execute =xhost +=, then execute =xclock= again inside container.
-[[../img/l.png]]
+
+[[../../img/l.png]]
 
 This is what xclock look like:
-[[../img/x.png]]
+
+[[../../img/x.png]]
 
 This is a GUI app from the guest OS (Ubuntu) connected to the host OS (NixOS). We have already installed an application inside Ubuntu using containers. In the first attempt, especially to the beginner it would take time, but after experimenting with each process, I found that everything could be done in just a matter of minutes. That's why containers are said to be so fast. You can freely experiment with them and install anything you want. 
 
@@ -275,7 +277,7 @@ This is a GUI app from the guest OS (Ubuntu) connected to the host OS (NixOS). W
   <div class="right">© 2025 eldriv</div>
   <div class="footer-menu">
     <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
-    <a href="../about" class="footer-right">About</a>
+    <a href="https://eldriv.com/about" class="footer-right">About</a>
   </div>
 </footer>
 #+END_EXPORT
