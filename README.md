@@ -12,4 +12,11 @@ Clone the repository
 If you have changes, rebuld it with:
    
     $ make rebuild
+
+# Flakes
+
+For NixOS who use flakes, you can simply run:
    
+     $ nix develop .#meh
+     $ make
+
