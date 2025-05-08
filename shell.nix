@@ -1,7 +1,7 @@
 { nixpkgs, pkgs, ... }:
 with pkgs; rec {
   eldriv = mkShell {
-    buildInputs = [ pandoc gnumake];
+    buildInputs = [ pandoc gnumake screen ];
   };
   default = eldriv;
 }
