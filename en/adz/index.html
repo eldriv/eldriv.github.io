@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>Building ’adz’ in Common Lisp with Clingon</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" type="text/css" href="../../css/nix.css">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Building ’adz’ in Common Lisp with Clingon</h1>
+<p class="author"></p>
+</header>
+<div class="update" style="text-align: center;">Last updated: April 12, 2025</div>
+<div style="text-align: center;">
+<iframe
+    src= "https://giphy.com/embed/V9WjUdHzvCNtllJDzk"
+    width="200"
+    height="300"
+    style="border: none; margin-bottom: 0px;"
+    frameBorder="0"
+    class="giphy-embed">
+</iframe>
+</div>
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#packages">Packages</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#utilities">Utilities</a></li>
+<li><a href="#run-function-commands">Run function commands</a></li>
+<li><a href="#top-level">Top-level</a>
+<ul>
+<li><a href="#clingonmake-option">CLINGON:MAKE-OPTION</a></li>
+<li><a
+href="#clingoncommand-arguments">CLINGON:COMMAND-ARGUMENTS</a></li>
+<li><a href="#clingonmake-command">CLINGON:MAKE-COMMAND</a></li>
+<li><a href="#clingronrun">CLINGRON:RUN</a></li>
+</ul></li>
+<li><a href="#test-utilities">Test utilities</a></li>
+<li><a href="#asdf">ASDF</a></li>
+<li><a href="#build">Build</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#closing-remarks">Closing remarks</a></li>
+</ul>
+<h1 id="introduction">Introduction</h1>
+<p>In software development, engineers require tools that prioritize
+efficiency and flexibility. When dealing with complex systems, there’s a
+constant need for solutions that should automate tasks, manage
+configurations, seamlessly integrate with various systems, and have full
+control of the system without depending on GUIs—this is where <a
+href="https://en.wikipedia.org/wiki/Command-line_interface">command-line
+interfaces (CLIs)</a> come in.</p>
+<p>This article will show you how to build a command-line tool using <a
+href="https://github.com/dnaeon/clingon">Clingon</a> in Common-lisp.
+We’ll dive to each of every functions and flow on how I built a CLI to
+manage the <a href="https://github.com/eldriv/flakes-dev/tree/main">Nix
+flake development environment</a> for running Emacs called ‘adz’—a
+feature mirror for my <a
+href="https://github.com/eldriv/scripts/tree/main/emacs-shell-script">bash
+script</a>—Emacs development environment.</p>
+<p>To follow along, you’ll need your preferred text editor—whether it’s
+any flavors of Emacs or another editor of your choice. I personally use
+<a href="https://github.com/doomemacs/doomemacs">Doom Emacs</a> and SBCL
+implementation. Clingon is compatible with several Common Lisp
+implementations, including <a
+href="https://www.lispworks.com/">LispWorks</a>, <a
+href="https://github.com/sbcl/sbcl">SBCL</a>, and <a
+href="https://ecl.common-lisp.dev/">ECL</a>. If you’re using other
+implementations on macOS or Linux, I recommend checking compatibility
+with your specific system before starting this.</p>
+<p>The full source code we will create in this article and probably
+already been refactored in the future will be stored in this <a
+href="https://github.com/eldriv/adz">repository</a>.</p>
+<h1 id="installation">Installation</h1>
+<p>First, get Clingon by cloning its repository into your Quicklisp
+local-projects directory:</p>
+<div class="sourceCode" id="cb1" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone https://github.com/dnaeon/clingon</span></code></pre></div>
+<p>Next, add Clingon to your local Quicklisp projects by running this
+command in the REPL:</p>
+<div class="sourceCode" id="cb2" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>CL-USER&gt; (ql:register-local-projects)</span></code></pre></div>
+<p>Finally, load the Clingon library using:</p>
+<div class="sourceCode" id="cb3" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>CL-USER&gt; (ql:quickload :clingon)</span></code></pre></div>
+<h1 id="packages">Packages</h1>
+<div class="sourceCode" id="cb4" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defpackage</span><span class="fu"> </span>:adz</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  (<span class="bu">:use</span> :cl)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  (:import-from :clingon)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  (:export :main))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>(<span class="kw">in-package</span> :adz)</span></code></pre></div>
+<p>First, I created a new package named <code
+class="verbatim">adz</code>. By using <code
+class="verbatim">(:use :cl)</code>, we gain access to all standard
+Common Lisp functions and macros from the Common Lisp standard package.
+Then, <code class="verbatim">(:import-from :clingon)</code> brings in
+the necessary symbols from the Clingon package that we’ll use to build a
+CLI tool. Finally, <code class="verbatim">(:export :main)</code> makes
+our main function publicly accessible that allows other code to interact
+with our CLI tool through this entry point.</p>
+<h1 id="configuration">Configuration</h1>
+<div class="sourceCode" id="cb5" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defparameter</span><span class="fu"> *config*</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">list</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>     <span class="bu">:name</span> <span class="st">&quot;adz&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>     :description <span class="st">&quot;CLI tool for managing Lisp nix flake&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>     <span class="bu">:version</span> <span class="st">&quot;1.0.0&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>     :usage <span class="st">&quot;[command] [options]&quot;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>     :dir (<span class="kw">merge-pathnames</span> #P<span class="st">&quot;myflake/&quot;</span> (<span class="kw">user-homedir-pathname</span>))))</span></code></pre></div>
+<p>When I am writing code, I am always concerned with organizing them at
+the first place, that’s why I’m defining a central configuration using a
+property list stored in the special variable named
+<strong>config</strong>. This plist contains key parameters like name,
+description, version, usage, directory path, and time value. These
+configuration valuese are structured this way to make them easily
+accessible when we use them to configure commands with the <code
+class="verbatim">CLINGON:MAKE-COMMAND</code> function later in the
+top-level program.</p>
+<h1 id="utilities">Utilities</h1>
+<p>Now, let’s define some utility functions that will be used to
+construct for the top-level functions and commands later.</p>
+<div class="sourceCode" id="cb6" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> get-config </span>(key)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Get information from the *config*.&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">getf</span> *config* key))</span></code></pre></div>
+<p>The <code class="verbatim">GET-CONFIG</code> function is designed to
+retrieve values from a property list under <strong>config</strong> this
+will be use later for our top-level command, <code
+class="verbatim">CLINGON:MAKE-COMMAND</code> function.</p>
+<div class="sourceCode" id="cb7" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> log-msg </span>(cmd fmt &amp;<span class="kw">rest</span> args)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Log message if verbose mode is enabled.&quot;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">when</span> (clingon:getopt cmd <span class="bu">:verbose</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">apply</span> #’format <span class="kw">t</span> fmt args)))</span></code></pre></div>
+<p>The <code class="verbatim">LOG-MSG</code> function will help us to
+log a message when the verbose flag is enabled, and the verbosity check
+is performed using <code
+class="verbatim">(CLINGON:GET-OPT cmd :verbose)</code> to help us give
+information to see what the command is doing.</p>
+<div class="sourceCode" id="cb8" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> run-cmd </span>(cmd command &amp;<span class="kw">rest</span> args)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Run a command with logging.&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  (log-msg cmd <span class="st">&quot;Running command: ~A ~{~A ~}~%&quot;</span> command args)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  (uiop:run-program (<span class="kw">cons</span> command args)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">:output</span> :interactive</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                    :error-output :interactive))</span></code></pre></div>
+<p>In this function, first, we used <code
+class="verbatim">LOG-MSG</code> to print the message indicating the
+running command and its arguments that will be executed, later. Then,
+<code class="verbatim">UIOP:RUN-PROGRAM</code> is used to actually run
+the command. The command and its arguments are passed using cons to
+combine the command with the arguments. The <code
+class="verbatim">:output :interactive</code> and <code
+class="verbatim">:error-output :interactive</code> ensure that the
+output and errors from the command are displayed interactively on the
+terminal.</p>
+<div class="sourceCode" id="cb9" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> run</span>! (cmd command &amp;<span class="kw">rest</span> args)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Safely execute commands in myflake directory with logging.&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">let</span> ((dir (<span class="kw">namestring</span> (get-config :dir))))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    (log-msg cmd <span class="st">&quot;Changing to directory: ~A~%&quot;</span> dir)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    (uiop:chdir dir)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">apply</span> #’run-cmd cmd command args)))</span></code></pre></div>
+<p>With <code class="verbatim">RUN!</code> function, it run a command
+inside a designated directory—"myflake". First, it retrieves the
+directory path from <code class="verbatim">*config*</code> using <code
+class="verbatim">(GET-CONFIG :dir)</code>. Then, it logs a message to
+confirm that the directory change is correct while at the same time it
+changes the current working directory to the one specified in the
+configuration using <code class="verbatim">UIOP:CHDIR</code>. Finally,
+it invokes <code class="verbatim">RUN-CMD</code> to run the command in
+the newly changed directory.</p>
+<h1 id="run-function-commands">Run function commands</h1>
+<p>Now we need to create a functions to specify some commands related to
+the development environment we have in nix flake.</p>
+<div class="sourceCode" id="cb10" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> run-handler </span>(cmd)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Run Emacs dev-env.&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  (run! cmd <span class="st">&quot;nix&quot;</span> <span class="st">&quot;develop&quot;</span> <span class="st">&quot;.#lisp&quot;</span> <span class="st">&quot;-c&quot;</span> <span class="st">&quot;emacs&quot;</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> update-handler </span>(cmd)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Update flake.&quot;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  (run! cmd <span class="st">&quot;nix&quot;</span> <span class="st">&quot;flake&quot;</span> <span class="st">&quot;update&quot;</span>))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> show-handler </span>(cmd)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Display error in flake.&quot;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  (run! cmd <span class="st">&quot;nix&quot;</span> <span class="st">&quot;flake&quot;</span> <span class="st">&quot;show&quot;</span>))</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> version-handler </span>(cmd)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Check SBCL version.&quot;</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  (run! cmd <span class="st">&quot;nix&quot;</span> <span class="st">&quot;develop&quot;</span> <span class="st">&quot;.#lisp&quot;</span> <span class="st">&quot;-c&quot;</span> <span class="st">&quot;sbcl&quot;</span> <span class="st">&quot;--version&quot;</span>))</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defmacro</span><span class="fu"> define-flake-command </span>(name alias description handler)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Define a flake command with aliases prior to its handler.&quot;</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">let</span> ((maker-name (<span class="kw">intern</span> (<span class="kw">format</span> <span class="kw">nil</span> <span class="st">&quot;MAKE-~A-COMMAND&quot;</span> name))))</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    `(<span class="kw">defun</span><span class="fu"> </span>,maker-name ()</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>       (clingon:make-command</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">:name</span> ,name</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        :aliases (<span class="kw">list</span> ,alias)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        :description ,description</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        :handler ,handler))))</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>(define-flake-command <span class="st">&quot;run&quot;</span> <span class="st">&quot;r&quot;</span> <span class="st">&quot;Run the Emacs shell&quot;</span> #’run-handler)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>(define-flake-command <span class="st">&quot;update&quot;</span> <span class="st">&quot;u&quot;</span> <span class="st">&quot;Update the Lisp nix flake&quot;</span> #’update-handler)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>(define-flake-command <span class="st">&quot;show&quot;</span> <span class="st">&quot;s&quot;</span> <span class="st">&quot;Show output attribute of the Lisp flake&quot;</span> #’show-handler)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>(define-flake-command <span class="st">&quot;sbcl-version&quot;</span> <span class="st">&quot;sv&quot;</span> <span class="st">&quot;Check SBCL’s version&quot;</span> #’version-handler)</span></code></pre></div>
+<p>As you can see, the <code class="verbatim">RUN-HANDLER</code>
+function allows us to launch Emacs within the nix flake, <code
+class="verbatim">UPDATE-HANDLER</code> updates the nix flake, <code
+class="verbatim">SHOW-HANDLER</code> shows the attributes of the nix
+flake, and <code class="verbatim">VERSION-HANDLER</code> checks the
+version of SBCL in the nix environment. The latter, <code
+class="verbatim">DEFINE-FLAKE-COMMAND</code> macro helps us define
+commands with a name, alias, description, and handler function, which
+can later be used as sub-commands under a top-level command later.</p>
+<h1 id="top-level">Top-level</h1>
+<h2 id="clingonmake-option">CLINGON:MAKE-OPTION</h2>
+<div class="sourceCode" id="cb11" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defmacro</span><span class="fu"> define-option </span>(<span class="kw">type</span> short-name long-name description &amp;key key)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Define a CLI option with standard structure&quot;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  `(clingon:make-option</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    ,<span class="kw">type</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    :short-name ,short-name</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    :long-name ,long-name</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    :description ,description</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">:key</span> ,(<span class="kw">or</span> key (<span class="kw">intern</span> (<span class="kw">string-upcase</span> long-name) <span class="st">&quot;KEYWORD&quot;</span>))))</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> make-cli-options </span>()</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Create CLI options&quot;</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">list</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>   (define-option :counter <span class="ch">#\v</span> <span class="st">&quot;verbose&quot;</span> <span class="st">&quot;Enable verbose output&quot;</span> <span class="bu">:key</span> <span class="bu">:verbose</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>   (define-option :string <span class="ch">#\d</span> <span class="st">&quot;debug&quot;</span> <span class="st">&quot;Enable debug mode&quot;</span> <span class="bu">:key</span> :debug)))</span></code></pre></div>
+<p>For the top-level program, as you can see, we created a macro named
+<code class="verbatim">DEFINE-OPTION</code> that uses the <code
+class="verbatim">CLINGON:MAKE-OPTION</code> generic function where it
+allows developers to create and add new types of options to ensure that
+users can interact with all options through a consistent interface
+provided by the <code class="verbatim">CLINGON:MAKE-OPTION</code>
+function. Doing it with macro give us liberty and brevity whenever we
+add more options rather than doing it in a standard way of creating
+<code class="verbatim">MAKE-OPTION</code>. (<a
+href="https://github.com/dnaeon/clingon">See the manual</a> in Clingon
+under a quick example).</p>
+<p>In <code class="verbatim">make-cli-options</code> function above, I
+defined it by type (e.g., <code class="verbatim">:counter</code> for
+counting occurrences, <code class="verbatim">:string</code> for a string
+argument), short and long names (e.g., <code
+class="verbatim">-v for verbose=</code>, <code
+class="verbatim">-d for debug</code>), descriptions, and optional
+keys.</p>
+<h2 id="clingoncommand-arguments">CLINGON:COMMAND-ARGUMENTS</h2>
+<div class="sourceCode" id="cb12" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> top-level-handler </span>(cmd)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Checks if there are any extra arguments, if there’s any and if it’s an unknown command return first condition, Otherwise return the general usage instructions.&quot;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">let</span> ((args (clingon:command-arguments cmd)))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">cond</span> (args (<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;Unknown command: ~A~%&quot;</span> (<span class="kw">first</span> args)))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>          (<span class="kw">t</span> (<span class="kw">progn</span> (<span class="kw">format</span> <span class="kw">t</span> <span class="st">&quot;Usage: ~A~%&quot;</span> (get-config :usage))</span></code></pre></div>
+<p>With the use of <code
+class="verbatim">CLINGON:COMMAND-ARGUMENTS</code>, we can have a
+top-level handler checks, meaning it checks if there are any extra
+arguments provided when we run a command. If there are, it assumes that
+the first argument is an unknown command and will alert us. If there are
+no arguments, then it shows the general usage instructions for the
+command.</p>
+<h2 id="clingonmake-command">CLINGON:MAKE-COMMAND</h2>
+<div class="sourceCode" id="cb13" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> make-top-level-command </span>()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Top-level commands&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  (clingon:make-command</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>   <span class="bu">:name</span> (get-config <span class="bu">:name</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>   :description (get-config :description)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>   <span class="bu">:version</span> (get-config <span class="bu">:version</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>   :usage (get-config :usage)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>   :authors ’(<span class="st">&quot;Eldriv&quot;</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>   :options (make-cli-options)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>   :handler #’top-level/handler</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>   :sub-commands (<span class="kw">list</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                  (make-run-command)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                  (make-update-command)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                  (make-show-command)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                  (make-sbcl-version-command))))</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<p>This function creates the main command structure, a top-level command
+for the tool itself, using the <code
+class="verbatim">CLINGON:MAKE-COMMAND</code>, where, <code
+class="verbatim">(:name, :description, :version,:usage and, :authors)</code>
+- these are configurations the one that we are going to retrieved from
+<strong>config</strong> using <code
+class="verbatim">(get-config :key)</code> function which specify the
+basic information about the CLI tool. In <code
+class="verbatim">:options</code>, this is where we define command-line
+options named <code class="verbatim">MAKE-CLI-OPTIONS</code>, <code
+class="verbatim">:handler</code> responsible for processing top-level
+commands and <code class="verbatim">:sub-commands</code>, it is a list
+of sub-commands that we have defined earlier in
+<strong>define-flake-command</strong> macro and it is equivalent to
+<code class="verbatim">run</code> or <code class="verbatim">r</code>,
+<code class="verbatim">update</code> or <code class="verbatim">u</code>,
+<code class="verbatim">show or s</code>, and <code
+class="verbatim">sbcl-version</code> or <code
+class="verbatim">sv</code>.</p>
+<h2 id="clingronrun">CLINGRON:RUN</h2>
+<div class="sourceCode" id="cb14" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defun</span><span class="fu"> main </span>()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Main entry point for the application&quot;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">let</span> ((app (make-top-level-command)))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    (clingon:run app)))</span></code></pre></div>
+<p>This is the main entry point of the application. It creates the
+top-level command and runs the application using Clingon’s run
+function.</p>
+<h1 id="test-utilities">Test utilities</h1>
+<div class="sourceCode" id="cb15" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">defparameter</span><span class="fu"> *app* </span>(make-top-level-command))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>adz <span class="op">&gt;</span> *app*</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>#&lt;CLINGON.COMMAND:COMMAND name=adz options=<span class="dv">5</span> sub-commands=<span class="dv">4</span>&gt; <span class="co">;; You can inspect this</span></span></code></pre></div>
+<p>Inspecting the returned instance of make-top-level-command slots
+would give you something like this:</p>
+<div class="sourceCode" id="cb16" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>#&lt;CLINGON.COMMAND:COMMAND {<span class="dv">1004788843</span>}<span class="op">&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>--------------------</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>Class: #&lt;STANDARD-CLASS CLINGON.COMMAND:COMMAND&gt;</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>--------------------</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>Group slots by inheritance [ ]</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>Sort slots alphabetically  [X]</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>All Slots:</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>[ ]  ALIASES          <span class="op">=</span> NIL</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>[ ]  ARGS-TO-PARSE    <span class="op">=</span> NIL</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>[ ]  ARGUMENTS        <span class="op">=</span> NIL</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>[ ]  AUTHORS          <span class="op">=</span> (<span class="st">&quot;Eldriv&quot;</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>[ ]  CONTEXT          <span class="op">=</span> #&lt;HASH-TABLE :TEST EQUAL :COUNT <span class="dv">0</span> {<span class="dv">10047</span>DFE93}<span class="op">&gt;</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>[ ]  DESCRIPTION      <span class="op">=</span> <span class="st">&quot;CLI tool for managing Lisp nix flake&quot;</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>[ ]  EXAMPLES         <span class="op">=</span> NIL</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>[ ]  HANDLER          <span class="op">=</span> #&lt;FUNCTION TOP-LEVEL-HANDLER&gt;</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>[ ]  LICENSE          <span class="op">=</span> NIL</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>[ ]  LONG-DESCRIPTION <span class="op">=</span> NIL</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>[ ]  NAME             <span class="op">=</span> <span class="st">&quot;adz&quot;</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>[ ]  OPTIONS          <span class="op">=</span> (#&lt;CLINGON.OPTIONS:OPTION-BOOLEAN-TRUE short=NIL long=bash-completions&gt; #&lt;CLINGON.OPTIONS:OPTION-BOOLEAN-TRUE short=NIL long=version&gt; #&lt;CLINGON.OPTIONS:OPTION-BOOLEAN-TRUE short=NIL long=help&gt; #&lt;CLINGON.OPTIONS:OPTION-COUNTER short=v long=verbose&gt; #&lt;CLINGON.OPTIONS::OPTION-STRING short=d long=debug&gt;)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>[ ]  PARENT           <span class="op">=</span> NIL</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>[ ]  POST-HOOK        <span class="op">=</span> NIL</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>[ ]  PRE-HOOK         <span class="op">=</span> NIL</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>[ ]  SUB-COMMANDS     <span class="op">=</span> (#&lt;CLINGON.COMMAND:COMMAND name=run options=<span class="dv">3</span> sub-commands=<span class="dv">0</span>&gt; #&lt;CLINGON.COMMAND:COMMAND name=update options=<span class="dv">3</span> sub-commands=<span class="dv">0</span>&gt; #&lt;CLINGON.COMMAND:COMMAND name=show options=<span class="dv">3</span> sub-commands=<span class="dv">0</span>&gt; #&lt;CLINGON.COMMAND:COMMAND name=sbcl-version options=<span class="dv">3</span> sub-commands=<span class="dv">0</span>&gt;)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>[ ]  USAGE            <span class="op">=</span> <span class="st">&quot;[command] [options]&quot;</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>[ ]  VERSION          <span class="op">=</span> <span class="st">&quot;1.0.0&quot;</span></span></code></pre></div>
+<p>The beauty of this is transparency of the inspection system. When you
+look at the command object, you can see both what you’ve configured and
+what’s still missing (shown as NIL). You can quickly identify any gaps
+in your CLI configuration or spot potential issues in your command
+structure during development.</p>
+<p>You can also verify that your command-line help documentation is
+properly formatted by running this into the REPL:</p>
+<div class="sourceCode" id="cb17" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(clingon:print-usage *app* <span class="kw">t</span>)</span></code></pre></div>
+<p>This displays the full help text exactly as we would see it when
+running the command with <code class="verbatim">--help</code>.</p>
+<h1 id="asdf">ASDF</h1>
+<p>Now that we’ve completed the core functionality and seen how Clingon
+structures our application, we can set up the <a
+href="https://asdf.common-lisp.dev/">ASDF</a> system definition. The
+application will use <code class="verbatim">MAIN</code> function as its
+entry point, which is standard practice for ASDF systems. Below would be
+where we’d write our system definition to tie everything together.</p>
+<p>Here’s a system definition for the application we’ve developed so
+far.</p>
+<div class="sourceCode" id="cb18" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(defsystem <span class="st">&quot;adz&quot;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">:name</span> <span class="st">&quot;adz&quot;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">:version</span> <span class="st">&quot;1.0.0&quot;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  :author <span class="st">&quot;Eldriv&quot;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  :description <span class="st">&quot;CLI tool for managing Lisp nix flake in Emacs&quot;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  :depends-on (:clingon :uiop)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  :components ((:module <span class="st">&quot;intro&quot;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                :components ((:file <span class="st">&quot;adz&quot;</span>))))</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  :build-operation <span class="st">&quot;program-op&quot;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  :build-pathname <span class="st">&quot;adz&quot;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  :entry-point <span class="st">&quot;adz:main&quot;</span>)</span></code></pre></div>
+<h1 id="build">Build</h1>
+<p>To simplify the process of building and cleaning our application, we
+will use a <a
+href="https://www.gnu.org/software/make/manual/make.html">makefile</a>
+to automate the steps. This way, we don’t have to manually re-enter
+build commands every time there are changes to the project.</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#———————————————————————————————————————————————————————————————————————————————</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># HEAD</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="dt">SHELL</span> <span class="ch">:=</span><span class="st"> bash</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="dt">MAKEFLAGS</span> <span class="ch">+=</span><span class="st"> --warn-undefined-variables</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="dt">MAKEFLAGS</span> <span class="ch">+=</span><span class="st"> --no-builtin-rules</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="ot">.ONESHELL:</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="dt">.SHELLFLAGS</span> <span class="ch">:=</span><span class="st"> -eu -o pipefail -c</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="ot">.DELETE_ON_ERROR:</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#———————————————————————————————————————————————————————————————————————————————</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># BODY</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="dt">LISP</span> <span class="ch">=</span><span class="st"> sbcl</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="dt">PROJECT_DIR</span> <span class="ch">=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">PWD</span><span class="ch">)</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="dt">SYSTEM_NAME</span> <span class="ch">=</span><span class="st"> adz</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="dt">BUILD_OUTPUT</span> <span class="ch">=</span><span class="st"> adz</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="ot">.PHONY:</span><span class="dt"> all</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="dv">all:</span><span class="dt"> build</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="ot">.PHONY:</span><span class="dt"> build clean</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="dv">build:</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="er">    </span><span class="ch">$(</span><span class="dt">LISP</span><span class="ch">)</span> --non-interactive \</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        <span class="ch">-</span><span class="fu">-eval ’(require :asdf)’ </span><span class="ch">\</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="fu">        --eval ’(push </span><span class="co">#p&quot;$(PROJECT_DIR)/&quot; asdf:*central-registry*)’ \</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="co">        --eval ’(ql:quickload :$(SYSTEM_NAME))’ \</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="co">        --eval ’(asdf:make :$(SYSTEM_NAME))’ \</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="co">        --eval ’(quit)’</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="dv">clean:</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="er">    </span>rm -f <span class="ch">$(</span><span class="dt">BUILD_OUTPUT</span><span class="ch">)</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<p>To summarize this build, The <code class="verbatim">makefile</code>
+automates the build and cleanup of our project. It uses <code
+class="verbatim">SBCL</code> as the Lisp implementation, sets the
+project directory with <code class="verbatim">PWD</code>, and specifies
+the system package <code class="verbatim">:adz</code>. When we run <code
+class="verbatim">make build</code> in the command line, it launches SBCL
+in non-interactive mode, we will add the <code
+class="verbatim">project directory</code> to the <strong>central
+registry</strong> after that we’ll load the project using <code
+class="verbatim">Quicklisp</code>, and then compiles it using <code
+class="verbatim">(asdf:make)</code> for initial build, and lastly, it
+exits SBCL once the build is finiished. The clean target removes the
+output file, ensuring a fresh start for the next build.</p>
+<h1 id="usage">Usage</h1>
+<p>To ensure everything works correctly, it’s important to have the
+right directory structure,</p>
+<div class="sourceCode" id="cb20" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>├── adz.asd              <span class="co">;; ASDF</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>├── intro                <span class="co">;; Directory</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>│   └── adz.<span class="kw">lisp</span>         <span class="co">;; Lisp file containing the CLI developmenet</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>├── makefile             <span class="co">;; makefile</span></span></code></pre></div>
+<p>Once the project is set up, we can build it using this command,</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ch">$ </span>make build</span></code></pre></div>
+<p>After building, an executable named adz will be created. You can run
+it from within the project directory using,</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ch">$ </span>./adz --help</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<p>or</p>
+<pre class="shell"><code>$ ./adz
+</code></pre>
+<p>To make it globally accessible, insert this into your shell
+configuration files like <code class="verbatim">.bashrc</code> or <code
+class="verbatim">.zshenv</code>,</p>
+<div class="sourceCode" id="cb24" data-org-language="lisp"><pre
+class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>$ vim .zshenv</span></code></pre></div>
+<p>Then paste this in the upper level of the config,</p>
+<pre class="shell"><code>export PATH=&quot;$HOME&lt;your/project/directory/&gt;:$PATH&quot;
+</code></pre>
+<p>Then to open the Emacs development environment, run,</p>
+<pre class="shell"><code>$ adz r
+</code></pre>
+<p>To check the SBCL version,</p>
+<pre class="shell"><code>$ adz sv
+</code></pre>
+<h1 id="closing-remarks">Closing remarks</h1>
+<p>Using CLI tools lets you quickly manage multiple files with one
+command, saving time compared to clicking and typing commands through
+them. It boosts efficiency, allows remote access, and helps with
+troubleshooting. If you’re a system administrator, software engineer,
+data scientist, or anyone in a technical role, the CLI gives you more
+control and can make your work easier.</p>
+<link rel="icon" href="../img/icon.png" type="image/png">
+<footer class="footer">
+  <div class="right">© 2025 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
+    <a href="https://eldriv.com/about" class="footer-right">About</a>
+  </div>
+</footer>
+</body>
+</html>

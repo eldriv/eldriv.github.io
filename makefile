@@ -3,8 +3,8 @@
 # Find all .org files in the src directory, excluding temporary and backup files.
 ORGFILES := $(filter-out src/main.org, $(shell find src -maxdepth 1 -name "*.org" ! -name "*.tmp*" ! -name "*~"))
 
-# Convert src/foo.org to html-files/foo/index.html
-HTMLFILES := $(patsubst src/%.org,html-files/%/index.html,$(ORGFILES))
+# Convert src/foo.org to en/foo/index.html
+HTMLFILES := $(patsubst src/%.org,en/%/index.html,$(ORGFILES))
 FILESTOPUSH := $(shell git status --porcelain | awk '{print $$2}')
 
 all:	clean	$(HTMLFILES)
@@ -12,7 +12,7 @@ all:	clean	$(HTMLFILES)
 rebuild:	$(HTMLFILES)
 
 # Update rule to store HTML files inside html-files directory
-html-files/%/index.html: src/%.org
+en/%/index.html: src/%.org
 	@mkdir -p $(dir $@)
 	@echo "Converting: $<"
 	pandoc -f org -t html5 --quiet \
