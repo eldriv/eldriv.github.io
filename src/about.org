@@ -34,7 +34,7 @@ This website is built with /[[https://www.gnu.org/software/emacs/][Emacs]]/, /[[
   <div class="right">© 2025 eldriv</div>
   <div class="footer-menu">
     <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
-   <a href="https://eldriv.com/life" class="footer-right">Introspection</a>
+   <a href="https://eldriv.com/en/life" class="footer-right">Introspection</a>
   </div>
 </footer>
 #+END_EXPORT

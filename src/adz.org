@@ -355,7 +355,7 @@ system administrator, software engineer, data scientist, or anyone in a technica
   <div class="right">© 2025 eldriv</div>
   <div class="footer-menu">
     <a href="https://eldriv.com/" class="footer-right">Home</a> ✾
-    <a href="https://eldriv.com/about" class="footer-right">About</a>
+    <a href="https://eldriv.com/en/about" class="footer-right">About</a>
   </div>
 </footer>
 #+END_EXPORT
