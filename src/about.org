@@ -11,7 +11,6 @@
 #+options: toc:nil html-postamble:nil
 
 #+ATTR_HTML: :class image-adi
-[[file:../../img/image.png]]
 
 * A bit of me
 Adi’s curiosity about computing started at the age of eight when he first used an old system unit around the year 2009, 
