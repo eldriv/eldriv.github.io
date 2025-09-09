@@ -53,3 +53,5 @@ when you know it's everything you want.
   </div>
 </footer>
 #+END_EXPORT
+* Introspection 17
+17th. I was once a Padawan under a master, and in truth, I failed more often than I’d like to admit. I stumbled over lessons I thought I understood, let impatience cloud my judgment, and ignored wisdom until it hit me too late.
