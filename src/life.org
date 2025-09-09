@@ -43,6 +43,8 @@ when you know it's everything you want.
 15th. It's not what you say, it's what you do.
 * Introspection 16
 16th. A lion does not concern himself with the opinion of a sheep.
+* Introspection 17
+17th. I was once a Padawan under a master, and in truth, I failed more often than I’d like to admit. I stumbled over lessons I thought I understood, let impatience cloud my judgment, and ignored wisdom until it hit me too late.
 #+BEGIN_EXPORT html
 <link rel="icon" href="../img/icon.png" type="image/png">
 <footer class="footer">
@@ -53,5 +55,4 @@ when you know it's everything you want.
   </div>
 </footer>
 #+END_EXPORT
-* Introspection 17
-17th. I was once a Padawan under a master, and in truth, I failed more often than I’d like to admit. I stumbled over lessons I thought I understood, let impatience cloud my judgment, and ignored wisdom until it hit me too late.
+*
