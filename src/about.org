@@ -1,14 +1,31 @@
 
-#+title: Eldriv | About
 #+author:
+#+options: title:nil toc:nil html-postamble:nil
 #+BEGIN_EXPORT html
-<div class="update" style="text-align: center;">Last updated: January 30, 2025</div>
+<nav class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/en/about" class="nav-link">About</a>
+      <a href="/en/life" class="nav-link">Introspection</a>
+    </div>
+  </div>
+</nav>
+<header id="title-block-header">
+<h1 class="title">Eldriv | About</h1>
+</header>
+#+END_EXPORT
+#+BEGIN_EXPORT html
 #+END_EXPORT
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
+#+HTML_HEAD: <style>html body { max-width: 1200px !important; padding: 2rem 3rem !important; box-sizing: border-box !important; }</style>
 #+language: en
 #+PANDOC_OPTIONS: standalone:t 
 #+startup: overview
-#+options: toc:nil html-postamble:nil
 
 #+ATTR_HTML: :class image-adi
 
@@ -24,6 +41,7 @@ they resemble networks similar to quantum physics, these links begins with inves
 + Instagram: [[https://instagram.com/eldrivi][@eldrivi]]
 + Protonmail: [[mailto:eldriv@proton.me][eldriv@proton.me]]
 + LinkedIn: [[https://www.linkedin.com/in/michael-adrian-villareal-9a344634a/][Michael Adrian Villareal]]
++ Portfolio: [[https://eldriv-portfolio.netlify.app][eldriv-portfolio.netlify.app]]
 * Colophon
 This website is built with /[[https://www.gnu.org/software/emacs/][Emacs]]/, /[[https://github.com/kawabata/ox-pandoc][Ox-pandoc]],/ /[[https://jekyllrb.com/docs/github-pages/][Jekyll]]/ and /[[https://orgmode.org/][Org]]./ Hosting provider; /[[https://pages.github.com/][Github Pages]]./
 

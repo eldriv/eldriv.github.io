@@ -8,237 +8,85 @@
   <meta name="author" content="eldriv" />
   <title>eldriv</title>
  <style>
-body {
-  margin: 0 auto;
-  max-width: 36em;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  hyphens: auto;
-  overflow-wrap: break-word;
-  text-rendering: optimizeLegibility;
-  font-kerning: normal;
-  font-family: 'Roboto', sans-serif; /* Modern font */
-  line-height: 1.2;
-  background-color: #181818; 
+/* Additional styles for index.html - main.css handles most styling */
+html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+html body {
+  margin: 0 auto !important;
+  max-width: 1200px !important;
+  padding: 2rem 3rem !important;
+  box-sizing: border-box !important;
+}
+
+header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+#title-block-header {
+  margin-bottom: 3rem;
+}
+
+/* Ensure proper spacing for content */
 p {
-  color: #d1d1d1; 
+  margin: 1.5rem 0;
 }
 
-a {
-  color: #1e90ff; 
-  text-decoration: none; 
-  position: relative;
-  transition: color 0.3s ease;
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-ul {
-  list-style-type: none;
-  padding-left: 0.5em;
-}
-
-ul li {
-  margin-bottom: 10px;
-  position: relative;
-  padding-left: 22px; 
-}
-
-ul li:before {
-  content: '☼'; 
-  position: absolute;
-  left: 0;
-  color: #555; 
-  transition: all 0.3s ease;
-}
-
-ul li:hover:before {
-  content: '☀';
-  color: #FD8128; 
-}
-
-ul li a {
-  display: inline-block;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-ul li a:hover {
-  color: #FD8128; 
-  text-shadow: 0 0 1px rgba(253, 129, 40, 0.2); 
-}
-
-a:hover {
-  text-decoration: none!important; 
-}
-
-ul {
-  list-style-type: none;
-  padding-left: 0.5em;
-  color: #d1d1d1;
-}
-
-ul li {
-  margin-bottom: 10px;
-  transition: transform 0.2s ease;
-}
-
-@media (max-width: 600px) {
+/* Print styles */
+@media print {
+  html {
+    background-color: white;
+  }
   body {
-    font-size: 0.9em;
-    padding: 12px;
+    background-color: transparent;
+    color: black;
+    max-width: 100%;
+  }
+  a {
+    color: #1a1a1a;
+  }
+  a:visited {
+    color: #1a1a1a;
+  }
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2, h3, h4 {
+    page-break-after: avoid;
   }
 }
-
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: blue;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    svg {
-      height: auto;
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
  <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
+<nav class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/en/about" class="nav-link">About</a>
+      <a href="/en/life" class="nav-link">Introspection</a>
+    </div>
+  </div>
+</nav>
 <header id="title-block-header">
-<h1 class="title">eldriv</h1>
-<p class="author" style="text-align: center; margin-bottom: 100px; font-size: 20px;">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
-<div class="update" style="text-align: center; margin-bottom: -50px;">Last updated: April 12, 2025 <br>The entries are sorted in reverse chronological order.</div>
+<div class="update" style="text-align: center;">Last updated: April 12, 2025 <br>The entries are sorted in reverse chronological order.</div>
 </header>
 <p><img src="img/const.png" /></p>
 <p>This passage reflects a personal journey through life and technology.
@@ -246,17 +94,62 @@ The author aims to inspire others to explore their own paths, awakening
 to the profound possibilities that lie within their consciousness and
 beyond.</p>
 <ul>
-<li><a href="en/adz">Building 'Adz' in Common Lisp With Clingon</a></li>
-<li><a href="en/lisp">A Wanderer's Tale of Discovering Lisp</a></li>
-<li><a href="en/tmux">Using Tmux to Perk Up Your Terminal
-Experience</a></li>
-<li><a href="en/nixos">How NixOS Treated a Novice
-Sysadmin</a></li>
-<li><a href="en/docker">Docker Containers Are Fast</a></li>
-<li><a href="en/fiveam">Testing a Testing Framework</a></li>
-<li><a href="en/parser">Explore Parsing in S-expression</a></li>
-<li><a href="en/ubuntu">How I Installed Ubuntu From
-Windows</a></li>
+<li><a href="en/adz">
+  <div class="article-content">
+    <div class="article-title">Building 'Adz' in Common Lisp With Clingon</div>
+    <div class="article-date">Last updated: April 12, 2025</div>
+  </div>
+  <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
+</a></li>
+<li><a href="en/lisp">
+  <div class="article-content">
+    <div class="article-title">A Wanderer's Tale of Discovering Lisp</div>
+    <div class="article-date">Last updated: October 21, 2024</div>
+  </div>
+  <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
+</a></li>
+<li><a href="en/tmux">
+  <div class="article-content">
+    <div class="article-title">Using Tmux to Perk Up Your Terminal</div>
+    <div class="article-date">Last updated: January 02, 2025</div>
+  </div>
+  <img src="img/tmux.png" alt="" class="article-icon" />
+</a></li>
+<li><a href="en/nixos">
+  <div class="article-content">
+    <div class="article-title">How NixOS Treated a Novice Sysadmin</div>
+    <div class="article-date">Last updated: December 22, 2024</div>
+  </div>
+  <img src="img/nixos.png" alt="" class="article-icon" />
+</a></li>
+<li><a href="en/docker">
+  <div class="article-content">
+    <div class="article-title">Docker Containers Are Fast</div>
+    <div class="article-date">Last updated: September 22, 2024</div>
+  </div>
+  <img src="img/docker.png" alt="" class="article-icon" />
+</a></li>
+<li><a href="en/fiveam">
+  <div class="article-content">
+    <div class="article-title">Testing a Testing Framework</div>
+    <div class="article-date">Last updated: September 22, 2024</div>
+  </div>
+  <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
+</a></li>
+<li><a href="en/parser">
+  <div class="article-content">
+    <div class="article-title">Explore Parsing in S-expression</div>
+    <div class="article-date">Last updated: October 21, 2024</div>
+  </div>
+  <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
+</a></li>
+<li><a href="en/ubuntu">
+  <div class="article-content">
+    <div class="article-title">How I Installed Ubuntu From Windows</div>
+    <div class="article-date">Last updated: September 22, 2024</div>
+  </div>
+  <img src="img/ubuntu.png" alt="" class="article-icon" />
+</a></li>
 </ul>
 </body>
 <footer class="footer">

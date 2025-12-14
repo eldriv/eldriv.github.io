@@ -5,9 +5,11 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="" />
-  <title>How NixOS Treated a Novice Sysadmin</title>
-  <link rel="icon" href="../../img/icon.png" type="image/png">
+  <title>nixos</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     html {
       color: #1a1a1a;
       background-color: #fdfdfd;
@@ -109,8 +111,8 @@
      overflow: visible;
     }
     hr {
-      background-color: #1a1a1a;
       border: none;
+      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -169,8 +171,9 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -181,7 +184,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -234,24 +237,45 @@
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" type="text/css" href="../../css/nix.css">
+  <style>html body { max-width: 1200px !important; padding: 2rem 3rem !important; box-sizing: border-box !important; }</style>
 </head>
 <body>
+<nav class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/en/about" class="nav-link">About</a>
+      <a href="/en/life" class="nav-link">Introspection</a>
+    </div>
+  </div>
+</nav>
 <header id="title-block-header">
 <h1 class="title">How NixOS Treated a Novice Sysadmin</h1>
-<p class="author"></p>
 </header>
-<div class="update" style="text-align: center;">Last updated: December 22, 2024</div>
-<div style="text-align: center;">
-<iframe
-    src="https://giphy.com/embed/FH1gGTZg8QCQRKG5KP"
-    width="200"
-    height="200"
-    style="border: none; margin-bottom: -100px;"
-    frameBorder="0"
-    class="giphy-embed">
-</iframe>
-</div>
 
+<h1 id="table-of-contents">Table of contents</h1>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#nixos-a-built-different-linux-distro">NixOS—A built
+different Linux distro</a></li>
+<li><a href="#preparation">Preparation</a></li>
+<li><a href="#iso-image">ISO image</a></li>
+<li><a href="#usb">USB</a></li>
+<li><a href="#execution">Execution</a></li>
+<li><a href="#faced-issues">Faced Issues:</a></li>
+<li><a href="#installing-nix-packages">Installing Nix Packages</a></li>
+<li><a href="#nix-commands">Nix commands</a></li>
+<li><a href="#flakes">Flakes</a></li>
+<li><a href="#whats-inside-a-flake">What's inside a flake?</a></li>
+<li><a href="#why-use-nix-flakes">Why use nix flakes?</a></li>
+<li><a href="#example-of-a-simple-flake-nix-file">Example of a simple
+flake.nix file</a></li>
+<li><a href="#appreciation">Appreciation</a></li>
+</ul>
 <h1 id="introduction">Introduction</h1>
 <p>For anyone reading this article now, you might be wondering why I
 chose such a title. Have you ever seen someone who is very skilled in
@@ -452,11 +476,11 @@ and configuration.nix has conflicts</h2>
 <div class="sourceCode" id="cb17"><pre
 class="sourceCode nix"><code class="sourceCode nix"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  fileSystems = <span class="op">{</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;</span>/boot<span class="st">&quot;</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;/boot&quot;</span> <span class="op">=</span> <span class="op">{</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">device</span> <span class="op">=</span> <span class="st">&quot;/dev/disk/by-uuid/my_blkid&quot;</span><span class="op">;</span></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">fsType</span> <span class="op">=</span> <span class="st">&quot;vfat&quot;</span><span class="op">;</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">};</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;/&quot;</span> <span class="op">=</span> lib.mkForce <span class="op">{</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;/&quot;</span> <span class="op">=</span> lib<span class="op">.</span>mkForce <span class="op">{</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">device</span> <span class="op">=</span> <span class="st">&quot;/dev/mapper/root&quot;</span><span class="op">;</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">fsType</span> <span class="op">=</span> <span class="st">&quot;ext4&quot;</span><span class="op">;</span></span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">};</span></span>

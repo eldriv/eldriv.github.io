@@ -1,17 +1,22 @@
-#+title: How NixOS Treated a Novice Sysadmin
 #+author:
+#+options: title:nil
 #+BEGIN_EXPORT html
-<div class="update" style="text-align: center;">Last updated: December 22, 2024</div>
-<div style="text-align: center;">
-<iframe
-    src="https://giphy.com/embed/FH1gGTZg8QCQRKG5KP"
-    width="200"
-    height="200"
-    style="border: none; margin-bottom: -100px;"
-    frameBorder="0"
-    class="giphy-embed">
-</iframe>
-</div>
+<nav class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/en/about" class="nav-link">About</a>
+      <a href="/en/life" class="nav-link">Introspection</a>
+    </div>
+  </div>
+</nav>
+<header id="title-block-header">
+<h1 class="title">How NixOS Treated a Novice Sysadmin</h1>
+</header>
 #+END_EXPORT
 #+language: en
 #+startup: overview
@@ -19,7 +24,23 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/lock.png" standalone:t
 #+PANDOC_OPTIONS: standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
+#+HTML_HEAD: <style>html body { max-width: 1200px !important; padding: 2rem 3rem !important; box-sizing: border-box !important; }</style>
 
+* Table of contents
+- [[#introduction][Introduction]]
+- [[#nixos-a-built-different-linux-distro][NixOS—A built different Linux distro]]
+- [[#preparation][Preparation]]
+- [[#iso-image][ISO image]]
+- [[#usb][USB]]
+- [[#execution][Execution]]
+- [[#faced-issues][Faced Issues:]]
+- [[#installing-nix-packages][Installing Nix Packages]]
+- [[#nix-commands][Nix commands]]
+- [[#flakes][Flakes]]
+- [[#whats-inside-a-flake][What's inside a flake?]]
+- [[#why-use-nix-flakes][Why use nix flakes?]]
+- [[#example-of-a-simple-flake-nix-file][Example of a simple flake.nix file]]
+- [[#appreciation][Appreciation]]
 
 * Introduction
 

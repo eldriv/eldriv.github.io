@@ -1,15 +1,35 @@
-#+title: Testing a Testing Framework
 #+author:
+#+options: title:nil toc:nil html-postamble:nil
 #+BEGIN_EXPORT html
-<div class="update" style="text-align: center;">Last updated: September 22, 2024</div>
-<div style="text-align: center;">
-<iframe src="https://giphy.com/embed/DBSPJoZ9dxS7N6Rz1C/" width="300" height="180" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-</div>
+<nav class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/en/about" class="nav-link">About</a>
+      <a href="/en/life" class="nav-link">Introspection</a>
+    </div>
+  </div>
+</nav>
+<header id="title-block-header">
+<h1 class="title">Testing a Testing Framework</h1>
+</header>
 #+END_EXPORT
 #+language: en
 #+startup: overview
 #+options: toc:nil html-postamble:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
+#+HTML_HEAD: <style>html body { max-width: 1200px !important; padding: 2rem 3rem !important; box-sizing: border-box !important; }</style>
+* Table of contents
+- [[#introduction][Introduction]]
+- [[#what-is-fiveam][What is FiveAM?]]
+- [[#lets-get-started][Let's get started]]
+- [[#tree-directory][Tree directory]]
+- [[#asdf-or-another-system-definition-facility][ASDF or Another System Definition Facility]]
+- [[#basic-checks][Basic checks]]
 
 * Introduction
 I’ve been working with Common Lisp for about eight months now, and I’ve become curious about how to test my code in this language, similar to how it's done in other languages like *Pytest* for python or *Rspec* for Ruby. The good news is that there are several testing frameworks in Common Lisp, and the one I chose to delve is [[https://github.com/lispci/fiveam][FiveAM]].

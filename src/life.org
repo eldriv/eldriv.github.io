@@ -1,9 +1,27 @@
-#+title: Introspectio(n)
 #+author:
 #+language: en
 #+startup: overview
-#+options: toc:nil html-postamble:nil
+#+options: title:nil toc:nil html-postamble:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
+#+HTML_HEAD: <style>html body { max-width: 1200px !important; padding: 2rem 3rem !important; box-sizing: border-box !important; }</style>
+#+BEGIN_EXPORT html
+<nav class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/en/about" class="nav-link">About</a>
+      <a href="/en/life" class="nav-link">Introspection</a>
+    </div>
+  </div>
+</nav>
+<header id="title-block-header">
+<h1 class="title">Introspectio(n)</h1>
+</header>
+#+END_EXPORT
 
 * Introspection 1
 1st. Believe in yourself. Remember that you are building a future and be part of an organization that's going to shape the way people all live, and think that, “If someone can be part of 1%, you can too.” whether the path ahead seems crumbling, challenging, or even the ground cracks open, or rocks fall from the sky, trust that it will unfold exactly as you need it to. Do not seek for other people's approval. Have faith in yourself—just believe in you, only you.
@@ -55,4 +73,3 @@ when you know it's everything you want.
   </div>
 </footer>
 #+END_EXPORT
-*

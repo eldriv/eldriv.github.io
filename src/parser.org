@@ -1,23 +1,36 @@
-#+title: Exploring Parsing in S-expression. 
 #+author:
+#+options: title:nil
 #+BEGIN_EXPORT html
-<div class="update" style="text-align: center;">Last updated: October 21, 2024</div>
-<div style="text-align: center;">
-<iframe
-    src= "https://giphy.com/embed/v6NWXROtq9Y3LmHnWy"
-    width="200"
-    height="200"
-    style="border: none; margin-bottom: -100px;"
-    frameBorder="0"
-    class="giphy-embed">
-</iframe>
-</div>
+<nav class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/en/about" class="nav-link">About</a>
+      <a href="/en/life" class="nav-link">Introspection</a>
+    </div>
+  </div>
+</nav>
+<header id="title-block-header">
+<h1 class="title">Exploring Parsing in S-expression.</h1>
+</header>
 #+END_EXPORT
 #+language: en
 #+startup: overview
 #+PANDOC_OPTIONS: standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
+#+HTML_HEAD: <style>html body { max-width: 1200px !important; padding: 2rem 3rem !important; box-sizing: border-box !important; }</style>
 
+* Table of contents
+- [[#introduction][Introduction]]
+- [[#maxpc][MaxPC]]
+- [[#lets-get-started][Let's get started]]
+- [[#lexical-convention][Lexical convention:]]
+- [[#parsing-a-json-file][Parsing a JSON file.]]
+- [[#bonus][Bonus]]
 
 * Introduction
 Parsing is a technique where we use to analyze and understand the structure of a text or code in order to extract meaningful information. This process involves breaking down complex data structures or programming languages into simpler, more digestible parts, making them easier to analyze. Parsing finds applications in a variety of fields, such as natural language processing, compilers, and data analysis tools.

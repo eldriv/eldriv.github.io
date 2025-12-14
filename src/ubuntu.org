@@ -1,11 +1,23 @@
-#+title: How I installed Ubuntu From Windows
 #+author:
 #+HTML_HEAD: <link rel="icon" href="../img/icon.png" type="image/png">
+#+options: title:nil
 #+BEGIN_EXPORT html
-<div class="update" style="text-align: center;">Last updated: September 22, 2024</div>
-<div style="text-align: center;">
- <iframe src="https://giphy.com/embed/bfBiFD3UONtJ784iTI" width="300" height="199" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-</div>
+<nav class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/en/about" class="nav-link">About</a>
+      <a href="/en/life" class="nav-link">Introspection</a>
+    </div>
+  </div>
+</nav>
+<header id="title-block-header">
+<h1 class="title">How I installed Ubuntu From Windows</h1>
+</header>
 #+END_EXPORT
 #+language: en
 #+startup: overview
@@ -16,7 +28,15 @@
 #+PANDOC_OPTIONS:"epub-cover-image:/home/nycto/github/nyc2o.github.io/img/bitlocker.png" standalone:t
 #+PANDOC_OPTIONS: standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
+#+HTML_HEAD: <style>html body { max-width: 1200px !important; padding: 2rem 3rem !important; box-sizing: border-box !important; }</style>
 
+* Table of contents
+- [[#introduction][Introduction]]
+- [[#go-to-ubuntu-website][Go to Ubuntu website]]
+- [[#create-a-bootable-usb-drive-to-install-bare-metal-linux][Create a bootable USB drive to install bare-metal Linux]]
+- [[#boot-process-installation][Boot Process & Installation]]
+- [[#troubleshooting][Troubleshooting]]
+- [[#appreciation][Appreciation]]
 
 * Introduction
 

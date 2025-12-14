@@ -1,20 +1,33 @@
-#+title: Using Tmux to Perk Up Your Terminal Experience
 #+language: en
+#+options: title:nil
 #+BEGIN_EXPORT html
-<div class="update" style="text-align: center;">Last updated: January 02, 2025</div>
-<div style="text-align: center;">
-<iframe
-    src= "https://giphy.com/embed/v6NWXROtq9Y3LmHnWy"
-    width="200"
-    height="200"
-    style="border: none; margin-bottom: -100px;"
-    frameBorder="0"
-    class="giphy-embed">
-</iframe>
-</div>
+<nav class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/en/about" class="nav-link">About</a>
+      <a href="/en/life" class="nav-link">Introspection</a>
+    </div>
+  </div>
+</nav>
+<header id="title-block-header">
+<h1 class="title">Using Tmux to Perk Up Your Terminal</h1>
+</header>
 #+END_EXPORT
 #+startup: overview
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
+#+HTML_HEAD: <style>html body { max-width: 1200px !important; padding: 2rem 3rem !important; box-sizing: border-box !important; }</style>
+* Table of contents
+- [[#introduction][Introduction]]
+- [[#installation][Installation]]
+- [[#configuration][Configuration]]
+- [[#playground][Playground]]
+- [[#closing-remarks][Closing Remarks]]
+
 * Introduction
 As engineers, one of the essential tools we've always relied on is the terminal, due to its efficieny and
 speed that allows us to execute commands directly and quickly without the overhead of navigating through
@@ -253,7 +266,7 @@ This sections will show you my favorite and important features while using tmux.
 ** New window session
 - (C-z c) or (C-z C)
 [[../../img/14.png]]
-[[../img/13.png]]
+[[../../img/13.png]]
 - To locate your windows session: (C-z s)
 [[../../img/15.png]]
 
