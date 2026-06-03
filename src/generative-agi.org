@@ -36,14 +36,13 @@
 - [[#brute-force-instead-of-the-hard-problems][Brute force instead of the hard problems]]
 - [[#data-centers-and-power][Data centers and power]]
 - [[#wrapping-up][Wrapping up]]
-- [[#reference][Reference]]
 
 * Introduction
 A lot of the industry is trying to reach AGI by walking the generative road: bigger models, more data, longer training, shinier chat demos. That is one way to build useful software. It is not the same as sitting down to solve the actual problems behind general intelligence.
 
 Generative AI can help with drafts, search, and small automations. I still use it sometimes. My concern is narrower: we are treating scale on the generative path as if it were the whole journey to AGI, instead of doing the slower work the goal actually requires.
 
-A talk I kept coming back to while writing this is [[https://www.youtube.com/watch?v=CGxbRJPCoAQ][Artificial Intelligence: a Problem of Plumbing?]] by Gerald Jay Sussman (European Lisp Symposium, 2023). He is not arguing that AI is useless. He is asking why we still cannot hook strong pieces together so they cooperate on problems that need more than one kind of skill.
+The talk behind a lot of this post is [[https://www.youtube.com/watch?v=CGxbRJPCoAQ][Artificial Intelligence: a Problem of Plumbing?]] by Gerald Jay Sussman ([[https://www.european-lisp-symposium.org/2023/][ELS 2023]]). He is not saying AI failed. He is asking why we still cannot connect strong pieces so they work together on problems that need more than one kind of skill.
 
 * The path most people took
 The generative path is about producing believable output. Train on huge piles of text and media, then predict what comes next. The results can look impressive in a demo.
@@ -66,6 +65,8 @@ That is why I say we are not one prompt away. Not because chat tools are bad, bu
 * Data centers and power
 The generative path has a physical cost. Training can run for weeks in data centers full of racks, with cooling running around the clock. When you send a message, the answer is usually computed in those same kinds of buildings, not on your device alone. You do not see the bill on your screen, but the facility does. Pipelines that call a model many times for one job multiply the draw.
 
+For scale, a human brain doing real thinking runs on about 20 watts. Roughly the power of a dim LED bulb. Your whole body at rest is closer to 100 watts, and most of that is not “intelligence” in a machine sense. A single busy rack in a data center can sit in the thousands of watts before you count the rest of the building. We are not comparing like with like when we talk about approaching minds.
+
 If that electricity were clearly buying progress on the hard AGI problems, the trade might be easier to defend. Often it is buying larger versions of the same generative bet. Power goes up while the scientific to-do list stays open.
 
 We also do not need generative tools in every corner of daily work. Reading documentation, writing your own code, or thinking before you click is still valid. A smaller model may be enough for a narrow task. Skipping the chat when you are only delaying thought is fine. Not every app needs an AI feature because a pitch deck expects one.
@@ -75,11 +76,7 @@ Generative AI is worth having on the tool belt. It is a strong direction for med
 
 The mistake is choosing the generative path as a stand-in for solving AGI, and brute forcing scale when the open problems need a different kind of effort. Until that changes, we will keep paying in data centers and attention for output that sounds ahead of what we have actually built.
 
-AGI, if it arrives, will need more than a bigger prompt window. It will need answers to questions we are still largely treating as side quests. That is the path worth walking.
-
-* Reference
-+ [[https://www.youtube.com/watch?v=CGxbRJPCoAQ][Gerald Jay Sussman, /Artificial Intelligence: a Problem of Plumbing?/ (ELS 2023 keynote)]]
-+ [[https://www.european-lisp-symposium.org/2023/][European Lisp Symposium 2023 program page]] (abstract and context for the talk)
+AGI, if it arrives, will need more than a bigger prompt window. It will need answers to questions we are still largely treating as side quests. That is the path worth walking. If you want the source that shaped my thinking, watch Sussman's [[https://www.youtube.com/watch?v=CGxbRJPCoAQ][plumbing talk on YouTube]].
 
 #+BEGIN_EXPORT html
 <link rel="icon" href="../img/icon.png" type="image/png">
