@@ -29,6 +29,12 @@
 #+PANDOC_OPTIONS: standalone:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
 #+HTML_HEAD: <link rel="alternate" type="application/rss+xml" title="eldriv" href="https://eldriv-blogs.netlify.app/feed.xml">
+#+HTML_HEAD: <meta property="og:type" content="article">
+#+HTML_HEAD: <meta property="og:title" content="We're Not One Prompt Away from AGI">
+#+HTML_HEAD: <meta property="og:url" content="https://eldriv-blogs.netlify.app/en/generative-agi/">
+#+HTML_HEAD: <meta property="og:image" content="https://eldriv-blogs.netlify.app/img/agi-icon.png">
+#+HTML_HEAD: <meta property="og:description" content="Why scaling generative AI is the wrong path to AGI, and what brute force in data centers leaves unsolved.">
+#+HTML_HEAD: <meta name="twitter:card" content="summary_large_image">
 
 * Table of contents
 - [[#introduction][Introduction]]

@@ -214,7 +214,7 @@ html body {
   display: none;
 }
 
-.site-content a:not(.nav-link):not(.nav-logo):not(.footer-right):not(.rss-link):not(.article-card):not(.post-row):not(.hero-subscribe-cta) {
+.site-content a:not(.nav-link):not(.nav-logo):not(.footer-right):not(.rss-link):not(.article-card-hit):not(.post-row):not(.hero-subscribe-cta):not(.article-share-btn) {
   color: var(--accent-light);
   text-decoration: underline;
   text-underline-offset: 3px;

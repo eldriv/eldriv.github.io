@@ -193,8 +193,13 @@
   margin: 0;
 }
 
+.article-card-wrap {
+  position: relative;
+}
+
 .article-card,
 .post-row {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: center;
@@ -203,15 +208,125 @@
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 12px;
-  color: var(--text) !important;
-  text-decoration: none !important;
+  color: var(--text);
   transition: border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
-.article-card:hover {
+.article-card-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 12px;
+  text-decoration: none !important;
+}
+
+.article-card-hit:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
+.article-card .article-content,
+.article-card .article-icon,
+.article-card .article-arrow {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.article-card .article-share,
+.article-card .article-share-btn {
+  pointer-events: auto;
+}
+
+.article-card-wrap:hover .article-card,
+.article-card:hover,
+.article-card:focus-within {
   border-color: var(--accent-ring);
   background: var(--surface-hover);
   transform: translateY(-2px);
+}
+
+.article-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.65rem;
+}
+
+.article-meta-row .article-date {
+  margin: 0;
+}
+
+.article-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  background: var(--accent-muted);
+  border: 1px solid var(--accent-ring);
+  border-radius: 999px;
+}
+
+.article-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: 0.15rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s var(--ease), visibility 0.2s var(--ease);
+}
+
+.article-card:hover .article-share,
+.article-card:focus-within .article-share {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (hover: none) {
+  .article-share {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.article-share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-hover);
+  color: var(--text-faint);
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.article-share-btn svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.article-share-btn:hover {
+  background: #1f1f24;
+  color: var(--text);
+  border-color: var(--text-faint);
+}
+
+.article-share-btn[data-network="instagram"]:hover {
+  color: #e1306c;
+  border-color: rgba(225, 48, 108, 0.45);
 }
 
 .article-card .article-content,
@@ -239,8 +354,8 @@
 .article-card .article-icon {
   width: 48px;
   height: 48px;
-  object-fit: contain;
-  padding: 0.4rem;
+  object-fit: cover;
+  padding: 0;
   background: var(--surface-hover);
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -250,10 +365,12 @@
 .article-card .article-arrow {
   color: var(--text-faint);
   font-size: 1.1rem;
-  transition: color 0.2s, transform 0.2s var(--ease);
+  line-height: 1;
+  transition: color 0.2s, transform 0.2s var(--ease), opacity 0.2s var(--ease);
 }
 
-.article-card:hover .article-arrow {
+.article-card:hover .article-arrow,
+.article-card:focus-within .article-arrow {
   color: var(--accent-light);
   transform: translateX(3px);
 }
@@ -265,6 +382,24 @@
 
 .post-row:not(:has(.article-icon)) .article-arrow {
   display: none;
+}
+
+.share-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text);
+  text-align: center;
+  background: #18181b;
+  border: 1px solid var(--accent-ring);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  z-index: 110;
 }
 
 div.sourceCode {
@@ -307,10 +442,6 @@ div.sourceCode code {
 
 @media (max-width: 560px) {
   .article-card {
-    grid-template-columns: 1fr auto;
-  }
-
-  .article-card .article-arrow {
-    display: none;
+    grid-template-columns: 1fr auto auto;
   }
 }
