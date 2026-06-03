@@ -17,6 +17,8 @@ en/%/index.html: src/%.org
 	@echo "Converting: $<"
 	pandoc -f org -t html5 --quiet \
 	-s \
+	--css=../../css/nix.css \
+	--syntax-highlighting=breezedark \
 	-o $@ $<
 
 clean:

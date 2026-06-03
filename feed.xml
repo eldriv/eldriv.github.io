@@ -1,69 +1,87 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/feed.xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
- <title>(:constellations [awakening])</title>
- <description>Technical articles and tutorials</description>
- <link>https://eldriv.github.io</link>
- <copyright>2025 eldriv.github.io All rights reserved</copyright>
- <lastBuildDate>Mon, 29 Jan 2025 00:00:00 +0000</lastBuildDate>
- <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
- <ttl>1800</ttl>
+  <title>eldriv</title>
+  <description>Technical articles and tutorials on life, Lisp, and systems.</description>
+  <link>https://eldriv-blogs.netlify.app/</link>
+  <atom:link href="https://eldriv-blogs.netlify.app/feed.xml" rel="self" type="application/rss+xml"/>
+  <language>en</language>
+  <copyright>2026 eldriv</copyright>
+  <lastBuildDate>Wed, 03 Jun 2026 12:00:00 +0000</lastBuildDate>
+  <ttl>60</ttl>
 
- <item>
-  <title>A Wanderer's Tale of Discovering Lisp</title>
-  <description>A journey through learning Common Lisp programming.</description>
-  <link>https://eldriv.github.io/articles/lisp.html</link>
-  <guid isPermaLink="true">https://eldriv.github.io/articles/lisp.html</guid>
-  <pubDate>Mon, 29 Jan 2025 00:00:00 +0000</pubDate>
- </item>
+  <item>
+    <title>We're Not One Prompt Away from AGI</title>
+    <description>Why scaling generative AI is the wrong path to AGI, and what brute force in data centers leaves unsolved.</description>
+    <link>https://eldriv-blogs.netlify.app/en/generative-agi/</link>
+    <guid isPermaLink="true">https://eldriv-blogs.netlify.app/en/generative-agi/</guid>
+    <pubDate>Tue, 03 Jun 2026 00:00:00 +0000</pubDate>
+  </item>
 
- <item>
-  <title>Using Tmux to Perk Up Your Terminal Experience</title>
-  <description>Guide to enhancing your terminal workflow with Tmux.</description>
-  <link>https://eldriv.github.io/articles/tmux.html</link>
-  <guid isPermaLink="true">https://eldriv.github.io/articles/tmux.html</guid>
-  <pubDate>Tue, 02 Jan 2025 00:00:00 +0000</pubDate>
- </item>
+  <item>
+    <title>Building 'Adz' in Common Lisp With Clingon</title>
+    <description>Building a small application in Common Lisp with the Clingon library.</description>
+    <link>https://eldriv-blogs.netlify.app/en/adz/</link>
+    <guid isPermaLink="true">https://eldriv-blogs.netlify.app/en/adz/</guid>
+    <pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate>
+  </item>
 
- <item>
-  <title>How NixOS Treated a Novice Sysadmin</title>
-  <description>Personal experience with NixOS from a beginner's perspective.</description>
-  <link>https://eldriv.github.io/articles/nixos.html</link>
-  <guid isPermaLink="true">https://eldriv.github.io/articles/nixos.html</guid>
-  <pubDate>Sun, 22 Dec 2024 00:00:00 +0000</pubDate>
- </item>
+  <item>
+    <title>Using Tmux to Perk Up Your Terminal</title>
+    <description>Guide to enhancing your terminal workflow with Tmux.</description>
+    <link>https://eldriv-blogs.netlify.app/en/tmux/</link>
+    <guid isPermaLink="true">https://eldriv-blogs.netlify.app/en/tmux/</guid>
+    <pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate>
+  </item>
 
- <item>
-  <title>Explore Parsing in S-expression</title>
-  <description>Understanding parser implementation with S-expressions.</description>
-  <link>https://eldriv.github.io/articles/parser.html</link>
-  <guid isPermaLink="true">https://eldriv.github.io/articles/parser.html</guid>
-  <pubDate>Mon, 21 Oct 2024 00:00:00 +0000</pubDate>
- </item>
+  <item>
+    <title>How NixOS Treated a Novice Sysadmin</title>
+    <description>Personal experience with NixOS from a beginner's perspective.</description>
+    <link>https://eldriv-blogs.netlify.app/en/nixos/</link>
+    <guid isPermaLink="true">https://eldriv-blogs.netlify.app/en/nixos/</guid>
+    <pubDate>Sun, 22 Dec 2024 00:00:00 +0000</pubDate>
+  </item>
 
- <item>
-  <title>Docker Containers Are Fast</title>
-  <description>Exploring the speed and efficiency of Docker containers.</description>
-  <link>https://eldriv.github.io/articles/docker.html</link>
-  <guid isPermaLink="true">https://eldriv.github.io/articles/docker.html</guid>
-  <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
- </item>
+  <item>
+    <title>A Wanderer's Tale of Discovering Lisp</title>
+    <description>A journey through learning Common Lisp programming.</description>
+    <link>https://eldriv-blogs.netlify.app/en/lisp/</link>
+    <guid isPermaLink="true">https://eldriv-blogs.netlify.app/en/lisp/</guid>
+    <pubDate>Mon, 21 Oct 2024 00:00:00 +0000</pubDate>
+  </item>
 
- <item>
-  <title>Testing a Testing Framework</title>
-  <description>Exploring the FiveAM testing framework.</description>
-  <link>https://eldriv.github.io/articles/fiveam.html</link>
-  <guid isPermaLink="true">https://eldriv.github.io/articles/fiveam.html</guid>
-  <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
- </item>
+  <item>
+    <title>Explore Parsing in S-expression</title>
+    <description>Understanding parser implementation with S-expressions.</description>
+    <link>https://eldriv-blogs.netlify.app/en/parser/</link>
+    <guid isPermaLink="true">https://eldriv-blogs.netlify.app/en/parser/</guid>
+    <pubDate>Mon, 21 Oct 2024 00:00:00 +0000</pubDate>
+  </item>
 
- <item>
-  <title>How I Installed Ubuntu From Windows</title>
-  <description>Step-by-step guide to installing Ubuntu alongside Windows.</description>
-  <link>https://eldriv.github.io/articles/ubuntu.html</link>
-  <guid isPermaLink="true">https://eldriv.github.io/articles/ubuntu.html</guid>
-  <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
- </item>
+  <item>
+    <title>Docker Containers Are Fast</title>
+    <description>Exploring the speed and efficiency of Docker containers.</description>
+    <link>https://eldriv-blogs.netlify.app/en/docker/</link>
+    <guid isPermaLink="true">https://eldriv-blogs.netlify.app/en/docker/</guid>
+    <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
+  </item>
+
+  <item>
+    <title>Testing a Testing Framework</title>
+    <description>Exploring the FiveAM testing framework.</description>
+    <link>https://eldriv-blogs.netlify.app/en/fiveam/</link>
+    <guid isPermaLink="true">https://eldriv-blogs.netlify.app/en/fiveam/</guid>
+    <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
+  </item>
+
+  <item>
+    <title>How I Installed Ubuntu From Windows</title>
+    <description>Step-by-step guide to installing Ubuntu alongside Windows.</description>
+    <link>https://eldriv-blogs.netlify.app/en/ubuntu/</link>
+    <guid isPermaLink="true">https://eldriv-blogs.netlify.app/en/ubuntu/</guid>
+    <pubDate>Sun, 22 Sep 2024 00:00:00 +0000</pubDate>
+  </item>
 
 </channel>
 </rss>

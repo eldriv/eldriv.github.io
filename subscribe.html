@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="img/icon.png" type="image/png" />
+  <link rel="alternate" type="application/rss+xml" title="eldriv" href="https://eldriv-blogs.netlify.app/feed.xml" />
+  <title>Subscribe — eldriv</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    .subscribe-page { padding-top: 0.5rem; }
+    .subscribe-page h1 { font-size: 1.5rem; font-weight: 600; margin: 0 0 0.75rem; letter-spacing: -0.02em; }
+    .subscribe-page p { color: var(--text-soft); font-size: 0.9375rem; }
+    .feed-url-box { display: flex; gap: 0.5rem; margin: 1.5rem 0; flex-wrap: wrap; }
+    .feed-url-box input {
+      flex: 1; min-width: 12rem; padding: 0.6rem 0.75rem; border-radius: 6px;
+      border: 1px solid var(--line); background: #18181b; color: var(--text);
+      font-family: var(--font-mono); font-size: 0.8125rem;
+    }
+    .feed-url-box button {
+      padding: 0.6rem 1rem; border-radius: 6px; border: 1px solid var(--line);
+      background: transparent; color: var(--text); font-weight: 500; cursor: pointer;
+      font-family: var(--font);
+    }
+    .feed-url-box button:hover { border-color: var(--text-faint); }
+    .subscribe-apps h2 {
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.75rem;
+    }
+    .subscribe-apps ul { margin: 0; padding-left: 1.25rem; color: var(--text-soft); }
+    .raw-feed { margin-top: 2rem; font-size: 0.8125rem; color: var(--text-faint); }
+  </style>
+</head>
+<body>
+<header class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-end">
+      <div class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/en/about" class="nav-link">About</a>
+        <a href="/en/life" class="nav-link">Introspection</a>
+      </div>
+      <a href="/subscribe.html" class="rss-link" title="RSS feed URL" aria-label="RSS feed">
+        <svg class="rss-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.9 15.9 0 0 1 20.56 21h-2.83A13.07 13.07 0 0 0 4 7.27V4.44m0 5.66a9.27 9.27 0 0 1 9.27 9.27h-2.83A6.44 6.44 0 0 0 4 12.4V10.1Z"/></svg>
+        <span class="rss-label">RSS</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="site-content subscribe-page">
+  <h1>Subscribe via RSS</h1>
+  <p>Paste this URL into your feed reader to get new posts from eldriv.</p>
+
+  <div class="feed-url-box">
+    <input id="feed-url" type="text" readonly value="https://eldriv-blogs.netlify.app/feed.xml" aria-label="RSS feed URL" />
+    <button type="button" id="copy-feed">Copy URL</button>
+  </div>
+
+  <section class="subscribe-apps">
+    <h2>Popular readers</h2>
+    <ul>
+      <li><a href="https://netnewswire.com/" rel="noopener">NetNewsWire</a> (Mac / iOS)</li>
+      <li><a href="https://feedly.com/" rel="noopener">Feedly</a> (web &amp; mobile)</li>
+      <li><a href="https://www.inoreader.com/" rel="noopener">Inoreader</a> (web &amp; mobile)</li>
+    </ul>
+  </section>
+
+  <p class="raw-feed">Developers: <a href="/feed.xml">view raw RSS XML</a></p>
+</main>
+
+<footer class="footer">
+  <div class="right">© 2026 eldriv</div>
+  <nav class="footer-menu" aria-label="Footer">
+    <a href="https://eldriv-blogs.netlify.app/" class="footer-right">Home</a>
+    <span class="footer-dot" aria-hidden="true">·</span>
+    <a href="/en/about" class="footer-right">About</a>
+    <span class="footer-dot" aria-hidden="true">·</span>
+    <a href="/en/life" class="footer-right">Introspection</a>
+    <span class="footer-dot" aria-hidden="true">·</span>
+    <a href="/subscribe.html" class="footer-right rss-footer-link" title="RSS feed">
+      <svg class="rss-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.9 15.9 0 0 1 20.56 21h-2.83A13.07 13.07 0 0 0 4 7.27V4.44m0 5.66a9.27 9.27 0 0 1 9.27 9.27h-2.83A6.44 6.44 0 0 0 4 12.4V10.1Z"/></svg>
+      <span>RSS</span>
+    </a>
+  </nav>
+</footer>
+
+<script>
+document.getElementById('copy-feed').addEventListener('click', function () {
+  var input = document.getElementById('feed-url');
+  input.select();
+  input.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(input.value).then(function () {
+    var btn = document.getElementById('copy-feed');
+    btn.textContent = 'Copied!';
+    setTimeout(function () { btn.textContent = 'Copy URL'; }, 2000);
+  });
+});
+</script>
+</body>
+</html>

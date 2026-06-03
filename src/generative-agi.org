@@ -1,0 +1,99 @@
+#+author:
+#+options: title:nil toc:nil html-postamble:nil
+#+BEGIN_EXPORT html
+<nav class="global-header">
+  <div class="nav-container">
+    <div class="nav-logo-section">
+      <a href="/" class="nav-logo">eldriv</a>
+      <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
+    </div>
+    <div class="nav-end">
+      <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/en/about" class="nav-link">About</a>
+      <a href="/en/life" class="nav-link">Introspection</a>
+      </div>
+      <a href="/subscribe.html" class="rss-link" title="Subscribe via RSS" aria-label="RSS feed">
+        <svg class="rss-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.9 15.9 0 0 1 20.56 21h-2.83A13.07 13.07 0 0 0 4 7.27V4.44m0 5.66a9.27 9.27 0 0 1 9.27 9.27h-2.83A6.44 6.44 0 0 0 4 12.4V10.1Z"/></svg>
+        <span class="rss-label">RSS</span>
+      </a>
+    </div>
+  </div>
+</nav>
+<header id="title-block-header">
+<h1 class="title">We're Not One Prompt Away from AGI</h1>
+</header>
+#+END_EXPORT
+#+language: en
+#+startup: overview
+#+PANDOC_OPTIONS: standalone:t
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../css/nix.css">
+#+HTML_HEAD: <link rel="alternate" type="application/rss+xml" title="eldriv" href="https://eldriv-blogs.netlify.app/feed.xml">
+
+* Table of contents
+- [[#introduction][Introduction]]
+- [[#the-path-most-people-took][The path most people took]]
+- [[#brute-force-instead-of-the-hard-problems][Brute force instead of the hard problems]]
+- [[#data-centers-and-power][Data centers and power]]
+- [[#wrapping-up][Wrapping up]]
+- [[#reference][Reference]]
+
+* Introduction
+A lot of the industry is trying to reach AGI by walking the generative road: bigger models, more data, longer training, shinier chat demos. That is one way to build useful software. It is not the same as sitting down to solve the actual problems behind general intelligence.
+
+Generative AI can help with drafts, search, and small automations. I still use it sometimes. My concern is narrower: we are treating scale on the generative path as if it were the whole journey to AGI, instead of doing the slower work the goal actually requires.
+
+A talk I kept coming back to while writing this is [[https://www.youtube.com/watch?v=CGxbRJPCoAQ][Artificial Intelligence: a Problem of Plumbing?]] by Gerald Jay Sussman (European Lisp Symposium, 2023). He is not arguing that AI is useless. He is asking why we still cannot hook strong pieces together so they cooperate on problems that need more than one kind of skill.
+
+* The path most people took
+The generative path is about producing believable output. Train on huge piles of text and media, then predict what comes next. The results can look impressive in a demo.
+
+The AGI problem is different in kind. It is about reliability in new situations: planning that survives a month, judgment under uncertainty, learning a task you were not explicitly trained for, staying grounded in what is real. Those are research and engineering problems, not something you automatically get by stacking more of the same prediction machinery.
+
+What happened in public is a redirect. Funding, headlines, and product roadmaps followed generative scaling because it ships fast and tests well on benchmarks that reward fluent answers. The harder AGI questions moved to the background, not because they were solved, but because brute force on the generative side was easier to sell.
+
+* Brute force instead of the hard problems
+Brute force here means: add data centers, add training runs, add parameters, add prompts, add agent loops, and hope capability appears. It can raise average quality on familiar tasks. It does not replace work on reasoning, world models, embodiment, verification, or alignment when systems act on their own.
+
+Sussman makes the split concrete. We already have systems that play Chess or Go at the top level, provers that crunch algebra, and chatbots that sound fluent. But the vision system that tells cats from dogs does not know what a cat is. The chatbot does not know what it is talking about. The hard part is not only making each box clever. It is building the plumbing so a solver for problem A and a solver for problem B can work on problems that need both, without starting from scratch every time.
+
+That is a different job from training one giant generative model and calling it progress toward everything. It is language design, architecture, and ways for mechanisms to cooperate. The generative path mostly bets on scale. The AGI-shaped path has to bet on composition.
+
+You see the gap when a system sounds confident but invents a citation, or when a long workflow breaks at step nine and a human has to repair it. The generative road keeps improving the voice. The other road would need to improve how parts connect and when they should refuse.
+
+That is why I say we are not one prompt away. Not because chat tools are bad, but because the industry shortcut is “scale generative systems until AGI,” when AGI may need the plumbing problem solved first. We are polishing one pipe instead of fitting the system together.
+
+* Data centers and power
+The generative path has a physical cost. Training can run for weeks in data centers full of racks, with cooling running around the clock. When you send a message, the answer is usually computed in those same kinds of buildings, not on your device alone. You do not see the bill on your screen, but the facility does. Pipelines that call a model many times for one job multiply the draw.
+
+If that electricity were clearly buying progress on the hard AGI problems, the trade might be easier to defend. Often it is buying larger versions of the same generative bet. Power goes up while the scientific to-do list stays open.
+
+We also do not need generative tools in every corner of daily work. Reading documentation, writing your own code, or thinking before you click is still valid. A smaller model may be enough for a narrow task. Skipping the chat when you are only delaying thought is fine. Not every app needs an AI feature because a pitch deck expects one.
+
+* Wrapping up
+Generative AI is worth having on the tool belt. It is a strong direction for media and language products. It should not be mistaken for the only direction toward AGI.
+
+The mistake is choosing the generative path as a stand-in for solving AGI, and brute forcing scale when the open problems need a different kind of effort. Until that changes, we will keep paying in data centers and attention for output that sounds ahead of what we have actually built.
+
+AGI, if it arrives, will need more than a bigger prompt window. It will need answers to questions we are still largely treating as side quests. That is the path worth walking.
+
+* Reference
++ [[https://www.youtube.com/watch?v=CGxbRJPCoAQ][Gerald Jay Sussman, /Artificial Intelligence: a Problem of Plumbing?/ (ELS 2023 keynote)]]
++ [[https://www.european-lisp-symposium.org/2023/][European Lisp Symposium 2023 program page]] (abstract and context for the talk)
+
+#+BEGIN_EXPORT html
+<link rel="icon" href="../img/icon.png" type="image/png">
+<footer class="footer">
+  <div class="right">© 2026 eldriv</div>
+  <div class="footer-menu">
+    <a href="https://eldriv-blogs.netlify.app/" class="footer-right">Home</a>
+    <span class="footer-dot" aria-hidden="true">·</span>
+    <a href="/en/about" class="footer-right">About</a>
+    <span class="footer-dot" aria-hidden="true">·</span>
+    <a href="/subscribe.html" class="footer-right rss-footer-link" title="RSS feed">
+      <svg class="rss-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.9 15.9 0 0 1 20.56 21h-2.83A13.07 13.07 0 0 0 4 7.27V4.44m0 5.66a9.27 9.27 0 0 1 9.27 9.27h-2.83A6.44 6.44 0 0 0 4 12.4V10.1Z"/></svg>
+      <span>RSS</span>
+    </a>
+  </div>
+</footer>
+#+END_EXPORT

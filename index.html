@@ -1,166 +1,182 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <link rel="icon" href="img/icon.png" type="image/png">
-  <link rel="alternate" type="application/rss+xml" title="eldriv" href="https://eldriv.com/feed.xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="img/icon.png" type="image/png" />
+  <link rel="alternate" type="application/rss+xml" title="eldriv" href="https://eldriv-blogs.netlify.app/feed.xml" />
   <meta name="author" content="eldriv" />
+  <meta name="description" content="Writings on life, technology, Lisp, and systems." />
   <title>eldriv</title>
- <style>
-/* Additional styles for index.html - main.css handles most styling */
-html {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-html body {
-  margin: 0 auto !important;
-  max-width: 1200px !important;
-  padding: 2rem 3rem !important;
-  box-sizing: border-box !important;
-}
-
-header {
-  margin-bottom: 3rem;
-  text-align: center;
-}
-
-#title-block-header {
-  margin-bottom: 3rem;
-}
-
-/* Ensure proper spacing for content */
-p {
-  margin: 1.5rem 0;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin: 2rem 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Print styles */
-@media print {
-  html {
-    background-color: white;
-  }
-  body {
-    background-color: transparent;
-    color: black;
-    max-width: 100%;
-  }
-  a {
-    color: #1a1a1a;
-  }
-  a:visited {
-    color: #1a1a1a;
-  }
-  p, h2, h3 {
-    orphans: 3;
-    widows: 3;
-  }
-  h2, h3, h4 {
-    page-break-after: avoid;
-  }
-}
-  </style>
- <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="css/main.css" />
 </head>
-<body>
-<nav class="global-header">
+<body class="page-home">
+<header class="global-header">
   <div class="nav-container">
     <div class="nav-logo-section">
       <a href="/" class="nav-logo">eldriv</a>
       <p class="nav-subtitle">ᜁᜎ᜔ᜇ᜔ᜇᜒᜊ᜔</p>
     </div>
-    <div class="nav-links">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/en/about" class="nav-link">About</a>
-      <a href="/en/life" class="nav-link">Introspection</a>
-      <a href="/feed.xml" class="nav-link rss-link" title="RSS feed" aria-label="Subscribe via RSS">
-        <svg class="rss-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.9 15.9 0 0 1 20.56 21h-2.83A13.07 13.07 0 0 0 4 7.27V4.44m0 5.66a9.27 9.27 0 0 1 9.27 9.27h-2.83A6.44 6.44 0 0 0 4 12.4V10.1Z"/></svg>
+    <div class="nav-end">
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/" class="nav-link is-active">Home</a>
+        <a href="/en/about" class="nav-link">About</a>
+        <a href="/en/life" class="nav-link">Introspection</a>
+      </nav>
+      <a href="/subscribe.html" class="rss-link" title="Subscribe via RSS" aria-label="RSS feed">
+        <svg class="rss-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.9 15.9 0 0 1 20.56 21h-2.83A13.07 13.07 0 0 0 4 7.27V4.44m0 5.66a9.27 9.27 0 0 1 9.27 9.27h-2.83A6.44 6.44 0 0 0 4 12.4V10.1Z"/></svg>
+        <span class="rss-label">RSS</span>
       </a>
     </div>
   </div>
-</nav>
-<header id="title-block-header">
-<div class="update" style="text-align: center;">Last updated: April 12, 2025 <br>The entries are sorted in reverse chronological order.</div>
 </header>
-<p><img src="img/const.png" /></p>
-<p>This passage reflects a personal journey through life and technology.
-The author aims to inspire others to explore their own paths, awakening
-to the profound possibilities that lie within their consciousness and
-beyond.</p>
-<ul>
-<li><a href="en/adz">
-  <div class="article-content">
-    <div class="article-title">Building 'Adz' in Common Lisp With Clingon</div>
-    <div class="article-date">Last updated: April 12, 2025</div>
-  </div>
-  <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
-</a></li>
-<li><a href="en/lisp">
-  <div class="article-content">
-    <div class="article-title">A Wanderer's Tale of Discovering Lisp</div>
-    <div class="article-date">Last updated: October 21, 2024</div>
-  </div>
-  <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
-</a></li>
-<li><a href="en/tmux">
-  <div class="article-content">
-    <div class="article-title">Using Tmux to Perk Up Your Terminal</div>
-    <div class="article-date">Last updated: January 02, 2025</div>
-  </div>
-  <img src="img/tmux.png" alt="" class="article-icon" />
-</a></li>
-<li><a href="en/nixos">
-  <div class="article-content">
-    <div class="article-title">How NixOS Treated a Novice Sysadmin</div>
-    <div class="article-date">Last updated: December 22, 2024</div>
-  </div>
-  <img src="img/nixos.png" alt="" class="article-icon" />
-</a></li>
-<li><a href="en/docker">
-  <div class="article-content">
-    <div class="article-title">Docker Containers Are Fast</div>
-    <div class="article-date">Last updated: September 22, 2024</div>
-  </div>
-  <img src="img/docker.png" alt="" class="article-icon" />
-</a></li>
-<li><a href="en/fiveam">
-  <div class="article-content">
-    <div class="article-title">Testing a Testing Framework</div>
-    <div class="article-date">Last updated: September 22, 2024</div>
-  </div>
-  <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
-</a></li>
-<li><a href="en/parser">
-  <div class="article-content">
-    <div class="article-title">Explore Parsing in S-expression</div>
-    <div class="article-date">Last updated: October 21, 2024</div>
-  </div>
-  <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
-</a></li>
-<li><a href="en/ubuntu">
-  <div class="article-content">
-    <div class="article-title">How I Installed Ubuntu From Windows</div>
-    <div class="article-date">Last updated: September 22, 2024</div>
-  </div>
-  <img src="img/ubuntu.png" alt="" class="article-icon" />
-</a></li>
-</ul>
-</body>
+
+<main class="site-content">
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="hero-eyebrow">Writings &amp; notes</span>
+      <h1 class="hero-title">Life, code, and <em>curiosity</em></h1>
+      <p class="hero-intro">A personal journal on technology, consciousness, and the tools that shape how we think and build.</p>
+      <p class="hero-meta">Last updated June 3, 2026 · Newest first</p>
+    </div>
+    <aside class="hero-subscribe" aria-labelledby="hero-subscribe-heading">
+      <div class="hero-subscribe-inner">
+        <h2 class="hero-subscribe-title" id="hero-subscribe-heading">Follow along</h2>
+        <p class="hero-subscribe-text">Get new posts in your feed reader — no account required.</p>
+        <a href="/subscribe.html" class="hero-subscribe-cta">
+          <svg class="rss-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.9 15.9 0 0 1 20.56 21h-2.83A13.07 13.07 0 0 0 4 7.27V4.44m0 5.66a9.27 9.27 0 0 1 9.27 9.27h-2.83A6.44 6.44 0 0 0 4 12.4V10.1Z"/></svg>
+          Subscribe via RSS
+        </a>
+        <div class="hero-feed-url">
+          <label class="hero-feed-label" for="hero-feed-url">Feed URL</label>
+          <div class="hero-feed-row">
+            <input id="hero-feed-url" type="text" readonly value="https://eldriv-blogs.netlify.app/feed.xml" aria-label="RSS feed URL" />
+            <button type="button" class="hero-feed-copy" id="hero-copy-feed">Copy</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="articles-section">
+    <div class="section-head">
+      <h2>Articles</h2>
+      <p class="section-meta">9 posts</p>
+    </div>
+    <ul class="article-list">
+      <li>
+        <a href="en/generative-agi" class="article-card">
+          <div class="article-content">
+            <span class="article-title">We're Not One Prompt Away from AGI</span>
+            <span class="article-date">Jun 3, 2026</span>
+          </div>
+          <img src="img/icon.png" alt="" class="article-icon" />
+          <span class="article-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="en/adz" class="article-card">
+          <div class="article-content">
+            <span class="article-title">Building 'Adz' in Common Lisp With Clingon</span>
+            <span class="article-date">April 12, 2025</span>
+          </div>
+          <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
+          <span class="article-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="en/tmux" class="article-card">
+          <div class="article-content">
+            <span class="article-title">Using Tmux to Perk Up Your Terminal</span>
+            <span class="article-date">January 2, 2025</span>
+          </div>
+          <img src="img/tmux.png" alt="" class="article-icon" />
+          <span class="article-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="en/nixos" class="article-card">
+          <div class="article-content">
+            <span class="article-title">How NixOS Treated a Novice Sysadmin</span>
+            <span class="article-date">December 22, 2024</span>
+          </div>
+          <img src="img/nixos.png" alt="" class="article-icon" />
+          <span class="article-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="en/lisp" class="article-card">
+          <div class="article-content">
+            <span class="article-title">A Wanderer's Tale of Discovering Lisp</span>
+            <span class="article-date">October 21, 2024</span>
+          </div>
+          <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
+          <span class="article-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="en/parser" class="article-card">
+          <div class="article-content">
+            <span class="article-title">Explore Parsing in S-expression</span>
+            <span class="article-date">October 21, 2024</span>
+          </div>
+          <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
+          <span class="article-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="en/docker" class="article-card">
+          <div class="article-content">
+            <span class="article-title">Docker Containers Are Fast</span>
+            <span class="article-date">September 22, 2024</span>
+          </div>
+          <img src="img/docker.png" alt="" class="article-icon" />
+          <span class="article-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="en/fiveam" class="article-card">
+          <div class="article-content">
+            <span class="article-title">Testing a Testing Framework</span>
+            <span class="article-date">September 22, 2024</span>
+          </div>
+          <img src="img/taijitu-lisp.png" alt="" class="article-icon" />
+          <span class="article-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="en/ubuntu" class="article-card">
+          <div class="article-content">
+            <span class="article-title">How I Installed Ubuntu From Windows</span>
+            <span class="article-date">September 22, 2024</span>
+          </div>
+          <img src="img/ubuntu.png" alt="" class="article-icon" />
+          <span class="article-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+</main>
+
 <footer class="footer">
-      <div class="right">© 2025 eldriv</div>
-  <div class="footer-menu">
-    <a href="en/about" class="footer-right">About</a> ✾
-  <a href="en/life" class="footer-right">Introspection</a>
-  </p>
+  <div class="right">© 2026 eldriv</div>
+  <nav class="footer-menu" aria-label="Footer">
+    <a href="https://eldriv-blogs.netlify.app/" class="footer-right">Home</a>
+    <a href="/en/about" class="footer-right">About</a>
+    <a href="/en/life" class="footer-right">Introspection</a>
+    <a href="/subscribe.html" class="footer-right rss-footer-link" title="RSS feed">RSS</a>
+  </nav>
 </footer>
+
+<script>
+document.getElementById('hero-copy-feed').addEventListener('click', function () {
+  var input = document.getElementById('hero-feed-url');
+  var btn = document.getElementById('hero-copy-feed');
+  navigator.clipboard.writeText(input.value).then(function () {
+    btn.textContent = 'Copied!';
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+});
+</script>
+</body>
 </html>
