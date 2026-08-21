@@ -33,7 +33,7 @@
 #+HTML_HEAD: <meta property="og:title" content="Git and GitHub from the Terminal on Mac and Windows">
 #+HTML_HEAD: <meta property="og:url" content="https://eldriv-blogs.netlify.app/en/git/">
 #+HTML_HEAD: <meta property="og:image" content="https://eldriv-blogs.netlify.app/img/gh.gif">
-#+HTML_HEAD: <meta property="og:description" content="A beginner-to-end guide to Git and GitHub in the terminal on macOS and Windows, with a full sample project walkthrough.">
+#+HTML_HEAD: <meta property="og:description" content="A plain-language guide to Git and GitHub in the terminal on Mac and Windows, with a small sample project.">
 #+HTML_HEAD: <meta name="twitter:card" content="summary_large_image">
 
 * Table of contents
@@ -42,104 +42,104 @@
 - [[#install-git][Install Git]]
 - [[#open-a-terminal][Open a terminal]]
 - [[#first-time-setup][First-time setup]]
-- [[#authentication-with-github][Authentication with GitHub]]
-- [[#core-commands-you-will-use-daily][Core commands you will use daily]]
+- [[#sign-in-to-github][Sign in to GitHub]]
+- [[#commands-you-will-use-a-lot][Commands you will use a lot]]
 - [[#sample-project-notes-cli][Sample project: notes-cli]]
-- [[#using-a-dev-branch-so-you-do-not-break-main][Using a =dev= branch so you do not break =main=]]
-- [[#everyday-workflow-after-the-first-push][Everyday workflow after the first push]]
-- [[#useful-extras][Useful extras]]
+- [[#using-a-dev-branch-so-main-stays-safe][Using a =dev= branch so =main= stays safe]]
+- [[#a-normal-day-of-work][A normal day of work]]
+- [[#handy-extras][Handy extras]]
 - [[#wrapping-up][Wrapping up]]
 
 * Introduction
-If you write code, notes, configs, or scripts, you will eventually want a history of what changed and a place to keep that history online. That is what [[https://git-scm.com/][Git]] and [[https://github.com/][GitHub]] are for.
+If you write code, notes, configs, or scripts, you will want two things sooner or later:
 
-Git runs on your machine. It tracks versions of your files. GitHub is a website (and a set of services) that hosts Git repositories so you can back them up, share them, and collaborate.
+1. A history of what changed on your computer
+2. A copy of that work online
 
-This post is a full path from zero to a live repository on GitHub using only the terminal. The same Git commands work on *macOS* and *Windows*. The install steps and which terminal you open are the main differences.
+[[https://git-scm.com/][Git]] does the first part. It lives on your machine and remembers versions of your files.
 
-By the end you will:
+[[https://github.com/][GitHub]] does the second part. It stores Git projects on the internet so you can back them up, share them, or work with other people.
 
-1. Install Git on Mac or Windows
-2. Configure your name and email
-3. Sign in to GitHub from the terminal
-4. Create a small sample project called =notes-cli=
-5. Commit, push, branch, and pull like a normal day-to-day workflow
+This guide walks you from nothing to a project on GitHub, using only the terminal. The Git commands are the same on *Mac* and *Windows*. What changes is how you install Git and which terminal you open.
+
+By the end you should be able to:
+
+1. Install Git
+2. Put your name and email into Git
+3. Sign in to GitHub
+4. Build a small sample project called =notes-cli=
+5. Save changes, upload them, use branches, and merge work when it is ready
 
 * What you will use
-- *Git* — the version-control tool in your terminal
-- *GitHub* — where the remote copy of your project lives
+- *Git* — the tool in your terminal that tracks file history
+- *GitHub* — the website where a remote copy of your project can live
 - *A terminal*:
-  - *macOS*: Terminal.app, iTerm2, or Warp
-  - *Windows*: *Git Bash* (recommended for this guide), or PowerShell after Git is installed
+  - *Mac*: Terminal (built in), or another terminal app you already use
+  - *Windows*: *Git Bash* (best match for this guide), or PowerShell after Git is installed
 
-Git commands themselves are the same. Paths look a little different (=/Users/...= on Mac, =C:\Users\...= or =/c/Users/...= in Git Bash on Windows).
+Paths look a bit different. On Mac you often see =/Users/yourname/...=. On Windows you might see =C:\Users\yourname\...=, or in Git Bash =/c/Users/yourname/...=. The Git commands stay the same.
 
 * Install Git
-** macOS
-**Option A — Homebrew** (clean and easy to update):
+** Mac
+If you use [[https://brew.sh/][Homebrew]]:
 
 #+begin_src sh
 brew install git
 #+end_src
 
-**Option B — Xcode Command Line Tools** (ships Git with Apple’s tools):
+If you do not use Homebrew, Apple’s Command Line Tools also install Git:
 
 #+begin_src sh
 xcode-select --install
 #+end_src
 
-Check that Git works:
+Then check:
 
 #+begin_src sh
 git --version
 #+end_src
 
-You should see something like =git version 2.x.x=.
+You should see a line that starts with =git version=.
 
 ** Windows
 1. Download the installer from [[https://git-scm.com/download/win][git-scm.com/download/win]]
-2. Run it and keep the defaults unless you know you need something else
-3. Important defaults for beginners:
-   - Editor: whatever you prefer (VS Code, Notepad++, or Vim)
-   - Adjust PATH: *Git from the command line and also from 3rd-party software*
-   - Line endings: *Checkout Windows-style, commit Unix-style* is fine for most people
-4. After install, open *Git Bash* from the Start menu
+2. Run it
+3. For a first install, the default options are fine for most people
+4. After it finishes, open *Git Bash* from the Start menu
 
-Verify:
+Check:
 
 #+begin_src sh
 git --version
 #+end_src
 
-*Note:* On Windows, this guide assumes *Git Bash*. If you use PowerShell, the Git commands are the same; only shell shortcuts (=ls=, =touch=) may differ.
+This guide uses *Git Bash* on Windows. If you use PowerShell instead, the Git commands still work. Some small shell helpers like =ls= or =touch= may differ.
 
 * Open a terminal
-** macOS
-- Spotlight: =Cmd + Space=, type =Terminal=, press Enter
-- Or open *Applications → Utilities → Terminal*
+** Mac
+Press =Cmd + Space=, type =Terminal=, press Enter. Or open *Applications → Utilities → Terminal*.
 
 ** Windows
-- Start menu → search *Git Bash* → open it
-- Or open *PowerShell* / *Windows Terminal* if Git is on your PATH
+Open *Git Bash* from the Start menu.
 
-Pick a folder where you keep projects. Examples:
+Go to a folder where you keep projects:
 
 #+begin_src sh
-# macOS
+# Mac example
 cd ~/Developer
 
-# Windows (Git Bash)
+# Windows Git Bash example
 cd ~/Documents
 #+end_src
 
-If the folder does not exist yet:
+If the folder is not there yet:
 
 #+begin_src sh
 mkdir -p ~/Developer
 cd ~/Developer
 #+end_src
 
-On Windows PowerShell you can use:
+In PowerShell on Windows you can use:
 
 #+begin_src powershell
 mkdir $HOME\Developer
@@ -147,99 +147,104 @@ cd $HOME\Developer
 #+end_src
 
 * First-time setup
-Do this once per machine.
+Do this once on each computer.
 
-** Set your identity
-Git stamps every commit with a name and email. Use the email tied to your GitHub account (or your GitHub noreply address).
+** Tell Git who you are
+Every save (commit) stores a name and email. Use the email on your GitHub account, or the noreply email GitHub shows you in your email settings.
 
 #+begin_src sh
 git config --global user.name "Your Name"
 git config --global user.email "you@example.com"
 #+end_src
 
-** Sensible defaults
+** A few useful defaults
 #+begin_src sh
 git config --global init.defaultBranch main
 git config --global pull.rebase false
 git config --global core.editor "nano"
 #+end_src
 
+What those do, in plain words:
+
+- New repos start on a branch named =main=
+- =git pull= will merge by default (not rebase), which is simpler when you are learning
+- =nano= is the editor Git opens if it needs one
+
 On Windows, if you prefer Notepad or VS Code:
 
 #+begin_src sh
-# Notepad
 git config --global core.editor notepad
 
-# VS Code (if `code` is on PATH)
+# only if the `code` command works in your terminal
 git config --global core.editor "code --wait"
 #+end_src
 
-** Confirm
+** Check your settings
 #+begin_src sh
 git config --global --list
 #+end_src
 
-* Authentication with GitHub
-You need a [[https://github.com/signup][GitHub account]] first. Then choose one way to authenticate when you =git push= and =git pull=.
+* Sign in to GitHub
+You need a [[https://github.com/signup][GitHub account]] first. Then pick one way to prove who you are when you upload (=git push=) or download updates (=git pull= / =git fetch=).
 
-** Option A — GitHub CLI (easiest for most people)
-Install =gh=:
+** Option A — GitHub CLI (often the easiest)
+Install the =gh= tool:
 
 #+begin_src sh
-# macOS (Homebrew)
+# Mac with Homebrew
 brew install gh
 
-# Windows (winget, in PowerShell)
+# Windows PowerShell with winget
 winget install --id GitHub.cli
 #+end_src
 
-Or download from [[https://cli.github.com/][cli.github.com]].
+You can also download it from [[https://cli.github.com/][cli.github.com]].
 
-Then log in:
+Log in:
 
 #+begin_src sh
 gh auth login
 #+end_src
 
-Follow the prompts:
+Answer the questions on screen. A common path is:
 
 1. GitHub.com
-2. HTTPS (simple) or SSH (if you already use keys)
-3. Login with a web browser
-4. Authorize when the browser opens
+2. HTTPS
+3. Log in with a web browser
+4. Allow access when the browser asks
 
-Check:
+Check that it worked:
 
 #+begin_src sh
 gh auth status
 #+end_src
 
-** Option B — HTTPS with a Personal Access Token (PAT)
-If you skip =gh=, GitHub no longer accepts your account password for Git over HTTPS. You create a *token* instead:
+** Option B — HTTPS with a Personal Access Token
+GitHub does not accept your normal account password for Git over HTTPS. If you are not using =gh=, you create a *Personal Access Token* and use that when Git asks for a password.
 
-1. GitHub → *Settings* → *Developer settings* → *Personal access tokens*
-2. Generate a token with =repo= scope (classic) or the fine-grained equivalent
-3. When =git push= asks for a password, paste the *token*, not your GitHub password
+1. On GitHub go to *Settings → Developer settings → Personal access tokens*
+2. Create a token with permission to work with your repositories
+3. When =git push= asks for a password, paste the *token*
 
 ** Option C — SSH keys
-Good long-term setup. Generate a key, add the public key to GitHub, then use =git@github.com:USER/REPO.git= remotes.
+This is another common long-term setup. You make a key pair on your computer, add the public key to GitHub, then use SSH URLs like =git@github.com:USER/REPO.git=.
 
 #+begin_src sh
-# macOS / Git Bash
 ssh-keygen -t ed25519 -C "you@example.com"
 #+end_src
 
-Press Enter to accept the default path. Then:
+Press Enter to accept the default file location unless you know you want something else.
+
+Then (Mac / Git Bash):
 
 #+begin_src sh
-# macOS: start agent and add key
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
-# copy public key
-# macOS
+# Mac: copy the public key
 pbcopy < ~/.ssh/id_ed25519.pub
-# Windows Git Bash
+
+# Windows Git Bash: copy the public key
 clip < ~/.ssh/id_ed25519.pub
 #+end_src
 
@@ -251,52 +256,58 @@ Test:
 ssh -T git@github.com
 #+end_src
 
-You should see a greeting that includes your username.
+GitHub should reply with a message that includes your username.
 
-For the sample project below we will use *HTTPS + GitHub CLI*, because it is the shortest path for beginners on both Mac and Windows.
+For the sample project below, this guide uses *HTTPS with GitHub CLI*, because that is usually the shortest path for beginners on both Mac and Windows.
 
-* Core commands you will use daily
-Memorize this loop:
+* Commands you will use a lot
+You do not need to memorize everything. Learn this loop first:
 
-| Command | What it does |
-|---------+--------------|
-| =git status= | What changed? What is staged? |
-| =git add <file>= | Stage a file for the next commit |
-| =git add .= | Stage everything in this folder |
-| =git commit -m "message"= | Save a snapshot locally |
-| =git push= | Send commits to GitHub |
-| =git pull= | Fetch + merge remote changes |
-| =git log --oneline= | Short history |
+| Command | Plain meaning |
+|---------+---------------|
+| =git status= | Show what changed and what is ready to save |
+| =git add <file>= | Mark a file to include in the next save |
+| =git add .= | Mark everything in this folder |
+| =git commit -m "message"= | Save a snapshot on your computer |
+| =git push= | Upload your commits to GitHub |
+| =git pull= | Download updates from GitHub and bring them into your current branch |
+| =git log --oneline= | Show a short list of past saves |
 | =git branch= | List branches |
-| =git checkout -b name= | Create and switch to a branch |
-| =git switch name= | Switch branches (newer syntax) |
-| =git clone <url>= | Download an existing repo |
+| =git switch -c name= | Create a branch and move to it |
+| =git switch name= | Move to an existing branch |
+| =git clone <url>= | Download an existing project |
 
-Other useful ones:
+You may also see =git checkout -b name=. That older form also creates a branch and switches to it. Both are real. This guide mostly uses =git switch=.
+
+Other useful checks:
 
 #+begin_src sh
-git diff              # unstaged changes
-git diff --staged     # staged changes
-git restore file.txt  # discard local edits to a tracked file
-git restore --staged file.txt  # unstage, keep edits
+git diff                 # changes not marked with git add yet
+git diff --staged        # changes already marked with git add
+git restore file.txt     # throw away local edits to a tracked file
+git restore --staged file.txt   # unmark a file, but keep your edits
 #+end_src
 
-* Sample project: notes-cli
-We will build a tiny project from scratch, put it on GitHub, then practice a feature branch. The project is a small shell script that appends dated notes to a file — enough structure to feel real, small enough to finish in one sitting.
+Be careful with =git restore file.txt=. It can discard work you have not committed.
 
-** 1. Create the project folder
+* Sample project: notes-cli
+We will make a tiny project from scratch, put it on GitHub, then practice a feature branch.
+
+The project is a small shell script that saves dated notes into a file. It is small on purpose, so you can finish the Git steps in one sitting.
+
+** 1. Make the folder
 #+begin_src sh
-cd ~/Developer   # or wherever you keep code
+cd ~/Developer   # or any folder you use for code
 mkdir notes-cli
 cd notes-cli
 #+end_src
 
-** 2. Turn the folder into a Git repository
+** 2. Start Git in that folder
 #+begin_src sh
 git init
 #+end_src
 
-You should see something like =Initialized empty Git repository in .../notes-cli/.git/=.
+Git should say it created a repository. That means this folder now has history tracking.
 
 ** 3. Create the files
 Create =README.md=:
@@ -318,7 +329,7 @@ Notes are appended to `notes.txt`.
 EOF
 #+end_src
 
-Create the script =note.sh=:
+Create =note.sh=:
 
 #+begin_src sh
 cat > note.sh << 'EOF'
@@ -337,13 +348,13 @@ echo "Saved: $NOTE"
 EOF
 #+end_src
 
-Make it executable (macOS and Git Bash):
+On Mac and in Git Bash, make the script runnable:
 
 #+begin_src sh
 chmod +x note.sh
 #+end_src
 
-Add a =.gitignore= so temporary junk never gets committed:
+Create =.gitignore= so common junk files are not saved:
 
 #+begin_src sh
 cat > .gitignore << 'EOF'
@@ -353,9 +364,9 @@ Thumbs.db
 EOF
 #+end_src
 
-** Windows note:** If =cat > file << 'EOF'= feels awkward in PowerShell, create the same files in your editor (VS Code, Notepad) with the same names and contents, then continue with Git commands.
+*Windows note:* if the =cat ... << 'EOF'= style feels awkward in PowerShell, create the same files in an editor with the same names and contents, then continue with the Git commands.
 
-** 4. Check status and make the first commit
+** 4. Make your first commit
 #+begin_src sh
 git status
 git add README.md note.sh .gitignore
@@ -363,56 +374,57 @@ git status
 git commit -m "Initial commit: notes-cli script and README"
 #+end_src
 
-First commit tip: if Git complains that you have no identity set, go back to *First-time setup*.
+If Git says it does not know who you are, go back to *First-time setup*.
 
-View history:
+See the history:
 
 #+begin_src sh
 git log --oneline
 #+end_src
 
-** 5. Create an empty repository on GitHub
-With GitHub CLI (from inside =notes-cli=):
+** 5. Put the project on GitHub
+From inside =notes-cli=, if you installed =gh= and signed in:
 
 #+begin_src sh
 gh repo create notes-cli --public --source=. --remote=origin --push
 #+end_src
 
-That one command:
+That command:
 
-- Creates =notes-cli= under your GitHub account
-- Adds =origin= as the remote
-- Pushes =main=
+- Creates a public repo named =notes-cli= under your account
+- Sets =origin= as the remote name for GitHub
+- Uploads your current branch (usually =main=)
 
-Without =gh=, do it manually:
+If you prefer the website:
 
-1. On github.com click *New repository*
+1. On GitHub click *New repository*
 2. Name it =notes-cli=
-3. Leave it empty (no README, no .gitignore — you already have those locally)
-4. Then in your terminal:
+3. Do not add a README or =.gitignore= there, because you already have them locally
+4. Then run:
 
 #+begin_src sh
 git remote add origin https://github.com/YOUR_USERNAME/notes-cli.git
 git push -u origin main
 #+end_src
 
-Replace =YOUR_USERNAME= with your GitHub username.
+Replace =YOUR_USERNAME= with your real GitHub username.
 
-Open the repo in the browser:
+Open it in the browser:
 
 #+begin_src sh
 gh repo view --web
-# or visit https://github.com/YOUR_USERNAME/notes-cli
 #+end_src
 
-** 6. Try the app once
+Or visit =https://github.com/YOUR_USERNAME/notes-cli=.
+
+** 6. Try the script once
 #+begin_src sh
 ./note.sh "First note from my machine"
 ./note.sh "Learning Git on the terminal"
 cat notes.txt
 #+end_src
 
-=notes.txt= was created by the script. Decide if you want it in Git. For this sample we *will* track it so the repo shows real usage.
+The script creates =notes.txt=. For this sample we will track that file too:
 
 #+begin_src sh
 git add notes.txt
@@ -421,14 +433,13 @@ git push
 #+end_src
 
 ** 7. Practice a feature branch
-Branches let you work without touching =main= until you are ready.
+A branch is a separate line of work. You can change files there without changing =main= until you merge.
 
 #+begin_src sh
-git checkout -b feature/list-command
-# or: git switch -c feature/list-command
+git switch -c feature/list-command
 #+end_src
 
-Update =note.sh= so =./note.sh --list= prints notes:
+Now update =note.sh= so =./note.sh --list= prints the notes:
 
 #+begin_src sh
 cat > note.sh << 'EOF'
@@ -462,244 +473,252 @@ chmod +x note.sh
 ./note.sh --list
 #+end_src
 
-Commit and push the branch:
+Save and upload the branch:
 
 #+begin_src sh
-git add note.sh README.md
-# optional: update README Usage section to mention --list
+git add note.sh
 git commit -m "Add --list flag to print saved notes"
 git push -u origin feature/list-command
 #+end_src
 
-Open a pull request on GitHub:
+Open a pull request:
 
 #+begin_src sh
 gh pr create --title "Add list command" --body "Adds ./note.sh --list to print notes.txt"
 #+end_src
 
-Or click *Compare & pull request* on GitHub after the branch push.
+Or on GitHub, after the push, click *Compare & pull request*.
 
-Merge it (on GitHub, or):
+Merge it on GitHub, or with:
 
 #+begin_src sh
 gh pr merge --merge
 #+end_src
 
-Back on your machine, update =main=:
+Then update =main= on your computer:
 
 #+begin_src sh
-git checkout main
+git switch main
 git pull origin main
 #+end_src
 
-You now have the full loop: local project → commits → GitHub → branch → PR → merge → pull.
+That is the basic loop: work locally → commit → push → open a pull request → merge → pull.
 
-* Using a =dev= branch so you do not break =main=
-On many projects you keep =main= as the *stable* line (what works, what you deploy, what other people clone). You do *not* want half-finished features sitting on =main= and colliding with someone else’s work — or with your own “I need a clean copy” moment.
+* Using a =dev= branch so =main= stays safe
+On many projects, =main= is the branch you want to keep stable. That means: finished work only. If you build half-done features straight on =main=, it gets messy. Your own unfinished edits can get mixed with work you wanted to keep clean.
 
-So you create a long-lived =dev= branch (sometimes called =develop=). You build and try features there. When a batch of work is ready, you merge =dev= into =main=.
+A common pattern is:
 
-Think of it like this:
+- Keep =main= for work you trust
+- Create a =dev= branch for day-to-day building
+- When a set of changes is ready, merge =dev= into =main=
 
-| Branch | Role |
-|--------+------|
-| =main= | Stable. Only merge finished work here. |
-| =dev= | Active development. New features land here first. |
-| =feature/...= | Optional short branch for one feature, then merge into =dev= |
+Some teams name that middle branch =develop= instead of =dev=. Same idea.
 
-**Create =dev= from =main= (once)**
+| Branch | Usual job |
+|--------+-----------|
+| =main= | Stable copy |
+| =dev= | Place where you build features |
+| =feature/...= | Optional short branch for one change, often merged into =dev= first |
 
-Make sure =main= is up to date, then branch:
+This does not make merge conflicts impossible. Conflicts can still happen when two branches change the same lines. What it *does* do is keep unfinished work off =main= until you choose to bring it in.
+
+**Create =dev= once**
 
 #+begin_src sh
-git checkout main
+git switch main
 git pull origin main
-git checkout -b dev
-# or: git switch -c dev
+git switch -c dev
 git push -u origin dev
 #+end_src
 
-On GitHub you can also set =dev= as the default branch for PRs later, but beginners often leave =main= as the default and only merge into it when ready.
+**Do new work on =dev=**
 
-**Do your feature work on =dev=**
-
-Example: add a =--clear= flag to =notes-cli= without touching =main=.
+Example: stay on =dev=, make a small change, commit, and push =dev= only.
 
 #+begin_src sh
-git checkout dev
+git switch dev
 git pull origin dev
 #+end_src
 
-Edit =note.sh= (add a clear command), then:
+Edit a file. For a concrete example, add one line to =README.md=, then:
 
 #+begin_src sh
-# after you edit note.sh...
-./note.sh --clear   # only if you implemented it
 git status
-git add note.sh
-git commit -m "Add --clear to wipe notes.txt"
+git add README.md
+git commit -m "Note that development happens on the dev branch"
 git push origin dev
 #+end_src
 
-=main= is unchanged. Anyone cloning =main= still gets the last stable version. You are free to experiment on =dev=.
+=main= still has the older version until you merge.
 
-**Optional: feature branch off =dev=**
+**Optional: make a feature branch from =dev=**
 
-If the change is big, branch from =dev= instead of committing straight to =dev=:
+If the change is bigger, create a feature branch from =dev=:
 
 #+begin_src sh
-git checkout dev
+git switch dev
 git pull origin dev
-git checkout -b feature/clear-notes
-# implement, commit...
-git push -u origin feature/clear-notes
-gh pr create --base dev --title "Add --clear" --body "Wipes notes.txt when requested"
+git switch -c feature/readme-note
+# edit, then:
+git add .
+git commit -m "Explain the dev branch in the README"
+git push -u origin feature/readme-note
+gh pr create --base dev --title "Explain dev branch" --body "Adds a short note to the README"
 #+end_src
 
-Notice =--base dev=: the pull request targets =dev=, not =main=. That keeps unfinished work out of the stable branch.
+=--base dev= means the pull request goes into =dev=, not =main=.
 
-**When you want to merge =dev= into =main=**
+**When =dev= is ready, merge it into =main=**
 
-Only do this when =dev= is in good shape (features work, you are ready for a “release”).
+Do this when the work on =dev= is in good shape.
 
-*Option A — pull request on GitHub (recommended)*:
+With GitHub CLI:
 
 #+begin_src sh
-gh pr create --base main --head dev --title "Merge dev into main" --body "Stable batch of notes-cli updates"
+gh pr create --base main --head dev --title "Merge dev into main" --body "Ready set of notes-cli updates"
 gh pr merge --merge
 #+end_src
 
-Or on GitHub: *Pull requests → New* → base =main=, compare =dev= → create → merge.
+Or on the website: *Pull requests → New* → base =main=, compare =dev= → create → merge.
 
-*Option B — merge locally*:
+Or merge on your computer:
 
 #+begin_src sh
-git checkout main
+git switch main
 git pull origin main
 git merge dev
 git push origin main
 #+end_src
 
-Then keep =dev= moving forward from the updated =main=:
+After that, it is often useful to update =dev= so it includes what is now on =main=:
 
 #+begin_src sh
-git checkout dev
+git switch dev
 git merge main
 git push origin dev
 #+end_src
 
-**Why this avoids conflicts with =main=**
+**If Git reports a merge conflict**
 
-Conflicts happen when *two histories edit the same lines*. If everyone (or every unfinished idea) commits straight to =main=, you fight those conflicts on the branch that is supposed to stay clean. With =dev=:
+Git stops and marks the files. Open them and look for markers like:
 
-1. Daily messy work stays on =dev=
-2. =main= only receives finished merges
-3. If =dev= and =main= diverge, you resolve conflicts while merging =dev= → =main= (or while updating =dev= from =main=), not while scrambling on production
+#+begin_src text
+<<<<<<<
+your change
+=======
+the other change
+>>>>>>>
+#+end_src
 
-**If a merge conflict appears**
-
-Git will stop and mark conflicted files. Open them, look for =<<<<<<<= / ======== / =>>>>>>>=, pick the right code, then:
+Keep the right code, delete the markers, then:
 
 #+begin_src sh
 git add .
-git commit   # finishes the merge commit if Git asks for one
+git commit
 git push
 #+end_src
 
-**Simple rule of thumb for a solo or small project**
+If you are in the middle of a merge and Git already prepared a merge commit message, =git commit= with no =-m= is enough after you fix the files.
 
-1. Start from =main=
+**A simple rule**
+
+1. Keep =main= clean
 2. Create =dev=
-3. Build features on =dev= (or on =feature/...= that merges into =dev=)
-4. When ready, merge =dev= → =main=
-5. Never force unfinished experiments onto =main=
+3. Build on =dev= (or on a feature branch that merges into =dev=)
+4. When ready, merge =dev= into =main=
 
-That is the pattern teams mean when they say “don’t develop on main — develop on =dev=, then merge.”
+That is what people usually mean by “don’t do all your work on main.”
 
-* Everyday workflow after the first push
-Once the repo exists, prefer working on =dev= (or a feature branch) instead of committing everything straight to =main=. A typical day:
+* A normal day of work
+After the repo exists, a calm day often looks like this:
 
 #+begin_src sh
 cd ~/Developer/notes-cli
-git checkout dev
+git switch dev
 git pull origin dev
-# edit files...
+# edit files
 git status
 git add .
-git commit -m "Clear message about why you changed things"
+git commit -m "Say why you made the change"
 git push origin dev
 #+end_src
 
-When a batch is ready and tested, merge =dev= into =main= (see the section above). Only use this shorter loop on =main= for tiny, safe fixes if you truly have no =dev= branch yet:
+When a batch of work is ready, merge =dev= into =main= using the steps in the section above.
+
+If you do not have a =dev= branch yet and only need a tiny fix on =main=:
 
 #+begin_src sh
-git checkout main
+git switch main
 git pull
-# small fix...
+# make the small fix
 git add .
-git commit -m "Clear message about why you changed things"
+git commit -m "Say why you made the change"
 git push
 #+end_src
 
-Write commit messages for *why*, not only *what*:
+Commit messages are easier to read later if they explain *why*:
 
-- Good: =Fix note.sh crash when notes.txt is missing=
-- Weak: =Update files=
+- Clearer: =Fix crash when notes.txt is missing=
+- Vague: =Update files=
 
-If you cloned someone else’s project instead of creating your own:
+If you are joining someone else’s project instead of creating your own:
 
 #+begin_src sh
 git clone https://github.com/SOMEUSER/SOME-REPO.git
 cd SOME-REPO
 #+end_src
 
-* Useful extras
-** See what a remote is
+* Handy extras
+** See where =origin= points
 #+begin_src sh
 git remote -v
 #+end_src
 
-** Undo unstaged edits to one file
+** Throw away uncommitted edits in one tracked file
 #+begin_src sh
 git restore note.sh
 #+end_src
 
-** Unstage a file but keep the edits
+** Unmark a file, but keep your edits
 #+begin_src sh
 git restore --staged note.sh
 #+end_src
 
-** Stash work in progress
+** Set work aside for a moment
 #+begin_src sh
 git stash
 git pull
 git stash pop
 #+end_src
 
-** Mac vs Windows path reminder
-| Task | macOS / Git Bash | Windows PowerShell |
-|------+------------------+--------------------|
-| Home folder | =cd ~= | =cd $HOME= |
+=git stash= saves uncommitted work temporarily. =git stash pop= brings it back. If =pop= causes conflicts, fix those files the same way you fix merge conflicts.
+
+** Mac and Windows reminders
+| Task | Mac / Git Bash | Windows PowerShell |
+|------+----------------|--------------------|
+| Go home | =cd ~= | =cd $HOME= |
 | List files | =ls= | =ls= or =dir= |
-| Make file executable | =chmod +x note.sh= | often not needed for =.bat=; for bash scripts use Git Bash |
-| Copy SSH public key | =pbcopy < ~/.ssh/id_ed25519.pub= | =clip < ~/.ssh/id_ed25519.pub= (Git Bash) |
+| Make a bash script runnable | =chmod +x note.sh= | use Git Bash for that script style |
+| Copy an SSH public key | =pbcopy < ~/.ssh/id_ed25519.pub= | in Git Bash: =clip < ~/.ssh/id_ed25519.pub= |
 
 ** Common errors
-- *=Permission denied (publickey)=* — SSH key not added to the agent or to GitHub
-- *=Authentication failed=* on HTTPS — use a PAT or =gh auth login=, not your GitHub password
-- *=rejected (non-fast-forward)=* on push — run =git pull= first, resolve conflicts, then push
-- *=Please tell me who you are=* — set =user.name= and =user.email=
+- =Permission denied (publickey)= — your SSH key is missing from the agent or from GitHub
+- =Authentication failed= on HTTPS — use a token or =gh auth login=, not your GitHub account password
+- =rejected (non-fast-forward)= on push — someone else (or another computer) has commits you do not have yet; run =git pull=, fix any conflicts, then push again
+- =Please tell me who you are= — set =user.name= and =user.email=
 
 * Wrapping up
-You do not need every Git command on day one. You need a reliable loop:
+You do not need every Git command on day one. You need a loop you trust:
 
 =status → add → commit → push=
 
-and enough comfort with =pull=, branches (=main= / =dev= / features), and remotes to not fear the terminal.
+and enough comfort with =pull=, branches, and remotes that the terminal is not scary.
 
-On *macOS* and *Windows* the Git vocabulary is the same. Install Git, configure your identity, authenticate to GitHub, then walk a real folder like =notes-cli= from =git init= to a merged pull request.
+On Mac and Windows, Git’s words are the same. Install Git, set your name, sign in to GitHub, then walk a real folder like =notes-cli= from =git init= to a merge.
 
-If you want a next step after this, learn =git diff=, =git rebase -i= (carefully), and how GitHub Actions runs tests on every push — but only after the basics above feel boring. Boring version control is the goal.
+A useful habit after that: keep unfinished work on =dev= or a feature branch, and only merge into =main= when you mean to.
+
 #+BEGIN_EXPORT html
 <link rel="icon" href="../img/icon.png" type="image/png">
 <footer class="footer">

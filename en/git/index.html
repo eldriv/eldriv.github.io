@@ -101,7 +101,7 @@
   <meta property="og:title" content="Git and GitHub from the Terminal on Mac and Windows">
   <meta property="og:url" content="https://eldriv-blogs.netlify.app/en/git/">
   <meta property="og:image" content="https://eldriv-blogs.netlify.app/img/gh.gif">
-  <meta property="og:description" content="A beginner-to-end guide to Git and GitHub in the terminal on macOS and Windows, with a full sample project walkthrough.">
+  <meta property="og:description" content="A plain-language guide to Git and GitHub in the terminal on Mac and Windows, with a small sample project.">
   <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
@@ -135,297 +135,302 @@
 <li><a href="#install-git">Install Git</a></li>
 <li><a href="#open-a-terminal">Open a terminal</a></li>
 <li><a href="#first-time-setup">First-time setup</a></li>
-<li><a href="#authentication-with-github">Authentication with
-GitHub</a></li>
-<li><a href="#core-commands-you-will-use-daily">Core commands you will
-use daily</a></li>
+<li><a href="#sign-in-to-github">Sign in to GitHub</a></li>
+<li><a href="#commands-you-will-use-a-lot">Commands you will use a
+lot</a></li>
 <li><a href="#sample-project-notes-cli">Sample project:
 notes-cli</a></li>
-<li><a href="#using-a-dev-branch-so-you-do-not-break-main">Using a <code
-class="verbatim">dev</code> branch so you do not break <code
-class="verbatim">main</code></a></li>
-<li><a href="#everyday-workflow-after-the-first-push">Everyday workflow
-after the first push</a></li>
-<li><a href="#useful-extras">Useful extras</a></li>
+<li><a href="#using-a-dev-branch-so-main-stays-safe">Using a <code
+class="verbatim">dev</code> branch so <code class="verbatim">main</code>
+stays safe</a></li>
+<li><a href="#a-normal-day-of-work">A normal day of work</a></li>
+<li><a href="#handy-extras">Handy extras</a></li>
 <li><a href="#wrapping-up">Wrapping up</a></li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>If you write code, notes, configs, or scripts, you will eventually
-want a history of what changed and a place to keep that history online.
-That is what <a href="https://git-scm.com/">Git</a> and <a
-href="https://github.com/">GitHub</a> are for.</p>
-<p>Git runs on your machine. It tracks versions of your files. GitHub is
-a website (and a set of services) that hosts Git repositories so you can
-back them up, share them, and collaborate.</p>
-<p>This post is a full path from zero to a live repository on GitHub
-using only the terminal. The same Git commands work on
-<strong>macOS</strong> and <strong>Windows</strong>. The install steps
-and which terminal you open are the main differences.</p>
-<p>By the end you will:</p>
+<p>If you write code, notes, configs, or scripts, you will want two
+things sooner or later:</p>
 <ol>
-<li>Install Git on Mac or Windows</li>
-<li>Configure your name and email</li>
-<li>Sign in to GitHub from the terminal</li>
-<li>Create a small sample project called <code
+<li>A history of what changed on your computer</li>
+<li>A copy of that work online</li>
+</ol>
+<p><a href="https://git-scm.com/">Git</a> does the first part. It lives
+on your machine and remembers versions of your files.</p>
+<p><a href="https://github.com/">GitHub</a> does the second part. It
+stores Git projects on the internet so you can back them up, share them,
+or work with other people.</p>
+<p>This guide walks you from nothing to a project on GitHub, using only
+the terminal. The Git commands are the same on <strong>Mac</strong> and
+<strong>Windows</strong>. What changes is how you install Git and which
+terminal you open.</p>
+<p>By the end you should be able to:</p>
+<ol>
+<li>Install Git</li>
+<li>Put your name and email into Git</li>
+<li>Sign in to GitHub</li>
+<li>Build a small sample project called <code
 class="verbatim">notes-cli</code></li>
-<li>Commit, push, branch, and pull like a normal day-to-day
-workflow</li>
+<li>Save changes, upload them, use branches, and merge work when it is
+ready</li>
 </ol>
 <h1 id="what-you-will-use">What you will use</h1>
 <ul>
-<li><strong>Git</strong> — the version-control tool in your
-terminal</li>
-<li><strong>GitHub</strong> — where the remote copy of your project
-lives</li>
+<li><strong>Git</strong> — the tool in your terminal that tracks file
+history</li>
+<li><strong>GitHub</strong> — the website where a remote copy of your
+project can live</li>
 <li><strong>A terminal</strong>:
 <ul>
-<li><strong>macOS</strong>: Terminal.app, iTerm2, or Warp</li>
-<li><strong>Windows</strong>: <strong>Git Bash</strong> (recommended for
+<li><strong>Mac</strong>: Terminal (built in), or another terminal app
+you already use</li>
+<li><strong>Windows</strong>: <strong>Git Bash</strong> (best match for
 this guide), or PowerShell after Git is installed</li>
 </ul></li>
 </ul>
-<p>Git commands themselves are the same. Paths look a little different
-(<code class="verbatim">/Users/...</code> on Mac, <code
-class="verbatim">C:\Users\...</code> or <code
-class="verbatim">/c/Users/...</code> in Git Bash on Windows).</p>
+<p>Paths look a bit different. On Mac you often see <code
+class="verbatim">/Users/yourname/...</code>. On Windows you might see
+<code class="verbatim">C:\Users\yourname\...</code>, or in Git Bash
+<code class="verbatim">/c/Users/yourname/...</code>. The Git commands
+stay the same.</p>
 <h1 id="install-git">Install Git</h1>
-<h2 id="macos">macOS</h2>
-<p><strong><strong>Option A — Homebrew</strong></strong> (clean and easy
-to update):</p>
+<h2 id="mac">Mac</h2>
+<p>If you use <a href="https://brew.sh/">Homebrew</a>:</p>
 <div class="sourceCode" id="cb1" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install git</span></code></pre></div>
-<p><strong><strong>Option B — Xcode Command Line Tools</strong></strong>
-(ships Git with Apple’s tools):</p>
+<p>If you do not use Homebrew, Apple’s Command Line Tools also install
+Git:</p>
 <div class="sourceCode" id="cb2" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code></pre></div>
-<p>Check that Git works:</p>
+<p>Then check:</p>
 <div class="sourceCode" id="cb3" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
-<p>You should see something like <code
-class="verbatim">git version 2.x.x</code>.</p>
+<p>You should see a line that starts with <code
+class="verbatim">git version</code>.</p>
 <h2 id="windows">Windows</h2>
 <ol>
 <li>Download the installer from <a
 href="https://git-scm.com/download/win">git-scm.com/download/win</a></li>
-<li>Run it and keep the defaults unless you know you need something
-else</li>
-<li>Important defaults for beginners:
-<ul>
-<li>Editor: whatever you prefer (VS Code, Notepad++, or Vim)</li>
-<li>Adjust PATH: <strong>Git from the command line and also from
-3rd-party software</strong></li>
-<li>Line endings: <strong>Checkout Windows-style, commit
-Unix-style</strong> is fine for most people</li>
-</ul></li>
-<li>After install, open <strong>Git Bash</strong> from the Start
+<li>Run it</li>
+<li>For a first install, the default options are fine for most
+people</li>
+<li>After it finishes, open <strong>Git Bash</strong> from the Start
 menu</li>
 </ol>
-<p>Verify:</p>
+<p>Check:</p>
 <div class="sourceCode" id="cb4" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div>
-<p><strong>Note:</strong> On Windows, this guide assumes <strong>Git
-Bash</strong>. If you use PowerShell, the Git commands are the same;
-only shell shortcuts (<code class="verbatim">ls</code>, <code
-class="verbatim">touch</code>) may differ.</p>
+<p>This guide uses <strong>Git Bash</strong> on Windows. If you use
+PowerShell instead, the Git commands still work. Some small shell
+helpers like <code class="verbatim">ls</code> or <code
+class="verbatim">touch</code> may differ.</p>
 <h1 id="open-a-terminal">Open a terminal</h1>
-<h2 id="macos-1">macOS</h2>
-<ul>
-<li>Spotlight: <code class="verbatim">Cmd + Space</code>, type <code
-class="verbatim">Terminal</code>, press Enter</li>
-<li>Or open <strong>Applications → Utilities → Terminal</strong></li>
-</ul>
+<h2 id="mac-1">Mac</h2>
+<p>Press <code class="verbatim">Cmd + Space</code>, type <code
+class="verbatim">Terminal</code>, press Enter. Or open
+<strong>Applications → Utilities → Terminal</strong>.</p>
 <h2 id="windows-1">Windows</h2>
-<ul>
-<li>Start menu → search <strong>Git Bash</strong> → open it</li>
-<li>Or open <strong>PowerShell</strong> / <strong>Windows
-Terminal</strong> if Git is on your PATH</li>
-</ul>
-<p>Pick a folder where you keep projects. Examples:</p>
+<p>Open <strong>Git Bash</strong> from the Start menu.</p>
+<p>Go to a folder where you keep projects:</p>
 <div class="sourceCode" id="cb5" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS</span></span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mac example</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Developer</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows (Git Bash)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows Git Bash example</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Documents</span></code></pre></div>
-<p>If the folder does not exist yet:</p>
+<p>If the folder is not there yet:</p>
 <div class="sourceCode" id="cb6" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/Developer</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Developer</span></code></pre></div>
-<p>On Windows PowerShell you can use:</p>
+<p>In PowerShell on Windows you can use:</p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mkdir <span class="va">$HOME</span>\Developer</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="va">$HOME</span>\Developer</span></code></pre></div>
 <h1 id="first-time-setup">First-time setup</h1>
-<p>Do this once per machine.</p>
-<h2 id="set-your-identity">Set your identity</h2>
-<p>Git stamps every commit with a name and email. Use the email tied to
-your GitHub account (or your GitHub noreply address).</p>
+<p>Do this once on each computer.</p>
+<h2 id="tell-git-who-you-are">Tell Git who you are</h2>
+<p>Every save (commit) stores a name and email. Use the email on your
+GitHub account, or the noreply email GitHub shows you in your email
+settings.</p>
 <div class="sourceCode" id="cb8" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">&quot;Your Name&quot;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">&quot;you@example.com&quot;</span></span></code></pre></div>
-<h2 id="sensible-defaults">Sensible defaults</h2>
+<h2 id="a-few-useful-defaults">A few useful defaults</h2>
 <div class="sourceCode" id="cb9" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> init.defaultBranch main</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> pull.rebase false</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> core.editor <span class="st">&quot;nano&quot;</span></span></code></pre></div>
+<p>What those do, in plain words:</p>
+<ul>
+<li>New repos start on a branch named <code
+class="verbatim">main</code></li>
+<li><code class="verbatim">git pull</code> will merge by default (not
+rebase), which is simpler when you are learning</li>
+<li><code class="verbatim">nano</code> is the editor Git opens if it
+needs one</li>
+</ul>
 <p>On Windows, if you prefer Notepad or VS Code:</p>
 <div class="sourceCode" id="cb10" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Notepad</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> core.editor notepad</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># VS Code (if `code` is on PATH)</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> core.editor <span class="st">&quot;code --wait&quot;</span></span></code></pre></div>
-<h2 id="confirm">Confirm</h2>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> core.editor notepad</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># only if the `code` command works in your terminal</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> core.editor <span class="st">&quot;code --wait&quot;</span></span></code></pre></div>
+<h2 id="check-your-settings">Check your settings</h2>
 <div class="sourceCode" id="cb11" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code></pre></div>
-<h1 id="authentication-with-github">Authentication with GitHub</h1>
+<h1 id="sign-in-to-github">Sign in to GitHub</h1>
 <p>You need a <a href="https://github.com/signup">GitHub account</a>
-first. Then choose one way to authenticate when you <code
-class="verbatim">git push</code> and <code
-class="verbatim">git pull</code>.</p>
-<h2 id="option-a-github-cli-easiest-for-most-people">Option A — GitHub
-CLI (easiest for most people)</h2>
-<p>Install <code class="verbatim">gh</code>:</p>
+first. Then pick one way to prove who you are when you upload (<code
+class="verbatim">git push</code>) or download updates (<code
+class="verbatim">git pull</code> / <code
+class="verbatim">git fetch</code>).</p>
+<h2 id="option-a-github-cli-often-the-easiest">Option A — GitHub CLI
+(often the easiest)</h2>
+<p>Install the <code class="verbatim">gh</code> tool:</p>
 <div class="sourceCode" id="cb12" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS (Homebrew)</span></span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mac with Homebrew</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install gh</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows (winget, in PowerShell)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows PowerShell with winget</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">winget</span> install <span class="at">--id</span> GitHub.cli</span></code></pre></div>
-<p>Or download from <a
+<p>You can also download it from <a
 href="https://cli.github.com/">cli.github.com</a>.</p>
-<p>Then log in:</p>
+<p>Log in:</p>
 <div class="sourceCode" id="cb13" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> auth login</span></code></pre></div>
-<p>Follow the prompts:</p>
+<p>Answer the questions on screen. A common path is:</p>
 <ol>
 <li>GitHub.com</li>
-<li>HTTPS (simple) or SSH (if you already use keys)</li>
-<li>Login with a web browser</li>
-<li>Authorize when the browser opens</li>
+<li>HTTPS</li>
+<li>Log in with a web browser</li>
+<li>Allow access when the browser asks</li>
 </ol>
-<p>Check:</p>
+<p>Check that it worked:</p>
 <div class="sourceCode" id="cb14" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> auth status</span></code></pre></div>
-<h2 id="option-b-https-with-a-personal-access-token-pat">Option B —
-HTTPS with a Personal Access Token (PAT)</h2>
-<p>If you skip <code class="verbatim">gh</code>, GitHub no longer
-accepts your account password for Git over HTTPS. You create a
-<strong>token</strong> instead:</p>
+<h2 id="option-b-https-with-a-personal-access-token">Option B — HTTPS
+with a Personal Access Token</h2>
+<p>GitHub does not accept your normal account password for Git over
+HTTPS. If you are not using <code class="verbatim">gh</code>, you create
+a <strong>Personal Access Token</strong> and use that when Git asks for
+a password.</p>
 <ol>
-<li>GitHub → <strong>Settings</strong> → <strong>Developer
-settings</strong> → <strong>Personal access tokens</strong></li>
-<li>Generate a token with <code class="verbatim">repo</code> scope
-(classic) or the fine-grained equivalent</li>
+<li>On GitHub go to <strong>Settings → Developer settings → Personal
+access tokens</strong></li>
+<li>Create a token with permission to work with your repositories</li>
 <li>When <code class="verbatim">git push</code> asks for a password,
-paste the <strong>token</strong>, not your GitHub password</li>
+paste the <strong>token</strong></li>
 </ol>
 <h2 id="option-c-ssh-keys">Option C — SSH keys</h2>
-<p>Good long-term setup. Generate a key, add the public key to GitHub,
-then use <code class="verbatim">git@github.com:USER/REPO.git</code>
-remotes.</p>
+<p>This is another common long-term setup. You make a key pair on your
+computer, add the public key to GitHub, then use SSH URLs like <code
+class="verbatim">git@github.com:USER/REPO.git</code>.</p>
 <div class="sourceCode" id="cb15" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS / Git Bash</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> ed25519 <span class="at">-C</span> <span class="st">&quot;you@example.com&quot;</span></span></code></pre></div>
-<p>Press Enter to accept the default path. Then:</p>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> ed25519 <span class="at">-C</span> <span class="st">&quot;you@example.com&quot;</span></span></code></pre></div>
+<p>Press Enter to accept the default file location unless you know you
+want something else.</p>
+<p>Then (Mac / Git Bash):</p>
 <div class="sourceCode" id="cb16" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS: start agent and add key</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">eval</span> <span class="st">&quot;</span><span class="va">$(</span><span class="fu">ssh-agent</span> <span class="at">-s</span><span class="va">)</span><span class="st">&quot;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-add</span> ~/.ssh/id_ed25519</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># copy public key</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="ex">pbcopy</span> <span class="op">&lt;</span> ~/.ssh/id_ed25519.pub</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows Git Bash</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="ex">clip</span> <span class="op">&lt;</span> ~/.ssh/id_ed25519.pub</span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">eval</span> <span class="st">&quot;</span><span class="va">$(</span><span class="fu">ssh-agent</span> <span class="at">-s</span><span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-add</span> ~/.ssh/id_ed25519</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mac: copy the public key</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pbcopy</span> <span class="op">&lt;</span> ~/.ssh/id_ed25519.pub</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows Git Bash: copy the public key</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="ex">clip</span> <span class="op">&lt;</span> ~/.ssh/id_ed25519.pub</span></code></pre></div>
 <p>On GitHub: <strong>Settings → SSH and GPG keys → New SSH key</strong>
 → paste → save.</p>
 <p>Test:</p>
 <div class="sourceCode" id="cb17" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-T</span> git@github.com</span></code></pre></div>
-<p>You should see a greeting that includes your username.</p>
-<p>For the sample project below we will use <strong>HTTPS + GitHub
-CLI</strong>, because it is the shortest path for beginners on both Mac
-and Windows.</p>
-<h1 id="core-commands-you-will-use-daily">Core commands you will use
-daily</h1>
-<p>Memorize this loop:</p>
+<p>GitHub should reply with a message that includes your username.</p>
+<p>For the sample project below, this guide uses <strong>HTTPS with
+GitHub CLI</strong>, because that is usually the shortest path for
+beginners on both Mac and Windows.</p>
+<h1 id="commands-you-will-use-a-lot">Commands you will use a lot</h1>
+<p>You do not need to memorize everything. Learn this loop first:</p>
 <table>
 <thead>
 <tr>
 <th>Command</th>
-<th>What it does</th>
+<th>Plain meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code class="verbatim">git status</code></td>
-<td>What changed? What is staged?</td>
+<td>Show what changed and what is ready to save</td>
 </tr>
 <tr>
 <td><code class="verbatim">git add &lt;file&gt;</code></td>
-<td>Stage a file for the next commit</td>
+<td>Mark a file to include in the next save</td>
 </tr>
 <tr>
 <td><code class="verbatim">git add .</code></td>
-<td>Stage everything in this folder</td>
+<td>Mark everything in this folder</td>
 </tr>
 <tr>
 <td><code class="verbatim">git commit -m "message"</code></td>
-<td>Save a snapshot locally</td>
+<td>Save a snapshot on your computer</td>
 </tr>
 <tr>
 <td><code class="verbatim">git push</code></td>
-<td>Send commits to GitHub</td>
+<td>Upload your commits to GitHub</td>
 </tr>
 <tr>
 <td><code class="verbatim">git pull</code></td>
-<td>Fetch + merge remote changes</td>
+<td>Download updates from GitHub and bring them into your current
+branch</td>
 </tr>
 <tr>
 <td><code class="verbatim">git log --oneline</code></td>
-<td>Short history</td>
+<td>Show a short list of past saves</td>
 </tr>
 <tr>
 <td><code class="verbatim">git branch</code></td>
 <td>List branches</td>
 </tr>
 <tr>
-<td><code class="verbatim">git checkout -b name</code></td>
-<td>Create and switch to a branch</td>
+<td><code class="verbatim">git switch -c name</code></td>
+<td>Create a branch and move to it</td>
 </tr>
 <tr>
 <td><code class="verbatim">git switch name</code></td>
-<td>Switch branches (newer syntax)</td>
+<td>Move to an existing branch</td>
 </tr>
 <tr>
 <td><code class="verbatim">git clone &lt;url&gt;</code></td>
-<td>Download an existing repo</td>
+<td>Download an existing project</td>
 </tr>
 </tbody>
 </table>
-<p>Other useful ones:</p>
+<p>You may also see <code class="verbatim">git checkout -b name</code>.
+That older form also creates a branch and switches to it. Both are real.
+This guide mostly uses <code class="verbatim">git switch</code>.</p>
+<p>Other useful checks:</p>
 <div class="sourceCode" id="cb18" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff              <span class="co"># unstaged changes</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff <span class="at">--staged</span>     <span class="co"># staged changes</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore file.txt  <span class="co"># discard local edits to a tracked file</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore <span class="at">--staged</span> file.txt  <span class="co"># unstage, keep edits</span></span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff                 <span class="co"># changes not marked with git add yet</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff <span class="at">--staged</span>        <span class="co"># changes already marked with git add</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore file.txt     <span class="co"># throw away local edits to a tracked file</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore <span class="at">--staged</span> file.txt   <span class="co"># unmark a file, but keep your edits</span></span></code></pre></div>
+<p>Be careful with <code class="verbatim">git restore file.txt</code>.
+It can discard work you have not committed.</p>
 <h1 id="sample-project-notes-cli">Sample project: notes-cli</h1>
-<p>We will build a tiny project from scratch, put it on GitHub, then
-practice a feature branch. The project is a small shell script that
-appends dated notes to a file — enough structure to feel real, small
-enough to finish in one sitting.</p>
-<h2 id="create-the-project-folder">1. Create the project folder</h2>
+<p>We will make a tiny project from scratch, put it on GitHub, then
+practice a feature branch.</p>
+<p>The project is a small shell script that saves dated notes into a
+file. It is small on purpose, so you can finish the Git steps in one
+sitting.</p>
+<h2 id="make-the-folder">1. Make the folder</h2>
 <div class="sourceCode" id="cb19" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Developer   <span class="co"># or wherever you keep code</span></span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Developer   <span class="co"># or any folder you use for code</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> notes-cli</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> notes-cli</span></code></pre></div>
-<h2 id="turn-the-folder-into-a-git-repository">2. Turn the folder into a
-Git repository</h2>
+<h2 id="start-git-in-that-folder">2. Start Git in that folder</h2>
 <div class="sourceCode" id="cb20" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span></code></pre></div>
-<p>You should see something like <code
-class="verbatim">Initialized empty Git repository in .../notes-cli/.git/</code>.</p>
+<p>Git should say it created a repository. That means this folder now
+has history tracking.</p>
 <h2 id="create-the-files">3. Create the files</h2>
 <p>Create <code class="verbatim">README.md</code>:</p>
 <div class="sourceCode" id="cb21" data-org-language="sh"><pre
@@ -443,7 +448,7 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href=
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="st">Notes are appended to `notes.txt`.</span></span>
 <span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div>
-<p>Create the script <code class="verbatim">note.sh</code>:</p>
+<p>Create <code class="verbatim">note.sh</code>:</p>
 <div class="sourceCode" id="cb22" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> note.sh <span class="op">&lt;&lt; &#39;EOF&#39;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="st">#!/usr/bin/env bash</span></span>
@@ -459,85 +464,82 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href=
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="st">echo &quot;[$STAMP] $NOTE&quot; &gt;&gt; notes.txt</span></span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="st">echo &quot;Saved: $NOTE&quot;</span></span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div>
-<p>Make it executable (macOS and Git Bash):</p>
+<p>On Mac and in Git Bash, make the script runnable:</p>
 <div class="sourceCode" id="cb23" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x note.sh</span></code></pre></div>
-<p>Add a <code class="verbatim">.gitignore</code> so temporary junk
-never gets committed:</p>
+<p>Create <code class="verbatim">.gitignore</code> so common junk files
+are not saved:</p>
 <div class="sourceCode" id="cb24" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> .gitignore <span class="op">&lt;&lt; &#39;EOF&#39;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="st">.DS_Store</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">Thumbs.db</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">*.tmp</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div>
-<h2
-id="windows-note-if-cat-file-eof-feels-awkward-in-powershell-create-the-same-files-in-your-editor-vs-code-notepad-with-the-same-names-and-contents-then-continue-with-git-commands.">Windows
-note:** If <code class="verbatim">cat &gt; file &lt;&lt; 'EOF'</code>
-feels awkward in PowerShell, create the same files in your editor (VS
-Code, Notepad) with the same names and contents, then continue with Git
-commands.</h2>
-<h2 id="check-status-and-make-the-first-commit">4. Check status and make
-the first commit</h2>
+<p><strong>Windows note:</strong> if the <code
+class="verbatim">cat ... &lt;&lt; 'EOF'</code> style feels awkward in
+PowerShell, create the same files in an editor with the same names and
+contents, then continue with the Git commands.</p>
+<h2 id="make-your-first-commit">4. Make your first commit</h2>
 <div class="sourceCode" id="cb25" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md note.sh .gitignore</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Initial commit: notes-cli script and README&quot;</span></span></code></pre></div>
-<p>First commit tip: if Git complains that you have no identity set, go
-back to <strong>First-time setup</strong>.</p>
-<p>View history:</p>
+<p>If Git says it does not know who you are, go back to
+<strong>First-time setup</strong>.</p>
+<p>See the history:</p>
 <div class="sourceCode" id="cb26" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span></span></code></pre></div>
-<h2 id="create-an-empty-repository-on-github">5. Create an empty
-repository on GitHub</h2>
-<p>With GitHub CLI (from inside <code
-class="verbatim">notes-cli</code>):</p>
+<h2 id="put-the-project-on-github">5. Put the project on GitHub</h2>
+<p>From inside <code class="verbatim">notes-cli</code>, if you installed
+<code class="verbatim">gh</code> and signed in:</p>
 <div class="sourceCode" id="cb27" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> repo create notes-cli <span class="at">--public</span> <span class="at">--source</span><span class="op">=</span>. <span class="at">--remote</span><span class="op">=</span>origin <span class="at">--push</span></span></code></pre></div>
-<p>That one command:</p>
+<p>That command:</p>
 <ul>
-<li>Creates <code class="verbatim">notes-cli</code> under your GitHub
-account</li>
-<li>Adds <code class="verbatim">origin</code> as the remote</li>
-<li>Pushes <code class="verbatim">main</code></li>
+<li>Creates a public repo named <code class="verbatim">notes-cli</code>
+under your account</li>
+<li>Sets <code class="verbatim">origin</code> as the remote name for
+GitHub</li>
+<li>Uploads your current branch (usually <code
+class="verbatim">main</code>)</li>
 </ul>
-<p>Without <code class="verbatim">gh</code>, do it manually:</p>
+<p>If you prefer the website:</p>
 <ol>
-<li>On github.com click <strong>New repository</strong></li>
+<li>On GitHub click <strong>New repository</strong></li>
 <li>Name it <code class="verbatim">notes-cli</code></li>
-<li>Leave it empty (no README, no .gitignore — you already have those
-locally)</li>
-<li>Then in your terminal:</li>
+<li>Do not add a README or <code class="verbatim">.gitignore</code>
+there, because you already have them locally</li>
+<li>Then run:</li>
 </ol>
 <div class="sourceCode" id="cb28" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/YOUR_USERNAME/notes-cli.git</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div>
-<p>Replace <code class="verbatim">YOUR_USERNAME</code> with your GitHub
-username.</p>
-<p>Open the repo in the browser:</p>
+<p>Replace <code class="verbatim">YOUR_USERNAME</code> with your real
+GitHub username.</p>
+<p>Open it in the browser:</p>
 <div class="sourceCode" id="cb29" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> repo view <span class="at">--web</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or visit https://github.com/YOUR_USERNAME/notes-cli</span></span></code></pre></div>
-<h2 id="try-the-app-once">6. Try the app once</h2>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> repo view <span class="at">--web</span></span></code></pre></div>
+<p>Or visit <code
+class="verbatim">https://github.com/YOUR_USERNAME/notes-cli</code>.</p>
+<h2 id="try-the-script-once">6. Try the script once</h2>
 <div class="sourceCode" id="cb30" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./note.sh</span> <span class="st">&quot;First note from my machine&quot;</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./note.sh</span> <span class="st">&quot;Learning Git on the terminal&quot;</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> notes.txt</span></code></pre></div>
-<p><code class="verbatim">notes.txt</code> was created by the script.
-Decide if you want it in Git. For this sample we <strong>will</strong>
-track it so the repo shows real usage.</p>
+<p>The script creates <code class="verbatim">notes.txt</code>. For this
+sample we will track that file too:</p>
 <div class="sourceCode" id="cb31" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add notes.txt</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Add sample notes file from first runs&quot;</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div>
 <h2 id="practice-a-feature-branch">7. Practice a feature branch</h2>
-<p>Branches let you work without touching <code
-class="verbatim">main</code> until you are ready.</p>
+<p>A branch is a separate line of work. You can change files there
+without changing <code class="verbatim">main</code> until you merge.</p>
 <div class="sourceCode" id="cb32" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature/list-command</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or: git switch -c feature/list-command</span></span></code></pre></div>
-<p>Update <code class="verbatim">note.sh</code> so <code
-class="verbatim">./note.sh --list</code> prints notes:</p>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> feature/list-command</span></code></pre></div>
+<p>Now update <code class="verbatim">note.sh</code> so <code
+class="verbatim">./note.sh --list</code> prints the notes:</p>
 <div class="sourceCode" id="cb33" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> note.sh <span class="op">&lt;&lt; &#39;EOF&#39;</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="st">#!/usr/bin/env bash</span></span>
@@ -566,246 +568,231 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href=
 <div class="sourceCode" id="cb34" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x note.sh</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./note.sh</span> <span class="at">--list</span></span></code></pre></div>
-<p>Commit and push the branch:</p>
+<p>Save and upload the branch:</p>
 <div class="sourceCode" id="cb35" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add note.sh README.md</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># optional: update README Usage section to mention --list</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Add --list flag to print saved notes&quot;</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin feature/list-command</span></code></pre></div>
-<p>Open a pull request on GitHub:</p>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add note.sh</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Add --list flag to print saved notes&quot;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin feature/list-command</span></code></pre></div>
+<p>Open a pull request:</p>
 <div class="sourceCode" id="cb36" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> pr create <span class="at">--title</span> <span class="st">&quot;Add list command&quot;</span> <span class="at">--body</span> <span class="st">&quot;Adds ./note.sh --list to print notes.txt&quot;</span></span></code></pre></div>
-<p>Or click <strong>Compare &amp; pull request</strong> on GitHub after
-the branch push.</p>
-<p>Merge it (on GitHub, or):</p>
+<p>Or on GitHub, after the push, click <strong>Compare &amp; pull
+request</strong>.</p>
+<p>Merge it on GitHub, or with:</p>
 <div class="sourceCode" id="cb37" data-org-language="sh"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> pr merge <span class="at">--merge</span></span></code></pre></div>
-<p>Back on your machine, update <code class="verbatim">main</code>:</p>
+<p>Then update <code class="verbatim">main</code> on your computer:</p>
 <div class="sourceCode" id="cb38" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin main</span></code></pre></div>
-<p>You now have the full loop: local project → commits → GitHub → branch
-→ PR → merge → pull.</p>
-<h1 id="using-a-dev-branch-so-you-do-not-break-main">Using a <code
-class="verbatim">dev</code> branch so you do not break <code
-class="verbatim">main</code></h1>
-<p>On many projects you keep <code class="verbatim">main</code> as the
-<strong>stable</strong> line (what works, what you deploy, what other
-people clone). You do <strong>not</strong> want half-finished features
-sitting on <code class="verbatim">main</code> and colliding with someone
-else’s work — or with your own “I need a clean copy” moment.</p>
-<p>So you create a long-lived <code class="verbatim">dev</code> branch
-(sometimes called <code class="verbatim">develop</code>). You build and
-try features there. When a batch of work is ready, you merge <code
-class="verbatim">dev</code> into <code class="verbatim">main</code>.</p>
-<p>Think of it like this:</p>
+<p>That is the basic loop: work locally → commit → push → open a pull
+request → merge → pull.</p>
+<h1 id="using-a-dev-branch-so-main-stays-safe">Using a <code
+class="verbatim">dev</code> branch so <code class="verbatim">main</code>
+stays safe</h1>
+<p>On many projects, <code class="verbatim">main</code> is the branch
+you want to keep stable. That means: finished work only. If you build
+half-done features straight on <code class="verbatim">main</code>, it
+gets messy. Your own unfinished edits can get mixed with work you wanted
+to keep clean.</p>
+<p>A common pattern is:</p>
+<ul>
+<li>Keep <code class="verbatim">main</code> for work you trust</li>
+<li>Create a <code class="verbatim">dev</code> branch for day-to-day
+building</li>
+<li>When a set of changes is ready, merge <code
+class="verbatim">dev</code> into <code class="verbatim">main</code></li>
+</ul>
+<p>Some teams name that middle branch <code
+class="verbatim">develop</code> instead of <code
+class="verbatim">dev</code>. Same idea.</p>
 <table>
 <thead>
 <tr>
 <th>Branch</th>
-<th>Role</th>
+<th>Usual job</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code class="verbatim">main</code></td>
-<td>Stable. Only merge finished work here.</td>
+<td>Stable copy</td>
 </tr>
 <tr>
 <td><code class="verbatim">dev</code></td>
-<td>Active development. New features land here first.</td>
+<td>Place where you build features</td>
 </tr>
 <tr>
 <td><code class="verbatim">feature/...</code></td>
-<td>Optional short branch for one feature, then merge into <code
-class="verbatim">dev</code></td>
+<td>Optional short branch for one change, often merged into <code
+class="verbatim">dev</code> first</td>
 </tr>
 </tbody>
 </table>
-<p><strong><strong>Create <code class="verbatim">dev</code> from <code
-class="verbatim">main</code> (once)</strong></strong></p>
-<p>Make sure <code class="verbatim">main</code> is up to date, then
-branch:</p>
+<p>This does not make merge conflicts impossible. Conflicts can still
+happen when two branches change the same lines. What it
+<strong>does</strong> do is keep unfinished work off <code
+class="verbatim">main</code> until you choose to bring it in.</p>
+<p><strong><strong>Create <code class="verbatim">dev</code>
+once</strong></strong></p>
 <div class="sourceCode" id="cb39" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin main</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> dev</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># or: git switch -c dev</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin dev</span></code></pre></div>
-<p>On GitHub you can also set <code class="verbatim">dev</code> as the
-default branch for PRs later, but beginners often leave <code
-class="verbatim">main</code> as the default and only merge into it when
-ready.</p>
-<p><strong><strong>Do your feature work on <code
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> dev</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin dev</span></code></pre></div>
+<p><strong><strong>Do new work on <code
 class="verbatim">dev</code></strong></strong></p>
-<p>Example: add a <code class="verbatim">--clear</code> flag to <code
-class="verbatim">notes-cli</code> without touching <code
-class="verbatim">main</code>.</p>
+<p>Example: stay on <code class="verbatim">dev</code>, make a small
+change, commit, and push <code class="verbatim">dev</code> only.</p>
 <div class="sourceCode" id="cb40" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout dev</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch dev</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin dev</span></code></pre></div>
-<p>Edit <code class="verbatim">note.sh</code> (add a clear command),
-then:</p>
+<p>Edit a file. For a concrete example, add one line to <code
+class="verbatim">README.md</code>, then:</p>
 <div class="sourceCode" id="cb41" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># after you edit note.sh...</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./note.sh</span> <span class="at">--clear</span>   <span class="co"># only if you implemented it</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add note.sh</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Add --clear to wipe notes.txt&quot;</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin dev</span></code></pre></div>
-<p><code class="verbatim">main</code> is unchanged. Anyone cloning <code
-class="verbatim">main</code> still gets the last stable version. You are
-free to experiment on <code class="verbatim">dev</code>.</p>
-<p><strong><strong>Optional: feature branch off <code
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Note that development happens on the dev branch&quot;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin dev</span></code></pre></div>
+<p><code class="verbatim">main</code> still has the older version until
+you merge.</p>
+<p><strong><strong>Optional: make a feature branch from <code
 class="verbatim">dev</code></strong></strong></p>
-<p>If the change is big, branch from <code class="verbatim">dev</code>
-instead of committing straight to <code class="verbatim">dev</code>:</p>
+<p>If the change is bigger, create a feature branch from <code
+class="verbatim">dev</code>:</p>
 <div class="sourceCode" id="cb42" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout dev</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch dev</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin dev</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature/clear-notes</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># implement, commit...</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin feature/clear-notes</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> pr create <span class="at">--base</span> dev <span class="at">--title</span> <span class="st">&quot;Add --clear&quot;</span> <span class="at">--body</span> <span class="st">&quot;Wipes notes.txt when requested&quot;</span></span></code></pre></div>
-<p>Notice <code class="verbatim">--base dev</code>: the pull request
-targets <code class="verbatim">dev</code>, not <code
-class="verbatim">main</code>. That keeps unfinished work out of the
-stable branch.</p>
-<p><strong><strong>When you want to merge <code
-class="verbatim">dev</code> into <code
-class="verbatim">main</code></strong></strong></p>
-<p>Only do this when <code class="verbatim">dev</code> is in good shape
-(features work, you are ready for a “release”).</p>
-<p><strong>Option A — pull request on GitHub (recommended)</strong>:</p>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> feature/readme-note</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># edit, then:</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Explain the dev branch in the README&quot;</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin feature/readme-note</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> pr create <span class="at">--base</span> dev <span class="at">--title</span> <span class="st">&quot;Explain dev branch&quot;</span> <span class="at">--body</span> <span class="st">&quot;Adds a short note to the README&quot;</span></span></code></pre></div>
+<p><code class="verbatim">--base dev</code> means the pull request goes
+into <code class="verbatim">dev</code>, not <code
+class="verbatim">main</code>.</p>
+<p><strong><strong>When <code class="verbatim">dev</code> is ready,
+merge it into <code class="verbatim">main</code></strong></strong></p>
+<p>Do this when the work on <code class="verbatim">dev</code> is in good
+shape.</p>
+<p>With GitHub CLI:</p>
 <div class="sourceCode" id="cb43" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> pr create <span class="at">--base</span> main <span class="at">--head</span> dev <span class="at">--title</span> <span class="st">&quot;Merge dev into main&quot;</span> <span class="at">--body</span> <span class="st">&quot;Stable batch of notes-cli updates&quot;</span></span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> pr create <span class="at">--base</span> main <span class="at">--head</span> dev <span class="at">--title</span> <span class="st">&quot;Merge dev into main&quot;</span> <span class="at">--body</span> <span class="st">&quot;Ready set of notes-cli updates&quot;</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> pr merge <span class="at">--merge</span></span></code></pre></div>
-<p>Or on GitHub: <strong>Pull requests → New</strong> → base <code
+<p>Or on the website: <strong>Pull requests → New</strong> → base <code
 class="verbatim">main</code>, compare <code class="verbatim">dev</code>
 → create → merge.</p>
-<p><strong>Option B — merge locally</strong>:</p>
+<p>Or merge on your computer:</p>
 <div class="sourceCode" id="cb44" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin main</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge dev</span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin main</span></code></pre></div>
-<p>Then keep <code class="verbatim">dev</code> moving forward from the
-updated <code class="verbatim">main</code>:</p>
+<p>After that, it is often useful to update <code
+class="verbatim">dev</code> so it includes what is now on <code
+class="verbatim">main</code>:</p>
 <div class="sourceCode" id="cb45" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout dev</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch dev</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge main</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin dev</span></code></pre></div>
-<p><strong><strong>Why this avoids conflicts with <code
-class="verbatim">main</code></strong></strong></p>
-<p>Conflicts happen when <strong>two histories edit the same
-lines</strong>. If everyone (or every unfinished idea) commits straight
-to <code class="verbatim">main</code>, you fight those conflicts on the
-branch that is supposed to stay clean. With <code
-class="verbatim">dev</code>:</p>
-<ol>
-<li>Daily messy work stays on <code class="verbatim">dev</code></li>
-<li><code class="verbatim">main</code> only receives finished
-merges</li>
-<li>If <code class="verbatim">dev</code> and <code
-class="verbatim">main</code> diverge, you resolve conflicts while
-merging <code class="verbatim">dev</code> → <code
-class="verbatim">main</code> (or while updating <code
-class="verbatim">dev</code> from <code class="verbatim">main</code>),
-not while scrambling on production</li>
-</ol>
-<p><strong><strong>If a merge conflict appears</strong></strong></p>
-<p>Git will stop and mark conflicted files. Open them, look for <code
-class="verbatim">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> / <code
-class="verbatim">======</code> / <code
-class="verbatim">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>, pick the right
-code, then:</p>
-<div class="sourceCode" id="cb46" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit   <span class="co"># finishes the merge commit if Git asks for one</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div>
-<p><strong><strong>Simple rule of thumb for a solo or small
-project</strong></strong></p>
-<ol>
-<li>Start from <code class="verbatim">main</code></li>
-<li>Create <code class="verbatim">dev</code></li>
-<li>Build features on <code class="verbatim">dev</code> (or on <code
-class="verbatim">feature/...</code> that merges into <code
-class="verbatim">dev</code>)</li>
-<li>When ready, merge <code class="verbatim">dev</code> → <code
-class="verbatim">main</code></li>
-<li>Never force unfinished experiments onto <code
-class="verbatim">main</code></li>
-</ol>
-<p>That is the pattern teams mean when they say “don’t develop on main —
-develop on <code class="verbatim">dev</code>, then merge.”</p>
-<h1 id="everyday-workflow-after-the-first-push">Everyday workflow after
-the first push</h1>
-<p>Once the repo exists, prefer working on <code
-class="verbatim">dev</code> (or a feature branch) instead of committing
-everything straight to <code class="verbatim">main</code>. A typical
-day:</p>
+<p><strong><strong>If Git reports a merge conflict</strong></strong></p>
+<p>Git stops and marks the files. Open them and look for markers
+like:</p>
+<pre class="text"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+your change
+=======
+the other change
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</code></pre>
+<p>Keep the right code, delete the markers, then:</p>
 <div class="sourceCode" id="cb47" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Developer/notes-cli</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout dev</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin dev</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># edit files...</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Clear message about why you changed things&quot;</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin dev</span></code></pre></div>
-<p>When a batch is ready and tested, merge <code
-class="verbatim">dev</code> into <code class="verbatim">main</code> (see
-the section above). Only use this shorter loop on <code
-class="verbatim">main</code> for tiny, safe fixes if you truly have no
-<code class="verbatim">dev</code> branch yet:</p>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div>
+<p>If you are in the middle of a merge and Git already prepared a merge
+commit message, <code class="verbatim">git commit</code> with no <code
+class="verbatim">-m</code> is enough after you fix the files.</p>
+<p><strong><strong>A simple rule</strong></strong></p>
+<ol>
+<li>Keep <code class="verbatim">main</code> clean</li>
+<li>Create <code class="verbatim">dev</code></li>
+<li>Build on <code class="verbatim">dev</code> (or on a feature branch
+that merges into <code class="verbatim">dev</code>)</li>
+<li>When ready, merge <code class="verbatim">dev</code> into <code
+class="verbatim">main</code></li>
+</ol>
+<p>That is what people usually mean by “don’t do all your work on
+main.”</p>
+<h1 id="a-normal-day-of-work">A normal day of work</h1>
+<p>After the repo exists, a calm day often looks like this:</p>
 <div class="sourceCode" id="cb48" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># small fix...</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Clear message about why you changed things&quot;</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div>
-<p>Write commit messages for <strong>why</strong>, not only
-<strong>what</strong>:</p>
-<ul>
-<li>Good: <code
-class="verbatim">Fix note.sh crash when notes.txt is missing</code></li>
-<li>Weak: <code class="verbatim">Update files</code></li>
-</ul>
-<p>If you cloned someone else’s project instead of creating your
-own:</p>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Developer/notes-cli</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch dev</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin dev</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># edit files</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Say why you made the change&quot;</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin dev</span></code></pre></div>
+<p>When a batch of work is ready, merge <code
+class="verbatim">dev</code> into <code class="verbatim">main</code>
+using the steps in the section above.</p>
+<p>If you do not have a <code class="verbatim">dev</code> branch yet and
+only need a tiny fix on <code class="verbatim">main</code>:</p>
 <div class="sourceCode" id="cb49" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/SOMEUSER/SOME-REPO.git</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> SOME-REPO</span></code></pre></div>
-<h1 id="useful-extras">Useful extras</h1>
-<h2 id="see-what-a-remote-is">See what a remote is</h2>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch main</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># make the small fix</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Say why you made the change&quot;</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div>
+<p>Commit messages are easier to read later if they explain
+<strong>why</strong>:</p>
+<ul>
+<li>Clearer: <code
+class="verbatim">Fix crash when notes.txt is missing</code></li>
+<li>Vague: <code class="verbatim">Update files</code></li>
+</ul>
+<p>If you are joining someone else’s project instead of creating your
+own:</p>
 <div class="sourceCode" id="cb50" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span></code></pre></div>
-<h2 id="undo-unstaged-edits-to-one-file">Undo unstaged edits to one
-file</h2>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/SOMEUSER/SOME-REPO.git</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> SOME-REPO</span></code></pre></div>
+<h1 id="handy-extras">Handy extras</h1>
+<h2 id="see-where-origin-points">See where <code
+class="verbatim">origin</code> points</h2>
 <div class="sourceCode" id="cb51" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore note.sh</span></code></pre></div>
-<h2 id="unstage-a-file-but-keep-the-edits">Unstage a file but keep the
-edits</h2>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span></code></pre></div>
+<h2 id="throw-away-uncommitted-edits-in-one-tracked-file">Throw away
+uncommitted edits in one tracked file</h2>
 <div class="sourceCode" id="cb52" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore <span class="at">--staged</span> note.sh</span></code></pre></div>
-<h2 id="stash-work-in-progress">Stash work in progress</h2>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore note.sh</span></code></pre></div>
+<h2 id="unmark-a-file-but-keep-your-edits">Unmark a file, but keep your
+edits</h2>
 <div class="sourceCode" id="cb53" data-org-language="sh"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash pop</span></code></pre></div>
-<h2 id="mac-vs-windows-path-reminder">Mac vs Windows path reminder</h2>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore <span class="at">--staged</span> note.sh</span></code></pre></div>
+<h2 id="set-work-aside-for-a-moment">Set work aside for a moment</h2>
+<div class="sourceCode" id="cb54" data-org-language="sh"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash pop</span></code></pre></div>
+<p><code class="verbatim">git stash</code> saves uncommitted work
+temporarily. <code class="verbatim">git stash pop</code> brings it back.
+If <code class="verbatim">pop</code> causes conflicts, fix those files
+the same way you fix merge conflicts.</p>
+<h2 id="mac-and-windows-reminders">Mac and Windows reminders</h2>
 <table>
 <thead>
 <tr>
 <th>Task</th>
-<th>macOS / Git Bash</th>
+<th>Mac / Git Bash</th>
 <th>Windows PowerShell</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Home folder</td>
+<td>Go home</td>
 <td><code class="verbatim">cd ~</code></td>
 <td><code class="verbatim">cd $HOME</code></td>
 </tr>
@@ -816,53 +803,46 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb53-1"><a href=
 class="verbatim">dir</code></td>
 </tr>
 <tr>
-<td>Make file executable</td>
+<td>Make a bash script runnable</td>
 <td><code class="verbatim">chmod +x note.sh</code></td>
-<td>often not needed for <code class="verbatim">.bat</code>; for bash
-scripts use Git Bash</td>
+<td>use Git Bash for that script style</td>
 </tr>
 <tr>
-<td>Copy SSH public key</td>
+<td>Copy an SSH public key</td>
 <td><code class="verbatim">pbcopy &lt; ~/.ssh/id_ed25519.pub</code></td>
-<td><code class="verbatim">clip &lt; ~/.ssh/id_ed25519.pub</code> (Git
-Bash)</td>
+<td>in Git Bash: <code
+class="verbatim">clip &lt; ~/.ssh/id_ed25519.pub</code></td>
 </tr>
 </tbody>
 </table>
 <h2 id="common-errors">Common errors</h2>
 <ul>
-<li><strong><code
-class="verbatim">Permission denied (publickey)</code></strong> — SSH key
-not added to the agent or to GitHub</li>
-<li><strong><code class="verbatim">Authentication failed</code></strong>
-on HTTPS — use a PAT or <code class="verbatim">gh auth login</code>, not
-your GitHub password</li>
-<li><strong><code
-class="verbatim">rejected (non-fast-forward)</code></strong> on push —
-run <code class="verbatim">git pull</code> first, resolve conflicts,
-then push</li>
-<li><strong><code
-class="verbatim">Please tell me who you are</code></strong> — set <code
+<li><code class="verbatim">Permission denied (publickey)</code> — your
+SSH key is missing from the agent or from GitHub</li>
+<li><code class="verbatim">Authentication failed</code> on HTTPS — use a
+token or <code class="verbatim">gh auth login</code>, not your GitHub
+account password</li>
+<li><code class="verbatim">rejected (non-fast-forward)</code> on push —
+someone else (or another computer) has commits you do not have yet; run
+<code class="verbatim">git pull</code>, fix any conflicts, then push
+again</li>
+<li><code class="verbatim">Please tell me who you are</code> — set <code
 class="verbatim">user.name</code> and <code
 class="verbatim">user.email</code></li>
 </ul>
 <h1 id="wrapping-up">Wrapping up</h1>
-<p>You do not need every Git command on day one. You need a reliable
-loop:</p>
+<p>You do not need every Git command on day one. You need a loop you
+trust:</p>
 <p><code class="verbatim">status → add → commit → push</code></p>
-<p>and enough comfort with <code class="verbatim">pull</code>, branches
-(<code class="verbatim">main</code> / <code class="verbatim">dev</code>
-/ features), and remotes to not fear the terminal.</p>
-<p>On <strong>macOS</strong> and <strong>Windows</strong> the Git
-vocabulary is the same. Install Git, configure your identity,
-authenticate to GitHub, then walk a real folder like <code
+<p>and enough comfort with <code class="verbatim">pull</code>, branches,
+and remotes that the terminal is not scary.</p>
+<p>On Mac and Windows, Git’s words are the same. Install Git, set your
+name, sign in to GitHub, then walk a real folder like <code
 class="verbatim">notes-cli</code> from <code
-class="verbatim">git init</code> to a merged pull request.</p>
-<p>If you want a next step after this, learn <code
-class="verbatim">git diff</code>, <code
-class="verbatim">git rebase -i</code> (carefully), and how GitHub
-Actions runs tests on every push — but only after the basics above feel
-boring. Boring version control is the goal.</p>
+class="verbatim">git init</code> to a merge.</p>
+<p>A useful habit after that: keep unfinished work on <code
+class="verbatim">dev</code> or a feature branch, and only merge into
+<code class="verbatim">main</code> when you mean to.</p>
 <link rel="icon" href="../img/icon.png" type="image/png">
 <footer class="footer">
   <div class="right">© 2026 eldriv</div>
